@@ -1,0 +1,246 @@
+# Public REST API  
+These are open data for public. It doesn't need an API key to call these methods. You can call simple GET request or open it directly from the browser.
+#### Table of Contents
+ - [General API Information](#general-api-information)
+ - [Limit](#limit)
+ - [API](#api)
+     - [/api/server_time](#server-time) 
+     - [/api/pairs](#pairs)  
+     - [/api/price_increments](#price-increments)
+     - [/api/summaries](#summaries)
+     - [/api/ticker/[pairs->id]](#ticker)
+     - [/api/ticker_all](#ticker-all)
+     - [/api/trades/[pairs->id]](#trades)
+     - [/api/depth/[pairs->id]](#depth)
+
+
+## General API Information
+ - The base endpoint is: https://indodax.com
+ - All endpoints return either a JSON object or array.
+ - All time and timestamp related fields are in milliseconds.
+
+## Limit
+Public API rate limited to 180request/minute.  
+
+## API
+for complete API in Postman you can import 
+     - [https://www.getpostman.com/collections/9897093013dc63d7adef](https://www.getpostman.com/collections/9897093013dc63d7adef) 
+    On Postman open `Import > Import From Link`, paste link above and click `Import`
+
+## Server Time
+Provide server time on exchange
+#### Request
+```
+/api/server_time
+```
+#### Response
+```json
+{
+    "timezone": "UTC",
+    "server_time": 1571205969552
+}
+```
+
+## Pairs
+Provide available pairs on exchange
+#### Request
+```
+/api/pairs
+```
+#### Response
+```json
+[
+    {
+        "id": "btcidr",
+        "symbol": "BTCIDR",
+        "base_currency": "idr",
+        "traded_currency": "btc",
+        "traded_currency_unit": "BTC",
+        "description": "BTC/IDR",
+        "ticker_id": "btc_idr",
+        "volume_precision": 0,
+        "price_precision": 1000,
+        "pricescale": 1000,
+        "trade_min_base_currency": 50000,
+        "trade_min_traded_currency": 0.0001,
+        "has_memo": false,
+        "memo_name": false,
+        "url_logo": "https://indodax.com/v2/logo/svg/color/btc.svg",
+        "url_logo_png": "https://indodax.com/v2/logo/png/color/btc.png"
+    }   
+]
+```
+
+## Price Increments
+Provide price increments of each pairs on exchange
+#### Request
+```
+/api/price_increments
+```
+#### Response
+```json
+{
+    "increments": {
+        "btc_idr": "1000",
+        "ten_idr": "1",
+        "abyss_idr": "1",
+        "act_idr": "1",
+        "ada_idr": "1"
+    }
+}
+```
+
+## Summaries
+#### Request
+```
+/api/summaries
+```
+#### Response
+```json
+{
+    "tickers": {
+        "btc_idr": {
+            "high": "120009000",
+            "low": "116735000",
+            "vol_btc": "218.31103295",
+            "vol_idr": "25831203178",
+            "last": "117136000",
+            "buy": "116938000",
+            "sell": "117136000",
+            "server_time": 1571206340,
+            "name": "Bitcoin"
+        }
+    },
+    "prices_24h": {
+        "btcidr": "120002000",
+        "tenidr": "521",
+        "abyssidr": "148",
+        "actidr": "125",
+        "adaidr": "592"
+    },
+    "prices_7d": {
+        "btcidr": "116001000",
+        "tenidr": "517",
+        "abyssidr": "147",
+        "actidr": "128",
+        "adaidr": "580"
+    },
+}
+```
+
+## Ticker
+Provide Single Ticker Price on each pair in exchange
+#### Request
+```
+/api/ticker/[pairs->id]
+```
+##### Parameter 
+| Type | Mandatory | Description |
+| ------ | ------ | ------ |
+| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair please use Response from API [`/api/pairs`](#pairs). Default pair id is `btcidr`. |
+
+#### Response
+```json
+{
+    "ticker": {
+        "high": "523",
+        "low": "505",
+        "vol_ten": "153588.49847928",
+        "vol_idr": "78884203",
+        "last": "511",
+        "buy": "511",
+        "sell": "512",
+        "server_time": 1571207668
+    }
+}
+```
+
+## Ticker All
+Provide All Ticker Prices in exchange
+#### Request
+```
+/api/ticker_all
+```
+#### Response
+```json
+{
+    "tickers": {
+        "btc_idr": {
+            "high": "120009000",
+            "low": "116735000",
+            "vol_btc": "218.13777777",
+            "vol_idr": "25800033297",
+            "last": "117088000",
+            "buy": "117002000",
+            "sell": "117078000",
+            "server_time": 1571207881
+        }  
+    }
+}
+```
+
+## Trades
+Provide Order Book trade on each pair in exchange
+#### Request
+```
+/api/trades/[pairs->id]
+```
+##### Parameter 
+| Type | Mandatory | Description |
+| ------ | ------ | ------ |
+| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair please use Response from API [`/api/pairs`](#pairs). Default pair id is `btcidr`. |
+#### Response
+```json
+[
+    {
+        "date": "1571207255",
+        "price": "511",
+        "amount": "123.19523759",
+        "tid": "1623490",
+        "type": "sell"
+    },
+    {
+        "date": "1571207236",
+        "price": "512",
+        "amount": "121.42187500",
+        "tid": "1623489",
+        "type": "buy"
+    }
+]
+```
+
+## Depth
+Provide Volume price Buy and Sell on each pair in exchange
+#### Request
+```
+/api/depth/[pairs->id]
+```
+##### Parameter 
+| Type | Mandatory | Description |
+| ------ | ------ | ------ |
+| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair please use Response from API [`/api/pairs`](#pairs). Default pair id is `btcidr`. |
+#### Response
+```json
+{
+    "buy": [
+        [
+            511,
+            "176.61056751"
+        ],
+        [
+            510,
+            "100.00000000"
+        ]
+    ],
+   "sell": [
+        [
+            512,
+            "1591.21213341"
+        ],
+        [
+            513,
+            "0.88109162"
+        ]
+    ]
+}
+```
