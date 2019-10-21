@@ -8,10 +8,10 @@ These are open data for public. It doesn't need an API key to call these methods
      - [/api/pairs](#pairs)  
      - [/api/price_increments](#price-increments)
      - [/api/summaries](#summaries)
-     - [/api/ticker/[pairs->id]](#ticker)
+     - [/api/ticker/$pair_id](#ticker)
      - [/api/ticker_all](#ticker-all)
-     - [/api/trades/[pairs->id]](#trades)
-     - [/api/depth/[pairs->id]](#depth)
+     - [/api/trades/$pair_id](#trades)
+     - [/api/depth/$pair_id](#depth)
 
 
 ## General API Information
@@ -127,12 +127,12 @@ Provide price increments of each pairs on exchange
 Provide Single Ticker Price on each pair in exchange
 #### Request
 ```
-/api/ticker/[pairs->id]
+/api/ticker/$pair_id
 ```
 ##### Parameter 
 | Type | Mandatory | Description |
 | ------ | ------ | ------ |
-| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair please use Response from API [`/api/pairs`](#pairs). Default pair id is `btcidr`. |
+| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
 
 #### Response
 ```json
@@ -178,12 +178,13 @@ Provide All Ticker Prices in exchange
 Provide Order Book trade on each pair in exchange
 #### Request
 ```
-/api/trades/[pairs->id]
+/api/trades/$pair_id
 ```
 ##### Parameter 
 | Type | Mandatory | Description |
 | ------ | ------ | ------ |
-| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair please use Response from API [`/api/pairs`](#pairs). Default pair id is `btcidr`. |
+| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
+
 #### Response
 ```json
 [
@@ -208,12 +209,12 @@ Provide Order Book trade on each pair in exchange
 Provide Volume price Buy and Sell on each pair in exchange
 #### Request
 ```
-/api/depth/[pairs->id]
+/api/depth/$pair_id
 ```
 ##### Parameter 
 | Type | Mandatory | Description |
 | ------ | ------ | ------ |
-| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair please use Response from API [`/api/pairs`](#pairs). Default pair id is `btcidr`. |
+| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
 #### Response
 ```json
 {
