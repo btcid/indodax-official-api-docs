@@ -22,11 +22,6 @@ These are open data for public. It doesn't need an API key to call these methods
 ## Limit
 Public API rate limited to 180request/minute.  
 
-## API
-for complete API in Postman you can import 
-     - [https://www.getpostman.com/collections/9897093013dc63d7adef](https://www.getpostman.com/collections/9897093013dc63d7adef) 
-    On Postman open `Import > Import From Link`, paste link above and click `Import`
-
 ## Server Time
 Provide server time on exchange
 #### Request
