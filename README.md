@@ -7,7 +7,10 @@
 Name | Description
 ------------ | ------------
 [Public REST API](./Public-RestAPI.md) | Public API Documentation
-[Private REST API](./kline-websocket.md) | Private API Documentation
 [K-Line Web Socket](./kline-websocket.md) | K-Line Web Socket Documentation
 
 
+### Todo
+ - Add Private REST API Documentation 
+ - Add Troubleshooting 
+ - Add Code Examples
