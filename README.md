@@ -4,13 +4,13 @@
 * The use of any other streams, endpoints, parameters, or payloads, etc. is **not supported**; **use them at your own risk and with no guarantees.**
 
 
-Name | Description
------------- | ------------
-[Public REST API](./Public-RestAPI.md) | Public API Documentation
-[K-Line Web Socket](./kline-websocket.md) | K-Line Web Socket Documentation
+Name | Description | Example | Version
+------------ | ------------ | ------------ | ------------
+[Public REST API](./Public-RestAPI.md) | Public API Documentation | |
+[K-Line Web Socket](./kline-websocket.md) | K-Line Web Socket Documentation | |
+[Private REST API](./Private-RestAPI.md) | Private API Documentation | [Example](./example/Private-RestAPI-example.md) | v1.0.0 
 
 
 ### Todo
- - Add Private REST API Documentation 
  - Add Troubleshooting 
  - Add Code Examples
