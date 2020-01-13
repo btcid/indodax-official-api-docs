@@ -15,6 +15,7 @@
 * All endpoints return either a JSON object or array.
 * Data is returned in **descending** order. newest first, oldest last.
 * All time and timestamp related fields are in **milliseconds**.
+
 ## Error Codes
 * Any endpoint can return an ERROR
 
@@ -27,12 +28,14 @@ Sample Payload below:
 }
 ```
 * Specific error codes and messages are defined in [Errors Codes](./errors.md).
+
 ## General Information on Endpoints
 * Parameters may be sent in any order.
 * All requests must be sent with POST.
 * For each request you need to include these variable to make the call valid: method and nonce or timestamp.
+
     | Parameter | Description | Optional | Example |
-    |-|-|-| - |
+    |-|-|-|-|
     |`method`| Specify the method you want to call | no | getInfo|
     |`nonce`| An increment integer. For example if the last request's nonce is 1000, the next request should be 1001 or a larger number. To learn more about [nonce](http://en.wikipedia.org/wiki/Cryptographic_nonce)  | no | 1000
 
@@ -41,16 +44,19 @@ Sample Payload below:
     |`method`| Specify the method you want to call | no | getInfo
     |`timestamp`| This parameter should be the millisecond timestamp of when the request was created and sent | no | 1578303960000
     |`recvWindow`| The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds) | no | 1578303937000
+    
 ## Endpoint Security Type
 * API-keys are passed into the Rest API via the `Key`
   header.
 * API-keys and secret-keys **are case sensitive**.
 * There are 3 different permissions that can be applied to API Key: view, trade and withdraw
-    Permission | Allowed Methods
-    ------------ | ------------
-    view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder
-    trade | trade, cancelOrder
-    withdraw | withdrawCoin
+
+    |Permission | Allowed Methods|
+    |-|-|
+    |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder |
+    |trade | trade, cancelOrder |
+    |withdraw | withdrawCoin |
+    
 ## Signed (TRADE and USER_DATA) Endpoint Security
 * `SIGNED` endpoints require an additional parameter, `Sign`, to be
   sent in the  `header`.
@@ -59,6 +65,7 @@ Sample Payload below:
 * The `signature` is **not case sensitive**.
 * `totalParams` is defined as the `query string` concatenated with the
   `request body`. example *(?param=val&param1=val1) encrypted with method HMAC-SHA512 using secret key*
+  
 ### Timing Security
 * A `SIGNED` endpoint also requires a parameter, `timestamp`, to be sent which
   should be the millisecond timestamp of when the request was created and sent.
@@ -78,6 +85,7 @@ Sample Payload below:
 ### SIGNED Endpoint Examples for POST getInfo
 Here is a step-by-step example of how to send a vaild signed payload from the
 Linux command line using. `curl`
+
 | Key | Value
 |-|-
 | apiKey | AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA
@@ -88,6 +96,7 @@ Linux command line using. `curl`
 |`method`| getInfo |
 |`timestamp`| 1578304294000 |
 |`recvWindow`| 1578303937000 |
+
 #### Example : send parameter using request body
 * **requestBody:** method=getInfo&timestamp=1578304294000&recvWindow=1578303937000
 * **HMAC SHA512 signature:**
@@ -140,8 +149,8 @@ All request sent with Request header
 
 | Name | Type | Mandatory | Description |
 |-|-|-|-|
-|`Key`| string | yes | API Key
-|`Sign`| string | yes | Encrypted with method HMAC-SHA512 using secret key. (Request body (?param=val&param1=val1))
+|`Key`| string | yes | API Key|
+|`Sign`| string | yes | Encrypted with method HMAC-SHA512 using secret key. (Request body (?param=val&param1=val1))|
 
 All request sent with Request body
 
@@ -151,13 +160,16 @@ All request sent with Request body
 |`timestamp`| timestamp in milisecond | optional when sending request using `nonce` | The millisecond timestamp of when the request was created and sent. Default value is 5000 (milliseconds).|
 |`recvWindow`| timestamp in milisecond | no | This parameter is optional when you sending request using timestamp. The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds).|
 |`nonce`|int|optional when sending request using `timestamp`|An increment integer. For example if the last request's nonce is 1000, the next request should be 1001 or a larger number.
+
 #### Get Info Endpoint
 This method gives user balances and server's timestamp.
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |getInfo|
+|`method`| string |yes|Specify the method you want to call |getInfo| |
+
 Response
 ```json
 {
@@ -192,9 +204,11 @@ Response
 This method gives list of deposits and withdrawals of all currencies.
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |transHistory|
+|`method`| string |yes|Specify the method you want to call |transHistory||
+
 Response
 ```json
 {
@@ -257,14 +271,16 @@ Response
 This method is for opening a new order
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |trade|
-|`pair`|string|yes|Pair to get the information from| btc_idr, ltc_btc, doge_btc, etc|
-|`type`|string|yes|transaction type (buy or sell)||
-|`price`|numeric|yes|order price|buy/sell|
-|`idr`|numeric|required on buying coin|amount of rupiah to buy coin||
-|`btc`|numeric|required on selling coin|amount of coin to sell||
+|`method`| string |yes|Specify the method you want to call |trade| |
+|`pair`|string|yes|Pair to get the information from| btc_idr, ltc_btc, doge_btc, etc| |
+|`type`|string|yes|transaction type (buy or sell)|||
+|`price`|numeric|yes|order price|buy/sell||
+|`idr`|numeric|required on buying coin|amount of rupiah to buy coin|||
+|`btc`|numeric|required on selling coin|amount of coin to sell|||
+
 Response
 ```json
 {
@@ -291,16 +307,17 @@ Response
 This method gives information about transaction in buying and selling history.
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |tradeHistory|
-|`count`|numeric|no|number of transaction which will be displayed||1000
-|`from_id`|numeric|no|first ID||0
-|`end_id`|numeric|no|end ID||0
-|`order`|string|no|sort by|asc / desc|desc
-|`since`|timestamp|no|start time||unix time
-|`end`|timestamp|no|end time||unix time
-|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr
+|`method`| string |yes|Specify the method you want to call |tradeHistory||
+|`count`|numeric|no|number of transaction which will be displayed||1000|
+|`from_id`|numeric|no|first ID||0|
+|`end_id`|numeric|no|end ID||0|
+|`order`|string|no|sort by|asc / desc|desc|
+|`since`|timestamp|no|start time||unix time|
+|`end`|timestamp|no|end time||unix time|
+|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
 
 Response
 ```json
@@ -327,10 +344,11 @@ Response
 This method gives the list of current open orders (buy and sell).
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |openOrders|
-|`pair`|string|no|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|
+|`method`| string |yes|Specify the method you want to call |openOrders||
+|`pair`|string|no|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc||
 
 Response 
 ```json
@@ -385,12 +403,13 @@ Response if pair is not set
 This method gives the list of order history (buy and sell)
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |orderHistory|
-|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr
-|`count`|int|no|||
-|`from`|int|no|||
+|`method`| string |yes|Specify the method you want to call |orderHistory||
+|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
+|`count`|int|no||||
+|`from`|int|no||||
 
 Response
 ```json
@@ -427,11 +446,12 @@ Response
 Use getOrder to get specific order details.
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |getOrder|
-|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr
-|`order_id`|int|yes|Order ID||
+|`method`| string |yes|Specify the method you want to call |getOrder||
+|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
+|`order_id`|int|yes|Order ID|||
 
 Response
 ```json
@@ -456,12 +476,13 @@ Response
 This method is for canceling an existing open order.
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |cancelOrder|
-|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr
-|`order_id`|int|yes|Order ID||
-|`type`|int|yes|Transaction type|buy / sell|
+|`method`| string |yes|Specify the method you want to call |cancelOrder||
+|`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
+|`order_id`|int|yes|Order ID|||
+|`type`|int|yes|Transaction type|buy / sell||
 
 Response
 ```json
@@ -494,33 +515,34 @@ Callback call will be sent through a POST request, with 5 seconds connection tim
 ```
 
 Request Body
+
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |withdrawCoin|
+|`method`| string |yes|Specify the method you want to call |withdrawCoin||
 |`currency`|string|yes|Currency to withdraw|btc, ltc, doge, eth, etc||
-|`withdraw_address`|string|yes|Receiver address|a valid address|
-|`withdraw_amount`|numeric|yes|Amount to send||
-|`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag|
-|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request. request_idwill be passed to callback call so your system can identify the request.d||
+|`withdraw_address`|string|yes|Receiver address|a valid address||
+|`withdraw_amount`|numeric|yes|Amount to send|||
+|`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
+|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_idwill be passed to callback call so your system can identify the request.d|||
 
 Response
 ```json
 {
     "success": 1,
     "status": "approved",
-    "withdraw_currency": "xrp",
-    "withdraw_address": "rwWr7KUZ3ZFwzgaDGjKBysADByzxvohQ3C",
-    "withdraw_amount": "10000.00000000",
-    "fee": "2.00000000",
-    "amount_after_fee": "9998.00000000",
-    "submit_time": "1509469200",
-    "withdraw_id": "xrp-12345",
-    "txid": "",
-    "withdraw_memo": "123123"
+    "withdraw_currency": "doge",
+    "withdraw_address": "D9iCdBLBosJzGSvpQGMSobwtdgB2rS1zam",
+    "withdraw_amount": "10.00000000",
+    "fee": "5.00000000",
+    "amount_after_fee": "5.00000000",
+    "submit_time": "1578909560",
+    "withdraw_id": "doge-1941965",
+    "txid": ""
 }
 ```
 
-Callback Parameter
+Callback Parameter Sent to Client
+
 |Parameter|Description|
 |-|-|
 |request_id|request_id from your request|
