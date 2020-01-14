@@ -8,7 +8,7 @@ Name | Description | Example | Version
 ------------ | ------------ | ------------ | ------------
 [Public REST API](./Public-RestAPI.md) | Public API Documentation | |
 [K-Line Web Socket](./kline-websocket.md) | K-Line Web Socket Documentation | |
-[Private REST API](./Private-RestAPI.md) | Private API Documentation | [Example](./example/Private-RestAPI-example.md) | v1.0.0 
+[Private REST API](./Private-RestAPI.md) | Private API Documentation | [Example](./example/Private-RestAPI-example.md) | v2.0.1 
 
 
 ### Todo
