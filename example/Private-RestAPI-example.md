@@ -13,6 +13,7 @@
 ## Get Info Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -46,6 +47,7 @@ Sample code below :
 ## Transaction History Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -79,6 +81,7 @@ Sample code below :
 ## Trade Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -117,6 +120,7 @@ Sample code below :
 ## Trade History Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $sign = 'dd3655b2b638c9f645fe8ad51089646f186600492864540e88fa23b6632c6d04d48891ef1a274a4c2139ba1c9e710b4fc32d59c4492ecb72189b4d2d630e14ef';
@@ -153,6 +157,7 @@ Sample code below :
 ## Open Orders Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -187,6 +192,7 @@ Sample code below :
 ## Order History
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -223,6 +229,7 @@ Sample code below :
 ## Get Order Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -258,6 +265,7 @@ Sample code below :
 ## Cancel Order Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
@@ -294,6 +302,7 @@ Sample code below :
 ## Withdraw Coin Endpoints
 Sample code below :
 ```php
+<?php
     $url = 'https://indodax.com/tapi';
     $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
     $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
