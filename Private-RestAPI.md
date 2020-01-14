@@ -1,11 +1,11 @@
 **Table of Contents**
 - [General API Information](#general-api-information)
 - [Error Codes](#error-codes)
-- [General Information on Endpoints](#general-information-endpoints)
+- [General Information on Endpoints](#general-information-on-endpoints)
 - [Endpoint security type](#endpoint-security-type)
 - [SIGNED (TRADE and USER_DATA) Endpoint security](#signed-trade-and-user_data-endpoint-security)
     - [Timing Security](#timing-security)
-    - [SIGNED Endpoint](#signed-endpoint)
+    - [SIGNED Endpoint](#signed-endpoint-examples-for-post-getinfo)
 - [Private API Endpoint](#private-api-endpoint)
     - [ENUM definitions](#enum-definitions)
     - [Private API endpoints](#private-api-endpoints)
@@ -27,7 +27,6 @@ Sample Payload below:
     "error_code": "invalid_credentials"
 }
 ```
-* Specific error codes and messages are defined in [Errors Codes](./errors.md).
 
 ## General Information on Endpoints
 * Parameters may be sent in any order.
@@ -64,7 +63,7 @@ Sample Payload below:
   Use your `secretKey` as the key and `totalParams` as the value for the HMAC operation.
 * The `signature` is **not case sensitive**.
 * `totalParams` is defined as the `query string` concatenated with the
-  `request body`. example *(?param=val&param1=val1) encrypted with method HMAC-SHA512 using secret key*
+  `request body`. example `*(?param=val&param1=val1) encrypted with method HMAC-SHA512 using secret key*`
   
 ### Timing Security
 * A `SIGNED` endpoint also requires a parameter, `timestamp`, to be sent which
@@ -88,8 +87,8 @@ Linux command line using. `curl`
 
 | Key | Value
 |-|-
-| apiKey | AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA
-| secretKey | f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d
+| `apiKey` | AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA
+| `secretKey` | f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d
 
 | Parameter | Value |
 |-|-|
@@ -131,8 +130,9 @@ Linux command line using. `curl`
 * desc
 
 **Pair to get the information from (pair):**
-* asc
-* desc
+* btc_idr
+* ltc_btc
+* doge_btc
 
 **Currency to withdraw (currency):**
 * btc
@@ -143,7 +143,7 @@ Linux command line using. `curl`
 ### Private API Endpoints
 All request sent to this endpoint
 
-    POST /tapi
+    POST https://indodax.com/tapi
 
 All request sent with Request header
 
@@ -506,13 +506,13 @@ Response
 
 #### Withdraw Coin Endpoints
 This method is for withdrawing assets (except IDR).
-```
+
 To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error. 
 
 You also need to prepare a Callback URL. Callback URL is a URL that our system will call to verify your withdrawal requests. Various parameters will be sent to Callback URL, make sure to check this information on your server side. If all the data is correct, print out a string “ok”  (without quotes). We will continue the request if only we receive “ok” (without quotes) response, otherwise the request will be failed. 
 
 Callback call will be sent through a POST request, with 5 seconds connection timeout.
-```
+
 
 Request Body
 
