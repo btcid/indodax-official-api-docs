@@ -1,22 +1,24 @@
 **Table of Contents**
-- [Get Info Endpoints](#get-info-endpoints)
-- [Transaction History Endpoints](#transaction-history-endpoints)
-- [Trade Endpoints](#trade-endpoints)
-- [Trade History Endpoints](#trade-history-endpoints)
-- [Open Orders Endpoints](#open-orders-endpoints)
+- [Get Info](#get-info)
+- [Transaction History](#transaction-history)
+- [Trade](#trade)
+- [Trade History](#trade-history)
+- [Open Orders](#open-orders)
 - [Order History](#order-history)
-- [Get Order Endpoints](#get-order-endpoints)
-- [Cancel Order Endpoints](#cancel-order-endpoints)
-- [Withdraw Coin Endpoints](#withdraw-coin-endpoints)
+- [Get Order](#get-order)
+- [Cancel Order](#cancel-order)
+- [Withdraw Coin](#withdraw-coin)
 
 # Example Request By PHP
-## Get Info Endpoints
+## Get Info
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
 	        'method' => 'getInfo',
@@ -44,13 +46,15 @@ Sample code below :
     echo $response;
 ```
 
-## Transaction History Endpoints
+## Transaction History
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'transHistory',
@@ -78,13 +82,15 @@ Sample code below :
     echo $response;
 ```
 
-## Trade Endpoints
+## Trade
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'trade',
@@ -117,14 +123,16 @@ Sample code below :
     echo $response;
 ```
 
-## Trade History Endpoints
+## Trade History
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $sign = 'dd3655b2b638c9f645fe8ad51089646f186600492864540e88fa23b6632c6d04d48891ef1a274a4c2139ba1c9e710b4fc32d59c4492ecb72189b4d2d630e14ef';
-    $headers = ['Key:'.$key,'Sign:'.$sign];
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
+    
     $data = [
         'method' => 'tradeHistory',
         'timestamp' => '1578304294000',
@@ -137,6 +145,10 @@ Sample code below :
         'end' => '',
         'pair' => ''
     ];
+    $post_data = http_build_query($data, '', '&');
+    $sign = hash_hmac('sha512', $post_data, $secretKey);
+
+    $headers = ['Key:'.$key,'Sign:'.$sign];
 
     $curl = curl_init();
 
@@ -154,13 +166,15 @@ Sample code below :
     echo $response;
 ```
 
-## Open Orders Endpoints
+## Open Orders
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'openOrders',
@@ -194,8 +208,10 @@ Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'orderHistory',
@@ -226,13 +242,15 @@ Sample code below :
     echo $response;
 ```
 
-## Get Order Endpoints
+## Get Order
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'getOrder',
@@ -262,13 +280,15 @@ Sample code below :
     echo $response;
 ```
 
-## Cancel Order Endpoints
+## Cancel Order
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'cancelOrder',
@@ -299,13 +319,15 @@ Sample code below :
     echo $response;
 ```
 
-## Withdraw Coin Endpoints
+## Withdraw Coin
 Sample code below :
 ```php
 <?php
     $url = 'https://indodax.com/tapi';
-    $key = 'AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA';
-    $secretKey = 'f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d';
+    // Please find Key from trade API Indodax exchange
+    $key = '****';
+    // Please find Secret Key from trade API Indodax exchange
+    $secretKey = '****';
     
 	$data = [
         'method' => 'withdrawCoin',
