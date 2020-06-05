@@ -120,6 +120,8 @@ Linux command line using. `curl`
 * getOrder
 * cancelOrder
 * withdrawCoin
+* listDownline
+* checkDownline
 
 **Transaction type (type):**
 * buy
@@ -552,3 +554,54 @@ Callback Parameter Sent to Client
 |withdraw_memo|withdraw_memo from your request (if any)|
 |requester_ip|requester_ip of the request|
 |request_date|time the request submitted |
+
+#### List Downline Endpoints
+This method is for list all downline in current user
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |listDownline||
+
+Response
+```json
+{
+    "success": "1",
+    "return": {
+        "draw": "0",
+        "recordsTotal": "1",
+        "recordsFiltered": "1",
+        "data": [
+            {
+                "name": "",
+                "username": "btc_user",
+                "registration_date": "6-May-20 13:07",
+                "email_verified": "ya",
+                "id_verified": "tidak"
+            }
+        ]
+    }
+}
+```
+
+#### Check Downline Endpoints
+This method is for check if email exists in user downline or not 
+return is 1 or 0.
+1 means this email is exists in current user downline
+0 means emai doesn't exists in current user downline
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |listDownline||
+|`email`|string|yes|Email want to check|btc@gmail.com, idx@yahoo.com||
+
+Response
+```json
+{
+    "success": "1",
+    "is_downline": "0"
+}
+```
