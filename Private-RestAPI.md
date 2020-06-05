@@ -586,10 +586,10 @@ Response
 ```
 
 #### Check Downline Endpoints
-This method is for check if email exists in user downline or not 
+This method is for check wheter email exists in user downline or not 
 return is 1 or 0.
 1 means this email is exists in current user downline
-0 means emai doesn't exists in current user downline
+0 means email doesn't exists in current user downline
 
 Request Body
 
