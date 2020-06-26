@@ -55,6 +55,7 @@ Provide available pairs on exchange
         "ticker_id": "btc_idr",
         "volume_precision": 0,
         "price_precision": 1000,
+        "price_round": 8,
         "pricescale": 1000,
         "trade_min_base_currency": 50000,
         "trade_min_traded_currency": 0.0001,
