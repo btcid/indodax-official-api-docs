@@ -178,6 +178,63 @@ You can get trade detail data started at 00:00 AM with the following format
 }
 ```
 
+## Depth Data
+you can get depth data with limitation
+`{"market":"$symbol.depth","limit":500}` change symbol with pair. i.e below
+
+#### Request Depth
+
+Get data start with limitation
+
+Request
+```json
+{
+    "market":"btcidr.depth",
+    "limit": 2
+}
+```
+
+Response
+```json
+{
+    "ch":"btcidr.depth",
+    "status":"ok",
+    "ts":1595981434,
+    "data":{
+        "buy":[
+            {
+                "price":2500000,
+                "amount":238106
+            },{
+                "price":2479000,
+                "amount":181988
+            }
+        ],
+        "sell":[
+            {
+                "price":1099990000000,
+                "amount":990000
+            },{
+                "price":2147483000,
+                "amount":100000
+            }
+        ]
+    }
+}
+```
+
+## Error Code
+
+#### Market Depth
+
+| Code | Description |
+| ---  | ------|
+| 118  | `market` must be string |
+| 119  | `market` cannot be empty |
+| 120  | Not valid `market` format (ex: btcidr.depth) |
+| 121  | `limit` is not float |
+| 122  | Failed to get data |
+
 ### Notes
 For testing you can use these library 
  - [WebSocket cat - Nodejs](https://www.npmjs.com/package/wscat)
