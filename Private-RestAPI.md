@@ -120,6 +120,8 @@ Linux command line using. `curl`
 * getOrder
 * cancelOrder
 * withdrawCoin
+* listDownline
+* checkDownline
 
 **Transaction type (type):**
 * buy
@@ -552,3 +554,70 @@ Callback Parameter Sent to Client
 |withdraw_memo|withdraw_memo from your request (if any)|
 |requester_ip|requester_ip of the request|
 |request_date|time the request submitted |
+
+#### List Downline Endpoints
+This method is for list all downline in current user
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |listDownline||
+|`page`| int |yes|Set the page you want to show |1||
+|`limit`| int |yes|Set how many data you want to show |10|200|
+
+Response
+```json
+{
+  "success": 1,
+  "return": {
+    "curr_page": 1,
+    "total_page": 102,
+    "total_data_per_page": 2,
+    "total": 203,
+    "data": [
+      {
+        "name": "btc users",
+        "username": "btcusers",
+        "registration_date": "9-Jun-20 15:54",
+        "email_verified": true,
+        "id_verified": true,
+        "level": "n/a",
+        "end": "n/a",
+        "start": "n/a"
+      },
+      {
+        "name": "idx users",
+        "username": "idxusers",
+        "registration_date": "8-Jun-20 15:51",
+        "email_verified": true,
+        "id_verified": false,
+        "level": "n/a",
+        "end": "n/a",
+        "start": "n/a"
+      }
+    ]
+  }
+}
+```
+
+#### Check Downline Endpoints
+This method is for check wheter email exists in current user downline or not 
+return is 1 or 0.
+1 means this email is exists in current user downline
+0 means email doesn't exists in current user downline
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |listDownline||
+|`email`|string|yes|Email want to check|btc@gmail.com, idx@yahoo.com||
+
+Response
+```json
+{
+    "success": "1",
+    "is_downline": "0"
+}
+```
