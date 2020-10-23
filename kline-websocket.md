@@ -77,10 +77,10 @@ You can get K-line data started at 00:00 AM with the following format
 #### Request <a name="kline-request"></a>
 ```sh
 #Request
-{"req":"btcidr.kline.1m"}
+{"req":"btcidr.kline.1m", "id":"2"}
 #it will automaticly get data started at 00:00 AM today
 
-{"req":"btcidr.kline.1m", "from":1569607200, "to":1569842641}
+{"req":"btcidr.kline.1m", "from":1569607200, "to":1569842641, "id":"2"}
 #it will get data started from 1569607200 to 1569842641 in unixtime
 
 #Response
@@ -119,7 +119,7 @@ You can get trade detail data started at 00:00 AM with the following format
 #### Subscribe <a name="trade-detail-subscribe"></a>
 ```sh
 #Request
-{"sub":"btcidr.trade", "id":"id3"}
+{"sub":"btcidr.trade", "id":"3"}
  
 #Response
 {
@@ -137,7 +137,7 @@ You can get trade detail data started at 00:00 AM with the following format
 #### Unsubscribe <a name="trade-detail-unsubscribe"></a>
 ```sh
 #Request
-{"unsub":"btcidr.trade", "id":"id3"}
+{"unsub":"btcidr.trade", "id":"3"}
  
 #Response
 {
