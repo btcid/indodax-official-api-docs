@@ -133,7 +133,7 @@ Provide Single Ticker Price on each pair in exchange
 ##### Parameter 
 | Type | Mandatory | Description |
 | ------ | ------ | ------ |
-| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
+| String | Optional| Example: `btcidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
 
 #### Response
 ```json
@@ -184,7 +184,7 @@ Provide Order Book trade on each pair in exchange
 ##### Parameter 
 | Type | Mandatory | Description |
 | ------ | ------ | ------ |
-| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
+| String | Optional| Example: `btcidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
 
 #### Response
 ```json
@@ -215,7 +215,7 @@ Provide Volume price Buy and Sell on each pair in exchange
 ##### Parameter 
 | Type | Mandatory | Description |
 | ------ | ------ | ------ |
-| String | Optional| Example: `btdidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
+| String | Optional| Example: `btcidr`, `tenidr`, `ethidr`. For specific pair id please use Response from API [`/api/pairs`](#pairs). Default `$pair_id` is `btcidr`. |
 #### Response
 ```json
 {
