@@ -54,7 +54,7 @@ Sample Payload below:
     |-|-|
     |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder |
     |trade | trade, cancelOrder |
-    |withdraw | withdrawCoin |
+    |withdraw | withdrawFeee, withdrawCoin |
     
 ## Signed (TRADE and USER_DATA) Endpoint Security
 * `SIGNED` endpoints require an additional parameter, `Sign`, to be
@@ -119,6 +119,7 @@ Linux command line using. `curl`
 * orderHistory
 * getOrder
 * cancelOrder
+* withdrawFee
 * withdrawCoin
 * listDownline
 * checkDownline
@@ -502,6 +503,30 @@ Response
             "frozen_btc": "0.00000000",
             ...
         }
+    }
+}
+```
+
+#### Withdraw Fee Endpoints
+This method is for check withdraw fee
+
+To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error. 
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default | 
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |withdrawFee||
+|`currency`|string|yes|Currency for check withdraw fee |btc, ltc, doge, eth, etc||
+
+Response
+```json
+{
+    "success": 1,
+    "return": {
+        "server_time": 1607923272,
+        "withdraw_fee": 0.005,
+        "currency": "eth"
     }
 }
 ```
