@@ -7,6 +7,7 @@
 - [Order History](#order-history)
 - [Get Order](#get-order)
 - [Cancel Order](#cancel-order)
+- [Withdraw Fee](#withdraw-fee)
 - [Withdraw Coin](#withdraw-coin)
 
 # Example Request By PHP
