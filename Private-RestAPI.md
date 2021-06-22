@@ -293,15 +293,7 @@ Response
         "spend_rp": 0,
         "fee": 0,
         "remain_rp": 5000000,
-        "order_id": 59632813,
-        "balance": {
-            "idr": "100000000",
-            "btc": "4.2",
-            ...
-            "frozen_idr": "5000000",
-            "frozen_btc": "0.00000000",
-            ...
-        }
+        "order_id": 59632813
     }
 }
 ```
