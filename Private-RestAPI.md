@@ -229,6 +229,7 @@ Response
                     "success_time": "1539844189",
                     "withdraw_id": "1783717",
                     "tx": "BTC-IDR-RDTVVO2P-ETD0EVAW-VTNZGMIR-HTNTUAPI-84ULM9OI",
+                    "sender": "boris",
                     "used_by": "viginia88"
                 },
                 ...
