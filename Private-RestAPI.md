@@ -540,6 +540,7 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |withdrawCoin||
 |`currency`|string|yes|Currency to withdraw|btc, ltc, doge, eth, etc||
+|`network`|string|yes|Currency network if exist|erc20, trc20, bep2, bep20||
 |`withdraw_address`|string|yes|Receiver address|a valid address||
 |`withdraw_amount`|numeric|yes|Amount to send|||
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
