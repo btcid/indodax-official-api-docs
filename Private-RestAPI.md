@@ -274,6 +274,16 @@ Response
 #### Trade Endpoints
 This method is for opening a new order
 
+> ℹ️ **Information**
+> 
+> We also have a rate limit feature in place for the trade api. If you call the trade api for the same `pair` for more than 10 times in a second you would get the following error and would not be able to trade that `pair` for the next 5 seconds
+> ```json
+> status code: 429
+> content type: application/json
+> body: { "message": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds" }
+> ```
+
+\
 Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
