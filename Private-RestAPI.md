@@ -123,6 +123,7 @@ Linux command line using. `curl`
 * withdrawCoin
 * listDownline
 * checkDownline
+* createVoucher (Partner Only)
 
 **Transaction type (type):**
 * buy
@@ -648,5 +649,27 @@ Response
 {
     "success": "1",
     "is_downline": "0"
+}
+```
+
+#### Create Voucher Endpoints
+This method used to generate Indodax voucher programmatically. To be able to use this method you need to be a partner and sign official aggreement between you and Indodax.
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |createVoucher||
+|`amount`|number|yes|The voucher value in rupiah|Minimum 1000||
+|`to_email`|strinng|yes|The recipient email address which registered in Indodax|e.g. idx@gmail.com||
+
+Response
+```json
+{
+    "success": 1,
+    "withdraw_id": 1234,
+    "rp": 10000,
+    "submit_time": "1578909560",
+    "voucher": "BTC-IDR-XXXX"
 }
 ```
