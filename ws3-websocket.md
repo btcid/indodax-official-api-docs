@@ -16,7 +16,11 @@ This documentation provide examples on how to use **Indodax WS3 WebSocket** whic
 
 ## General Information
 
-WS3 base URL is [wss://ws3.indodax.com/ws/](wss://ws3.indodax.com/ws/)
+WS3 base URL is:
+
+```text
+wss://ws3.indodax.com/ws/
+```
 
 After connected, you will have to **authenticate** yourself using request provided in [Authentication](#authentication) section below to make further request.
 
