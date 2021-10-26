@@ -14,7 +14,7 @@ This documentation provide examples on how to use **Indodax WS3 WebSocket** whic
 - [Unsubscribing from Channel](#unsubscribing-from-channel)
 - [Get Data from Specific Offset and Subscribe](#get-data-from-specific-offset-and-subscribe)
 
-### General Information
+## General Information
 
 WS3 base URL is [wss://ws3.indodax.com/ws/](wss://ws3.indodax.com/ws/)
 
@@ -22,7 +22,7 @@ After connected, you will have to **authenticate** yourself using request provid
 
 The `id` field in request or response is used as an identifier to uniquely identify them.
 
-### Authentication
+## Authentication
 
 Request:
 
@@ -49,7 +49,7 @@ Response:
 }
 ```
 
-### Ping/Pong
+## Ping/Pong
 
 Use `7` as `method`.
 
@@ -70,11 +70,11 @@ Response:
 }
 ```
 
-### Subscribing to Channel
+## Subscribing to Channel
 
 You can **subscribe** to a **channel** to get live stream of events using a **single** WebSocket connection by using `1` as `method` in the request body.
 
-#### Chart Data
+### Chart Data
 
 Use `chart:tick-<pair>` as `channel`. Change `<pair>` to the one that you want to subscribe to.
 
@@ -124,7 +124,7 @@ Received Message:
 }
 ```
 
-#### Market Summary
+### Market Summary
 
 Use `market:summary-24h` as `channel`.
 
@@ -188,7 +188,7 @@ Received Message:
 }
 ```
 
-#### Trade Activity
+### Trade Activity
 
 Use `market:trade-activity-<pair>` as `channel`. Change `<pair>` to the one that you want to subscribe to.
 
@@ -241,7 +241,7 @@ Received Message:
 }
 ```
 
-### Unsubscribing from Channel
+## Unsubscribing from Channel
 
 To **unsubscribe** from a **channel**, use `2` as `method` in the request body.
 
@@ -266,7 +266,7 @@ Response:
 }
 ```
 
-### Get Data from Specific Offset and Subscribe
+## Get Data from Specific Offset and Subscribe
 
 In case of connection problem, you can get data from specific **offset** and subscribe again. Use `true` as `recover` and specify the last `offset` that you already have. The **response** will contain data from the **next** offset and you will be subscribed again and receive messages.
 
