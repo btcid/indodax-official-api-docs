@@ -7,7 +7,8 @@
 Name | Description | Example | Version
 ------------ | ------------ | ------------ | ------------
 [Public REST API](./Public-RestAPI.md) | Public API Documentation | |
-[K-Line Web Socket](./kline-websocket.md) | K-Line Web Socket Documentation | |
+[WS3 WebSocket](./ws3-websocket.md) | WS3 WebSocket Documentation | |
+[K-Line Web Socket (Deprecated)](./kline-websocket.md) | K-Line Web Socket Documentation | |
 [Private REST API](./Private-RestAPI.md) | Private API Documentation | [PHP](./example/Private-RestAPI-php.md) | v2.0.1 
 [Market Data Web Socket](./Marketdata-websocket.md) | Market Data Web Socket Documentation | |
 

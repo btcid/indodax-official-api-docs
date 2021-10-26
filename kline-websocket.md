@@ -1,4 +1,4 @@
-# K-Line
+# K-Line (Deprecated)
 These are open data for public. It doesn't need an API key to call these methods. You can simple subscribe web socket request.
 
 #### Table of Contents
