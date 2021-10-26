@@ -1,6 +1,6 @@
 # WS3 WebSocket Documentation
 
-This documentation provide examples on how to use **Indodax WS3 WebSocket** which replaces the **deprecated** [K-Line Web Socket](../kline-websocket.md).
+This documentation provide examples on how to use **Indodax WS3 WebSocket** which replaces the **deprecated** [K-Line Web Socket](https://github.com/btcid/indodax-official-api-docs/blob/master/kline-websocket.md).
 
 ## Table of Contents
 
