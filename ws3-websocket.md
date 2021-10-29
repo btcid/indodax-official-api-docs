@@ -172,8 +172,8 @@ Received Message:
                     3480,                       // lowest price in the last 24h
                     3980,                       // highest price in the last 24h
                     3523,                       // price at T-24h
-                    "112745093944.00000000",    // IDR volume (DOGE/IDR)
-                    "30241791.15270789"         // DOGE volume (DOGE/IDR)
+                    "112745093944.00000000",    // IDR volume in the last 24h (DOGE/IDR)
+                    "30241791.15270789"         // DOGE volume in the last 24h (DOGE/IDR)
                 ],
                 [
                     "usdtidr",
@@ -182,8 +182,8 @@ Received Message:
                     14076,
                     14130,
                     14123,
-                    "194798674207.00000000",    // IDR volume (USDT/IDR)
-                    "13798116.12995762"         // USDT volume (USDT/IDR)
+                    "194798674207.00000000",    // IDR volume in the last 24h (USDT/IDR)
+                    "13798116.12995762"         // USDT volume in the last 24h (USDT/IDR)
                 ]
             ],
             "offset": 2444948
@@ -282,7 +282,7 @@ Request:
     "params": {
         "channel": "chart:tick-usdtidr",
         "recover": true,
-        "offset": 820573
+        "offset": 820574
     },
     "id": 2
 }
