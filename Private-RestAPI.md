@@ -212,6 +212,8 @@ Request Body
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |transHistory||
+|`start`| date |optional|Specify the start date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
+|`end`| date |required if start date is set|Specify the end date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
 
 Response
 ```json
