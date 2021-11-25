@@ -558,6 +558,7 @@ Request Body
 |`withdraw_amount`|numeric|yes|Amount to send|||
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
 |`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_idwill be passed to callback call so your system can identify the request.d|||
+|`network`|alphanumeric max 255 char|no|to differentiate the network type of USDT coins .|(erc20,trc20)|||
 
 Response
 ```json
