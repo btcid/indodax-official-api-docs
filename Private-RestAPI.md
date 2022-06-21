@@ -282,6 +282,7 @@ This method is for opening a new order
 > 
 > As per 19 July 2022,
 > - You may experienced under filled order if using `idr` parameter when create buy order. to solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
+> - now You can create buy/sell order using `btc` as amount
 > - now You can use `order_type : "market"` to create market order.
 >
 > ℹ️ **Information**
