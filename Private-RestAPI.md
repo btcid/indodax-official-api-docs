@@ -1,3 +1,4 @@
+
 **Table of Contents**
 - [General API Information](#general-api-information)
 - [Error Codes](#error-codes)
@@ -277,6 +278,12 @@ Response
 #### Trade Endpoints
 This method is for opening a new order
 
+> ℹ️ **Important Updates**
+> 
+> As per 19 July 2022,
+> - You may experienced under filled order if using `idr` parameter when create buy order. to solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
+> - now You can `order_type : "market"` to create market order.
+>
 > ℹ️ **Information**
 > 
 > We also have a rate limit feature in place for the trade api. If you call the trade api for the same `pair` for more than 10 times in a second you would get the following error and would not be able to trade that `pair` for the next 5 seconds
@@ -297,6 +304,7 @@ Request Body
 |`price`|numeric|yes|order price|buy/sell||
 |`idr`|numeric|required on buying coin|amount of rupiah to buy coin|||
 |`btc`|numeric|required on selling coin|amount of coin to sell|||
+|`order_type`|string|optional|type of order|limit/market||
 
 Response
 ```json
