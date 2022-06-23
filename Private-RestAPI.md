@@ -1,4 +1,5 @@
 
+
 **Table of Contents**
 - [General API Information](#general-api-information)
 - [Error Codes](#error-codes)
@@ -282,8 +283,8 @@ This method is for opening a new order
 > 
 > As per 19 July 2022,
 > - You may experienced under filled order if using `idr` parameter when create buy order. to solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
-> - now You can create buy/sell order using `btc` as amount.
-> - now You can use `order_type : "market"` to create market order.
+> - Now You can create buy/sell order using coin eg:  `btc` as amount.
+> - Now You can use `order_type : "market"` to create market order.
 >
 > ℹ️ **Information**
 > 
@@ -302,10 +303,37 @@ Request Body
 |`method`| string |yes|Specify the method you want to call |trade| |
 |`pair`|string|yes|Pair to get the information from| btc_idr, ltc_btc, doge_btc, etc| |
 |`type`|string|yes|transaction type (buy or sell)|||
-|`price`|numeric|yes|order price|buy/sell||
-|`idr`|numeric|required on buying coin|amount of rupiah to buy coin|||
-|`btc`|numeric|required on selling coin|amount of coin to sell|||
-|`order_type`|string|optional|type of order|limit/market||
+|`price`|numeric|required on limit order|order price|buy/sell||
+|`idr`|numeric|required on market order buy for idr pair|amount of rupiah to buy coin|||
+|`btc`|numeric|required on selling coin. required on limit buy|amount of coin to buy/sell|||
+|`order_type`|string|optional|type of order|limit/market|limit|
+
+*Sample Payload for limit order using coin amount:
+```javascript
+{
+	"method": "trade"
+	"nonce": 4531235
+    "btc": 0.001,
+    "order_type": "limit",
+    "price": 500000,
+    "type": "buy"
+    ...
+    ...
+}
+```
+
+*Sample Payload for market order:
+```javascript
+{
+	"method": "trade"
+	"nonce": 4531235
+    "idr": 200000,
+    "order_type": "market",
+    "type": "buy"
+    ...
+    ...
+}
+```
 
 Response
 ```json
@@ -566,7 +594,7 @@ Request Body
 |`withdraw_address`|string|yes|Receiver address|a valid address||
 |`withdraw_amount`|numeric|yes|Amount to send|||
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
-|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_idwill be passed to callback call so your system can identify the request.d|||
+|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|||
 
 Response
 ```json
