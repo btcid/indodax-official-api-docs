@@ -283,7 +283,7 @@ This method is for opening a new order
 > 
 > As per 19 July 2022,
 > - You may experienced under filled order if using `idr` parameter when create buy order. to solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
-> - Now You can create buy/sell order using coin eg:  `btc` as amount.
+> - Now You can create buy limit order using coin (eg: `btc`) as amount.
 > - Now You can use `order_type : "market"` to create market order.
 >
 > ℹ️ **Information**
@@ -308,30 +308,37 @@ Request Body
 |`btc`|numeric|required on selling coin. required on limit buy|amount of coin to buy/sell|||
 |`order_type`|string|optional|type of order|limit/market|limit|
 
-*Sample Payload for limit order using coin amount:
+Sample Payload for limit order using idr amount:
 ```javascript
 {
 	"method": "trade"
 	"nonce": 4531235
-    "btc": 0.001,
-    "order_type": "limit",
-    "price": 500000,
-    "type": "buy"
-    ...
-    ...
+        "idr": 100000,
+	"price": 500000,
+	"type": "buy"
+}
+```
+
+*Sample Payload for limit order using coin amount:
+```javascript
+{
+	"method": "trade",
+	"nonce": 4531235,
+        "btc": 0.001,
+	"order_type": "limit",
+	"price": 500000,
+	"type": "buy"
 }
 ```
 
 *Sample Payload for market order:
 ```javascript
 {
-	"method": "trade"
-	"nonce": 4531235
-    "idr": 200000,
-    "order_type": "market",
-    "type": "buy"
-    ...
-    ...
+	"method": "trade",
+	"nonce": 4531235,
+    	"idr": 200000,
+    	"order_type": "market",
+    	"type": "buy"
 }
 ```
 
@@ -348,6 +355,8 @@ Response
     }
 }
 ```
+
+nb : *effectively per 19 july 2022
 
 #### Trade History Endpoints
 This method gives information about transaction in buying and selling history.
