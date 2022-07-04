@@ -282,7 +282,7 @@ This method is for opening a new order
 > ℹ️ **Important Updates**
 > 
 > As per 19 July 2022,
-> - You may experienced under filled order if using `idr` parameter when create buy order. To solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
+> - You may experienced under filled order if using `idr` parameter when create buy order. To solve this issue, simply send `btc` instead `idr` and use `order_type : "limit"`.
 > - Now you can create buy limit order using coin (eg: `btc`) as amount.
 > - Now you can use `order_type : "market"` to create market order.
 > - You can try the new API version by creating account in https://demo-indodax.com. You will receive balances for some currencies, approximately 1 minute after successfully sign-up.
