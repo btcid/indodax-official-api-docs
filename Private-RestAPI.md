@@ -307,8 +307,7 @@ Request Body
 |`type`|string|yes|transaction type (buy or sell)|||
 |`price`|numeric|required on limit order|order price|buy/sell||
 |`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|||
-|`btc`|numeric|required for limit buy order with amount in coin
- |amount of coin to buy/sell|||
+|`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|||
 |`order_type`|string|optional|type of order|limit/market|limit|
 
 **Notes**
