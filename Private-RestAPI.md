@@ -282,9 +282,10 @@ This method is for opening a new order
 > ℹ️ **Important Updates**
 > 
 > As per 19 July 2022,
-> - You may experienced under filled order if using `idr` parameter when create buy order. to solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
-> - Now You can create buy limit order using coin (eg: `btc`) as amount.
-> - Now You can use `order_type : "market"` to create market order.
+> - You may experienced under filled order if using `idr` parameter when create buy order. To solve this problems, simply send `btc` instead `idr` and use `order_type : "limit"`.
+> - Now you can create buy limit order using coin (eg: `btc`) as amount.
+> - Now you can use `order_type : "market"` to create market order.
+> - You can try the new version in https://demo-indodax.com
 >
 > ℹ️ **Information**
 > 
@@ -304,9 +305,14 @@ Request Body
 |`pair`|string|yes|Pair to get the information from| btc_idr, ltc_btc, doge_btc, etc| |
 |`type`|string|yes|transaction type (buy or sell)|||
 |`price`|numeric|required on limit order|order price|buy/sell||
-|`idr`|numeric|required on market order buy for idr pair|amount of rupiah to buy coin|||
-|`btc`|numeric|required on selling coin. required on limit buy|amount of coin to buy/sell|||
+|`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|||
+|`btc`|numeric|required for limit buy order with amount in coin
+ |amount of coin to buy/sell|||
 |`order_type`|string|optional|type of order|limit/market|limit|
+
+Notes :
+- Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
+- Currently MARKET BUY order only support amount in `idr`.
 
 Sample Payload for limit order using idr amount:
 ```javascript
