@@ -310,7 +310,7 @@ Request Body
  |amount of coin to buy/sell|||
 |`order_type`|string|optional|type of order|limit/market|limit|
 
-Notes :
+**Notes**
 - Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
 - Currently MARKET BUY order only support amount in `idr`.
 
