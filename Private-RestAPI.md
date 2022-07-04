@@ -1,3 +1,5 @@
+
+
 **Table of Contents**
 - [General API Information](#general-api-information)
 - [Error Codes](#error-codes)
@@ -277,6 +279,15 @@ Response
 #### Trade Endpoints
 This method is for opening a new order
 
+> ℹ️ **Important Updates**
+> 
+> As per 19 July 2022,
+> - You may experience under filled order if using `idr` parameter when create buy order. To solve this issue, simply send `btc` instead `idr` and use `order_type : "limit"`.
+> - You can create buy limit order using coin (eg: `btc`) as amount.
+> - You can use `order_type : "market"` to create market order.
+> - You can try the new API version by creating account in https://demo-indodax.com. You will receive balance for some coins, approximately 1 minute after successfully sign-up.
+> - These coins can be used for trade testing, but can't be withdrawn. You also can't deposit any coin to demo-indodax.com.
+>
 > ℹ️ **Information**
 > 
 > We also have a rate limit feature in place for the trade api. If you call the trade api for the same `pair` for more than 10 times in a second you would get the following error and would not be able to trade that `pair` for the next 5 seconds
@@ -294,9 +305,48 @@ Request Body
 |`method`| string |yes|Specify the method you want to call |trade| |
 |`pair`|string|yes|Pair to get the information from| btc_idr, ltc_btc, doge_btc, etc| |
 |`type`|string|yes|transaction type (buy or sell)|||
-|`price`|numeric|yes|order price|buy/sell||
-|`idr`|numeric|required on buying coin|amount of rupiah to buy coin|||
-|`btc`|numeric|required on selling coin|amount of coin to sell|||
+|`price`|numeric|required on limit order|order price|buy/sell||
+|`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|||
+|`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|||
+|`order_type`|string|optional|type of order|limit/market|limit|
+
+**Notes**
+- Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
+- Currently MARKET BUY order only support amount in `idr`.
+
+Sample Payload for limit order using idr amount:
+```javascript
+{
+	"method": "trade"
+	"nonce": 4531235
+        "idr": 100000,
+	"price": 500000,
+	"type": "buy"
+}
+```
+
+*Sample Payload for limit order using coin amount:
+```javascript
+{
+	"method": "trade",
+	"nonce": 4531235,
+        "btc": 0.001,
+	"order_type": "limit",
+	"price": 500000,
+	"type": "buy"
+}
+```
+
+*Sample Payload for market order:
+```javascript
+{
+	"method": "trade",
+	"nonce": 4531235,
+    	"idr": 200000,
+    	"order_type": "market",
+    	"type": "buy"
+}
+```
 
 Response
 ```json
@@ -311,6 +361,8 @@ Response
     }
 }
 ```
+
+nb : *effectively per 19 july 2022
 
 #### Trade History Endpoints
 This method gives information about transaction in buying and selling history.
@@ -557,7 +609,7 @@ Request Body
 |`withdraw_address`|string|yes|Receiver address|a valid address||
 |`withdraw_amount`|numeric|yes|Amount to send|||
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
-|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_idwill be passed to callback call so your system can identify the request.d|||
+|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|||
 
 Response
 ```json
