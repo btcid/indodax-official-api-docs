@@ -286,7 +286,7 @@ This method is for opening a new order
 > - Now you can create buy limit order using coin (eg: `btc`) as amount.
 > - Now you can use `order_type : "market"` to create market order.
 > - You can try the new API version by creating account in https://demo-indodax.com. You will receive balance for some coins, approximately 1 minute after successfully sign-up.
-> - These coins can be used for trade testing, and can't be withdrawn. You also can't deposit any coin to demo-indodax.com.
+> - These coins can be used for trade testing, but can't be withdrawn. You also can't deposit any coin to demo-indodax.com.
 >
 > ℹ️ **Information**
 > 
