@@ -281,7 +281,7 @@ This method is for opening a new order
 
 > ℹ️ **Important Updates**
 > 
-> As per 19 July 2022,
+> As per 10 September 2022,
 > - You may experience under filled order if using `idr` parameter when create buy order. To solve this issue, simply send `btc` instead `idr` and use `order_type : "limit"`.
 > - You can create buy limit order using coin (eg: `btc`) as amount.
 > - You can use `order_type : "market"` to create market order.
@@ -362,7 +362,7 @@ Response
 }
 ```
 
-nb : *effectively per 19 july 2022
+nb : *effectively per 10 september 2022
 
 #### Trade History Endpoints
 This method gives information about transaction in buying and selling history.
