@@ -259,7 +259,7 @@ Request:
 	"params": {
 		"channel": "market:order-book-btcidr"
 	},
-	"id": 4
+	"id": 4 // is a random request ID specified by websocket client
 }
 ```
 
