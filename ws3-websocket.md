@@ -1,3 +1,4 @@
+
 # WS3 WebSocket Documentation
 
 This documentation provide examples on how to use **Indodax WS3 WebSocket** which replaces the **deprecated** [K-Line Web Socket](https://github.com/btcid/indodax-official-api-docs/blob/master/kline-websocket.md).
@@ -11,6 +12,7 @@ This documentation provide examples on how to use **Indodax WS3 WebSocket** whic
   - [Chart Data](#chart-data)
   - [Market Summary](#market-summary)
   - [Trade Activity](#trade-activity)
+  - [Orderbook](#orderbook)
 - [Unsubscribing from Channel](#unsubscribing-from-channel)
 - [Get Data from Specific Offset and Subscribe](#get-data-from-specific-offset-and-subscribe)
 
@@ -242,6 +244,60 @@ Received Message:
             "offset": 243556
         }
     }
+}
+```
+
+### Orderbook
+
+Use `market:order-book-<pair>` as `channel`.
+
+Request:
+
+```json
+{
+	"method": 1,
+	"params": {
+		"channel": "market:order-book-btcidr"
+	},
+	"id": 4 // is a random request ID specified by websocket client
+}
+```
+
+Response:
+
+```json
+{
+	"result": {
+		"channel": "market:order-book-btcidr",
+		"data": {
+			"data": {
+				"pair": "btcidr",
+				"ask": [{
+						"btc_volume": "0.11035661",
+						"idr_volume": "35251984",
+						"price": "319437000"
+					},
+					{
+						"btc_volume": "0.20000000",
+						"idr_volume": "63950800",
+						"price": "319754000"
+					}
+				],
+				"bid": [{
+						"btc_volume": "0.61427265",
+						"idr_volume": "196220798",
+						"price": "319436000"
+					},
+					{
+						"btc_volume": "0.00697822",
+						"idr_volume": "2228655",
+						"price": "319373000"
+					}
+				]
+			},
+			"offset": 67409
+		}
+	}
 }
 ```
 
