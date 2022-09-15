@@ -380,7 +380,7 @@ Request Body
 |`since`|timestamp|no|start time||unix time|
 |`end`|timestamp|no|end time||unix time|
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
-|`order_id`|numeric|no|order id|59636253||
+|`order_id`|numeric|no|order id|||
 
 Response
 ```json
