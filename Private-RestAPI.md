@@ -1,5 +1,6 @@
 
 
+
 **Table of Contents**
 - [General API Information](#general-api-information)
 - [Error Codes](#error-codes)
@@ -373,12 +374,13 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |tradeHistory||
 |`count`|numeric|no|number of transaction which will be displayed||1000|
-|`from_id`|numeric|no|first ID||0|
-|`end_id`|numeric|no|end ID||0|
+|`from_id`|numeric|no|first trade ID|||
+|`end_id`|numeric|no|end trade ID|||
 |`order`|string|no|sort by|asc / desc|desc|
 |`since`|timestamp|no|start time||unix time|
 |`end`|timestamp|no|end time||unix time|
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
+|`order_id`|numeric|no|order id|59636253||
 
 Response
 ```json
