@@ -99,7 +99,7 @@ If you want to get all pair for each interval, you can susbscribe the data with 
 ```sh
 #Request
 {"req":"btcidr.kline.1m", "id":"2"}
-#it will automaticly get data started at 00:00 AM today
+#it will automatically get data started at 00:00 AM today
 
 {"req":"btcidr.kline.1m", "from":1569607200, "to":1569842641, "id":"2"}
 #it will get data started from 1569607200 to 1569842641 in unixtime

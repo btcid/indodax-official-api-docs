@@ -85,7 +85,7 @@ Sample Payload below:
 **Serious trading is about timing.** Networks can be unstable and unreliable, which can lead to requests taking varying amounts of time to reach the servers. With `recvWindow`, you can specify that the request must be processed within a certain number of milliseconds or be rejected by the server.
 
 ### SIGNED Endpoint Examples for POST getInfo
-Here is a step-by-step example of how to send a vaild signed payload from the
+Here is a step-by-step example of how to send a valid signed payload from the
 Linux command line using. `curl`
 
 | Key | Value
@@ -164,8 +164,8 @@ All request sent with Request body
 | Name | Type | Mandatory | Description |
 |-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |
-|`timestamp`| timestamp in milisecond | optional when sending request using `nonce` | The millisecond timestamp of when the request was created and sent. Default value is 5000 (milliseconds).|
-|`recvWindow`| timestamp in milisecond | no | This parameter is optional when you sending request using timestamp. The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds).|
+|`timestamp`| timestamp in millisecond | optional when sending request using `nonce` | The millisecond timestamp of when the request was created and sent. Default value is 5000 (milliseconds).|
+|`recvWindow`| timestamp in millisecond | no | This parameter is optional when you sending request using timestamp. The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds).|
 |`nonce`|int|optional when sending request using `timestamp`|An increment integer. For example if the last request's nonce is 1000, the next request should be 1001 or a larger number.
 
 #### Get Info Endpoint
@@ -688,7 +688,7 @@ Response
 ```
 
 #### Check Downline Endpoints
-This method is for check wheter email exists in current user downline or not 
+This method is for check whether email exists in current user downline or not 
 return is 1 or 0.
 1 means this email is exists in current user downline
 0 means email doesn't exists in current user downline
@@ -709,7 +709,7 @@ Response
 ```
 
 #### Create Voucher Endpoints
-This method used to generate Indodax voucher programmatically. To be able to use this method you need to be a partner and sign official aggreement between you and Indodax.
+This method used to generate Indodax voucher programmatically. To be able to use this method you need to be a partner and sign official agreement between you and Indodax.
 
 Request Body
 
