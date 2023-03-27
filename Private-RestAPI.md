@@ -529,7 +529,8 @@ Response
             "remain_rp": "336058",
             "submit_time": "1578648363",
             "finish_time": "1578649332",
-            "status": "cancelled"
+            "status": "cancelled",
+            "receive_idr": "336058",
         }
     }
 }
