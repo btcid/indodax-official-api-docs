@@ -305,10 +305,10 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |trade| |
 |`pair`|string|yes|Pair to get the information from| btc_idr, ltc_btc, doge_btc, etc| |
-|`type`|string|yes|transaction type (buy or sell)|||
-|`price`|numeric|required on limit order|order price|buy/sell||
-|`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|||
-|`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|||
+|`type`|string|yes|transaction type (buy or sell)|buy/sell||
+|`price`|numeric|required on limit order|order price|5000000||
+|`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|1000000||
+|`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|0.001||
 |`order_type`|string|optional|type of order|limit/market|limit|
 
 **Notes**
@@ -471,7 +471,7 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |orderHistory||
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
-|`count`|int|no||||
+|`count`|int|no|number of transaction which will be displayed||1000|
 |`from`|int|no||||
 
 Response
@@ -514,7 +514,7 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |getOrder||
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
-|`order_id`|int|yes|Order ID|||
+|`order_id`|int|yes|Order ID|59639504||
 
 Response
 ```json
@@ -535,6 +535,26 @@ Response
     }
 }
 ```
+Response for `refund order done`
+```json
+{
+    "success": 1,
+    "return": {
+        "order": {
+            "order_id": "59639504",
+            "price": "100207000",
+            "type": "buy",
+            "order_rp": "336058",
+            "remain_rp": "336058",
+            "submit_time": "1578648363",
+            "finish_time": "1578649332",
+            "status": "cancelled",
+            "receive_idr": "336058",
+	    "refund_idr": "3866"
+        }
+    }
+}
+```
 
 #### Cancel Order Endpoints
 This method is for canceling an existing open order.
@@ -545,7 +565,7 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |cancelOrder||
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
-|`order_id`|int|yes|Order ID|||
+|`order_id`|int|yes|Order ID|10.00000000||
 |`type`|int|yes|Transaction type|buy / sell||
 
 Response
@@ -610,7 +630,7 @@ Request Body
 |`currency`|string|yes|Currency to withdraw|btc, ltc, doge, eth, etc||
 |`network`|string|yes|Currency network if exist|erc20, trc20, bep2, bep20||
 |`withdraw_address`|string|yes|Receiver address|a valid address||
-|`withdraw_amount`|numeric|yes|Amount to send|||
+|`withdraw_amount`|numeric|yes|Amount to send|10.00000000||
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
 |`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|||
 
