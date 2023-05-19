@@ -656,9 +656,10 @@ Callback Parameter Sent to Client
 |-|-|
 |request_id|request_id from your request|
 |withdraw_currency|currency from your request|
-|withdraw_address|withdraw_address from your request|
+|withdraw_address|crypto address withdraw from your request|
 |withdraw_amount|withdraw_amount from your request|
 |withdraw_memo|withdraw_memo from your request (if any)|
+|withdraw_username|username withdraw from your request|
 |requester_ip|requester_ip of the request|
 |request_date|time the request submitted |
 
