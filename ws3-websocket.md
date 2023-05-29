@@ -13,22 +13,28 @@ This documentation provide examples on how to use **Indodax WS3 WebSocket** whic
   - [Market Summary](#market-summary)
   - [Trade Activity](#trade-activity)
   - [Orderbook](#orderbook)
+  	 - [Streaming Result](#streaming-result)
 - [Unsubscribing from Channel](#unsubscribing-from-channel)
 - [Get Data from Specific Offset and Subscribe](#get-data-from-specific-offset-and-subscribe)
 
 ## General Information
 
-WS3 base URL is:
-
-```text
-wss://ws3.indodax.com/ws/
-```
+| **Environment**  | **WS3 base URL**               | **Static Token**												|
+| ---------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Production       | wss://ws3.indodax.com/ws/      | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5NDY2MTg0MTV9.UR1lBM6Eqh0yWz-PVirw1uPCxe60FdchR8eNVdsskeo |
+| Demo             | wss://ws3.demo-indodax.com/ws/ | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5NDY2MTg0MTV9.UR1lBM6Eqh0yWz-PVirw1uPCxe60FdchR8eNVdsskeo |
 
 After connected, you will have to **authenticate** yourself using request provided in [Authentication](#authentication) section below to make further request.
 
 The `id` field in request or response is used as an identifier to uniquely identify them.
 
 ## Authentication
+
+Connect to Postman using WS3 base URL by clicking connect, until the connect button changes to disconnect.  
+
+Send request after insert message field with `id` and `static token` as shown below
+
+![auth and connect](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/af1c5427-97f8-414f-8e33-c17f530f58bc)
 
 Request:
 
@@ -249,9 +255,20 @@ Received Message:
 
 ### Orderbook
 
-Use `market:order-book-<pair>` as `channel`.
+To do streaming for btcidr pair, you needs to submit message using `market:order-book-<pair>` as `channel`. 
+
+Send request so it will give the following response. 
+
+![orderbook](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/55a204ff-c0d0-4508-9da5-b469d61eb611)
 
 Request:
+
+| **FIELD** | **TYPE**         | **DESCRIPTION**                                              | **MANDATORY** | **DEFAULT** |
+| --------- | ---------------- | ------------------------------------------------------------ | ------------- | ----------- |
+| method    | string           | specify the method you want to call                          | yes           |             |
+| params    | application/json | data type of the received response                           | yes           |             |
+| channel   | string           | pair information to be subscribed `market:order-book-<pair>` | yes           | ““          |
+| id        | int              | is a random request ID specified by websocket client         | yes           | ““          |
 
 ```json
 {
@@ -264,6 +281,21 @@ Request:
 ```
 
 Response:
+
+| **FIELD**      | **TYPE** | **DESCRIPTION**                   | **MANDATORY** | **DEFAULT** |
+| -------------- | -------- | --------------------------------- | ------------- | ----------- |
+| result         | json     | result subscribe/streaming        | yes           |             |
+| channel        | string   | pair information to be subscribed | yes           |             |
+| data           | json     | response data                     | yes           |             |
+| data.pair      | string   | btc / idr / coin name             | yes           |             |
+| data.ask       | json     | required on limit order           | yes           |             |
+| ask.btc_volume | float    | trading volume                    | yes           |             |
+| ask.idr_volume | float    | trading volume                    | yes           |             |
+| ask.price      | numeric  | order pice                        | yes           |             |
+| bid.btc_volume | float    | trading volume                    | yes           |             |
+| bid.idr_volume | float    | trading volume                    | yes           |             |
+| bid.price      | numeric  | order price                       | yes           |             |
+| offset         | int      | offset of the data                | yes           |             |
 
 ```json
 {
@@ -300,6 +332,14 @@ Response:
 	}
 }
 ```
+
+#### Streaming Result
+
+By following the steps starting from connecting to WS3 & authenticate using [Authentication](#authentication) section, then following the streaming steps 
+
+in the [Orderbook](#orderbook) section so you can get market data websocket as long as they are connected to the WS3. 
+
+![result](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/c622fead-e357-4dcf-a019-cf9640f22673)
 
 ## Unsubscribing from Channel
 
