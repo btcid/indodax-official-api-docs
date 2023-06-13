@@ -194,8 +194,12 @@ Response
             ...
         },
         "address": {
-            "btc": "1GE7CxpQT7zMRrdA5s6U53sHuuBbEijkYc",
-            "abyss": "0x4c7d06aa44220ebc321e1e3ad5457d5d6dbd927b"
+            "btc": "17wGZJCHfi1MJXY9V8NrbSwBYmUM2wXdER",
+            "1inch": "0xaDF5bF5e8fa6966451D6cf43A9dbe3f142695362"
+        },
+        "network": {
+            "btc": "mainnet",
+            "1inch": "erc20"
         },
         "user_id": "00001",
         "name": "Jhon Doe",
@@ -613,7 +617,7 @@ Response
 ```
 
 #### Withdraw Coin Endpoints
-This method is for withdrawing assets (except IDR).
+This method is for withdrawing assets (except IDR). You can  use  `address` and [username](https://github.com/btcid/indodax-official-api-docs/blob/master/Private-RestAPI.md#withdraw-coin-by-username) option when sending crypto via TAPI
 
 To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error. 
 
@@ -659,6 +663,82 @@ Callback Parameter Sent to Client
 |withdraw_address|withdraw_address from your request|
 |withdraw_amount|withdraw_amount from your request|
 |withdraw_memo|withdraw_memo from your request (if any)|
+|requester_ip|requester_ip of the request|
+|request_date|time the request submitted |
+
+#### Withdraw Coin by Username
+
+Client can view and use `username` option when sending crypto via TAPI. When successfully receiving a response body with status `success = 1` so  client can confirm approve/reject withdraw via email received. Clik URL in the red box to confirm and green box to cancel request.
+
+![withdrawcoin](https://github.com/btcid/indodax-official-api-docs/blob/e793a41a9a9e173cd521518f9dcc480d259e08eb/assets/email_wd_username.jpg)
+
+> When client choose confirm request, the sender's coins will decrease and the receiver's coins will increase.
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |withdrawCoin||
+|`currency`|string|yes|Currency to withdraw|btc, ltc, doge, eth, etc||
+|`withdraw_amount`|numeric|yes|Amount to send|10.00000000||
+|`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
+|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|||
+|`withdraw_input_method`| |yes|Withdraw using method username or address |username||
+|`withdraw_username`|alphanumeric|yes|username withdraw from your request & followed by special character underscrore (_) or strip (-). Mandatory id withdraw_input_method = username |||
+
+Response success `Withdraw Username (BNB)`
+```json
+{
+    "success": 1,
+    "status": "wait",
+    "withdraw_currency": "aave",
+    "withdraw_address": ""
+    "withdraw_amount": "0.05000000",
+    "fee": "0.00000000",
+    "amount_after_fee": "0.05000000",
+    "submit_time": "1684723796",
+    "withdraw_id": "aave-163",
+    "txid": "",
+    "withdraw_username": "User_13"
+}
+```
+
+Response `Withdraw Username (BNB) with invalid Username`
+```json
+{
+    "success": 1,
+    "error" : "Username is not found!"
+    "error_code": ""
+}
+```
+
+Response `Withdraw Username (AAVE) 0 Coin`
+```json
+{
+    "success": 1,
+    "error" : "Can't make withdrawal with amount 0, input a larger withdraw_amount value"
+    "error_code": ""
+}
+```
+
+Response `Withdraw Username (AAVE) > Maksimum Coin per Day`
+```json
+{
+    "success": 1,
+    "error" : "Exceeded today's limit. Remain limit: 217.35817575 AAVE. To increase the limit, please contact customer service."
+}    
+```
+
+Callback Parameter Sent to Client
+
+|Parameter|Description|
+|-|-|
+|request_id|request_id from your request|
+|withdraw_currency|currency from your request|
+|withdraw_address||
+|withdraw_amount|withdraw_amount from your request|
+|withdraw_memo|withdraw_memo from your request (if any)|
+|withdraw_username|username withdraw from your request|
 |requester_ip|requester_ip of the request|
 |request_date|time the request submitted |
 
