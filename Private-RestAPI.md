@@ -668,11 +668,14 @@ Callback Parameter Sent to Client
 
 #### Withdraw Coin by Username
 
-Client can view and use `username` option when sending crypto via TAPI. When successfully receiving a response body with status `success = 1` so  client can confirm approve/reject withdraw via email received. Clik URL in the red box to confirm and green box to cancel request.
+Client can view and use `username` option when sending crypto via TAPI. If client withdraw from TAPI by Indodax `username`, there’s no fee **(fee=0)**. 
+
+When successfully receiving a response body with status `success = 1` so  client can confirm approve/reject withdraw via email received. Clik URL in the red box to confirm and green box to cancel request.
 
 ![withdrawcoin](https://github.com/btcid/indodax-official-api-docs/blob/e793a41a9a9e173cd521518f9dcc480d259e08eb/assets/email_wd_username.jpg)
 
-> When client choose confirm request, the sender's coins will decrease and the receiver's coins will increase.
+> - When client choose confirm request, the sender's coins will decrease and the receiver's coins will increase. 
+> - Withdraw fee from TAPI by Indodax Username = 0
 
 Request Body
 
