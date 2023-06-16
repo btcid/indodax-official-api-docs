@@ -619,6 +619,8 @@ Response
 #### Withdraw Coin Endpoints
 This method is for withdrawing assets (except IDR). You can  use  `address` and [username](https://github.com/btcid/indodax-official-api-docs/blob/master/Private-RestAPI.md#withdraw-coin-by-username) option when sending crypto via TAPI
 
+If client withdraw from TAPI by  `internal address`, there’s no fee **(fee=0)**. 
+
 To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error. 
 
 You also need to prepare a Callback URL. Callback URL is a URL that our system will call to verify your withdrawal requests. Various parameters will be sent to Callback URL, make sure to check this information on your server side. If all the data is correct, print out a string “ok”  (without quotes). We will continue the request if only we receive “ok” (without quotes) response, otherwise the request will be failed. 
@@ -668,11 +670,13 @@ Callback Parameter Sent to Client
 
 #### Withdraw Coin by Username
 
-Client can view and use `username` option when sending crypto via TAPI. When successfully receiving a response body with status `success = 1` so  client can confirm approve/reject withdraw via email received. Clik URL in the red box to confirm and green box to cancel request.
+Client can view and use `username` option when sending crypto via TAPI. If client withdraw from TAPI by Indodax `username`, there’s no fee **(fee=0)**. 
+
+When successfully receiving a response body with status `success = 1` so  client can confirm approve/reject withdraw via email received. Clik URL in the red box to confirm and green box to cancel request.
 
 ![withdrawcoin](https://github.com/btcid/indodax-official-api-docs/blob/e793a41a9a9e173cd521518f9dcc480d259e08eb/assets/email_wd_username.jpg)
 
-> When client choose confirm request, the sender's coins will decrease and the receiver's coins will increase.
+> - When client choose confirm request, the sender's coins will decrease and the receiver's coins will increase.
 
 Request Body
 
