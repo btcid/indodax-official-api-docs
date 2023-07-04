@@ -603,8 +603,9 @@ Request Body
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |withdrawFee||
 |`currency`|string|yes|Currency for check withdraw fee |btc, ltc, doge, eth, etc||
+|`network`|string|no|Set optional network to see withdrawFee on coin with multiple network |erc20, trc20, bep2, bep20, etc||
 
-Response
+Response success
 ```json
 {
     "success": 1,
@@ -613,6 +614,15 @@ Response
         "withdraw_fee": 0.005,
         "currency": "eth"
     }
+}
+```
+
+Response with `invalid network`
+```json
+{
+    "success": 0,
+    "error" : "Invalid network, please fill with one of this erc20, trc20, bep20",
+    "error_code": ""
 }
 ```
 
