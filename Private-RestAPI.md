@@ -314,7 +314,7 @@ Request Body
 |`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|1000000||
 |`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|0.001||
 |`order_type`|string|optional|type of order|limit/market|limit|
-|`time_in_force`|string|optional|defines how long an order remains working till it is expired by the system|GTC,MOC,FOK|GTC|
+|`time_in_force`|string|optional|defines how long an order remains working till it is expired by the system|GTC,MOC|GTC|
 
 **Notes**
 - Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
@@ -329,7 +329,7 @@ Sample Payload for limit order using idr amount:
         "idr": 100000,
 	"price": 500000,
 	"type": "buy",
- 	"time_in_force": "MOC" // New field (GTC, MOC, FOK)
+ 	"time_in_force": "MOC" // New field (GTC, MOC)
 }
 ```
 
@@ -342,7 +342,7 @@ Sample Payload for limit order using idr amount:
 	"order_type": "limit",
 	"price": 500000,
 	"type": "buy",
-	"time_in_force": "MOC" // New field (GTC, MOC, FOK)
+	"time_in_force": "MOC" // New field (GTC, MOC)
 }
 ```
 
