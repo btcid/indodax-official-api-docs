@@ -314,10 +314,12 @@ Request Body
 |`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|1000000||
 |`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|0.001||
 |`order_type`|string|optional|type of order|limit/market|limit|
+|`time_in_force`|string|optional|defines how long an order remains working till it is expired by the system|GTC,MOC,FOK|GTC|
 
 **Notes**
 - Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
 - Currently MARKET BUY order only support amount in `idr`.
+- Trade Request from Trade API with `order_type = limit` and `time_in_force = MOC` specified will be rejected if price is better than top of book price.
 
 Sample Payload for limit order using idr amount:
 ```javascript
@@ -326,7 +328,8 @@ Sample Payload for limit order using idr amount:
 	"nonce": 4531235
         "idr": 100000,
 	"price": 500000,
-	"type": "buy"
+	"type": "buy",
+ 	"time_in_force": "MOC" // New field (GTC, MOC, FOK)
 }
 ```
 
@@ -338,7 +341,8 @@ Sample Payload for limit order using idr amount:
         "btc": 0.001,
 	"order_type": "limit",
 	"price": 500000,
-	"type": "buy"
+	"type": "buy",
+	"time_in_force": "MOC" // New field (GTC, MOC, FOK)
 }
 ```
 
@@ -352,6 +356,8 @@ Sample Payload for limit order using idr amount:
     	"type": "buy"
 }
 ```
+
+Positive case
 
 Response
 ```json
@@ -367,7 +373,31 @@ Response
 }
 ```
 
-nb : *effectively per 10 september 2022
+Negative case  
+
+Response `order_type = limit`
+```json
+{
+    "success": 0,
+    "error": "Order cancelled because it’s not maker."
+} 
+```
+
+Response `time_in_force = MOC`
+```json
+{
+    "success": 0,
+    "error": "Order cancelled because it’s not maker."
+} 
+```
+
+Response `limit in the money`
+```json
+{
+    "success": 0,
+    "error": "Order cancelled because it’s not maker."
+} 
+```
 
 #### Trade History Endpoints
 This method gives information about transaction in buying and selling history.
