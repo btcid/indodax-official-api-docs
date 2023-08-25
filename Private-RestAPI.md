@@ -601,6 +601,7 @@ Request Body
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
 |`order_id`|int|yes|Order ID|10.00000000||
 |`type`|int|yes|Transaction type|buy / sell||
+|`order_type`|string|optional|type of order|limit, stoplimit|limit|
 
 Response
 ```json
