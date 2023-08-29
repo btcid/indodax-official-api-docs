@@ -447,25 +447,36 @@ Request Body
 |`method`| string |yes|Specify the method you want to call |openOrders||
 |`pair`|string|no|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc||
 
-Response 
+Response `pair btc_idr`
 ```json
 {
     "success": 1,
     "return": {
         "orders": [
-            {
-                "order_id": "59639504",
-                "submit_time": "1578648363",
-                "price": "100207000",
-                "type": "buy",
-                "order_idr": "33605800",
-                "remain_idr": "33605800"
-            }
-        ]
+                {
+                    "order_id": "172",
+                    "submit_time": "1693226027",
+                    "price": "421004000",
+                    "type": "sell",
+                    "order_type": "limit",
+                    "order_btc": "0.02000000",
+                    "remain_btc": "0.00133450"
+                },
+                {
+                    "order_id": "173",
+                    "submit_time": "1693280465",
+                    "price": "421003000.00000000",
+                    "type": "buy",
+                    "order_type": "stoplimit",
+                    "order_idr": "1266293.00000000",
+                    "remain_idr": "1266293.00000000"
+                }
+            ]
+        }
     }
-}
 ```
-Response if pair is not set
+Response `if pair is not set`
+
 ```json
 {
     "success": 1,
@@ -473,22 +484,22 @@ Response if pair is not set
         "orders": {
             "btc_idr": [
                 {
-                    "order_id": "59639504",
-                    "submit_time": "1578648363",
-                    "price": "100207000",
-                    "type": "buy",
-                    "order_idr": "33605800",
-                    "remain_idr": "33605800"
-                }
-            ],
-            "npxs_idr": [
-                {
-                    "order_id": "666883",
-                    "submit_time": "1578641963",
-                    "price": "2",
+                    "order_id": "172",
+                    "submit_time": "1693226027",
+                    "price": "421004000",
                     "type": "sell",
-                    "order_npxs": "50000.00000000",
-                    "remain_npxs": "50000.00000000"
+                    "order_type": "limit",
+                    "order_btc": "0.02000000",
+                    "remain_btc": "0.00133450"
+                },
+                {
+                    "order_id": "173",
+                    "submit_time": "1693280465",
+                    "price": "421003000.00000000",
+                    "type": "buy",
+                    "order_type": "stoplimit",
+                    "order_idr": "1266293.00000000",
+                    "remain_idr": "1266293.00000000"
                 }
             ]
         }
@@ -601,6 +612,7 @@ Request Body
 |`pair`|string|yes|Pair to get the information from|btc_idr, ltc_btc, doge_btc, etc|btc_idr|
 |`order_id`|int|yes|Order ID|10.00000000||
 |`type`|int|yes|Transaction type|buy / sell||
+|`order_type`|string|optional|type of order|limit, stoplimit|limit|
 
 Response
 ```json
