@@ -259,7 +259,7 @@ To do streaming for btcidr pair, you needs to submit message using `market:order
 
 Send request so it will give the following response. 
 
-![orderbook](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/55a204ff-c0d0-4508-9da5-b469d61eb611)
+![orderbook](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/orderbooks.png)
 
 Request:
 
@@ -339,7 +339,7 @@ By following the steps starting from connecting to WS3 & authenticate using [Aut
 
 in the [Orderbook](#orderbook) section so you can get market data websocket as long as they are connected to the WS3. 
 
-![result](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/c622fead-e357-4dcf-a019-cf9640f22673)
+![result](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/results.png)
 
 ## Unsubscribing from Channel
 
