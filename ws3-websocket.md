@@ -34,7 +34,7 @@ Connect to Postman using WS3 base URL by clicking connect, until the connect but
 
 Send request after insert message field with `id` and `static token` as shown below
 
-![auth and connect](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/af1c5427-97f8-414f-8e33-c17f530f58bc)
+![auth and connect](https://github.com/btcid/indodax-official-api-docs/blob/b5c1f8f5fcc79469d3f790e417b9988ac7bd26bb/assets/auth.jpg)
 
 Request:
 
