@@ -34,7 +34,7 @@ Connect to Postman using WS3 base URL by clicking connect, until the connect but
 
 Send request after insert message field with `id` and `static token` as shown below
 
-![auth and connect](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/af1c5427-97f8-414f-8e33-c17f530f58bc)
+![auth and connect](https://github.com/btcid/indodax-official-api-docs/blob/b5c1f8f5fcc79469d3f790e417b9988ac7bd26bb/assets/auth.jpg)
 
 Request:
 
@@ -259,7 +259,7 @@ To do streaming for btcidr pair, you needs to submit message using `market:order
 
 Send request so it will give the following response. 
 
-![orderbook](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/55a204ff-c0d0-4508-9da5-b469d61eb611)
+![orderbook](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/orderbooks.png)
 
 Request:
 
@@ -339,7 +339,7 @@ By following the steps starting from connecting to WS3 & authenticate using [Aut
 
 in the [Orderbook](#orderbook) section so you can get market data websocket as long as they are connected to the WS3. 
 
-![result](https://github.com/fivinsadesla/MAP-Documentation/assets/129377108/c622fead-e357-4dcf-a019-cf9640f22673)
+![result](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/results.png)
 
 ## Unsubscribing from Channel
 
