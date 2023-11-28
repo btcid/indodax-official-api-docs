@@ -2,39 +2,25 @@
 
 ## Table of Contents
 
-- [Environment](#environment)
-	- [Http Request](#http-request)
-	- [Websocket](#websocket)
-- [Generate Private Token and Private Channel](#generate-private-token-and-private-channel)
+- [Request Private Token and Private Channel](#request-private-token-and-private-channel)
+	- [General Information](#generate-information)
+	- [Generate Private Token and Private Channel](#generate-private-token-and-private-channel)
+	- [Revoke Token](#revoke-token)
 - [Private Websocket](#private-websocket)
 	- [Authentication](#authentication)
 	- [Subscribing to Private Channel](#subscribing-to-private-channel)
 		- [Order Update Event](#order-update-event)
 
 
-## Environment
+## Request Private Token and Private Channel
 
-### Http Request
+### General Information
 
+#### Base URL
 | **Environment**  	| **Base URL**              									| **Description**																											|
 | -----------------	| ------------------------------------------- | ------------------------------------------------------------------- |
 | Production       	| https://indodax.com/ , https://btcapi.net   | Access for production. For https://btcapi.net need to be whitelist	|
 | Demo             	| https://demo-indodax.com/  	 								|	Access for demo.																										|
-
-### Websocket
-
-| **Environment**  	| **Base URL**              			| **Description**	|
-| -----------------	| ------------------------------- | --------------- |
-| Production       	| wss://ws3.indodax.com/ws/   		| 								|
-| Demo             	| wss://ws.demo-indodax.com/ws/  	|									|
-
-## Generate Private Token and Private Channel
-Provide private token and private channel to use in websocker
-
-#### PATH
-```
-POST {base_url}/api/private_ws/v1/generate_token
-```
 
 #### ENUM Definitions
 **Parameter client:**
@@ -46,6 +32,14 @@ POST {base_url}/api/private_ws/v1/generate_token
 | **Parameter**  	| **Type** 	| **Mandatory**	| **Description**			|
 | --------------	| --------- | ------------- |-------------------- |
 | `Sign`      			| string 		| no 						| `Sign` is required if request for client `tapi`. `Sign` Encrypted with method `HMAC-SHA512` using `tapi secret key`. (Request body (?param=val&param1=val1))   |
+
+### Generate Private Token and Private Channel
+Provide private token and private channel to use in websocker
+
+#### PATH
+```
+POST {base_url}/api/private_ws/v1/generate_token
+```
 
 #### Request Body
 | **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																																|
@@ -86,8 +80,60 @@ POST {base_url}/api/private_ws/v1/generate_token
 }
 ```
 
+### Revoke Token
+Provide revoke subscription token.
+
+#### PATH
+```
+POST {base_url}/api/private_ws/v1/revoke_token
+```
+
+#### Request Body
+| **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																																|
+| ----------------	| --------- | ------------- |------------------------------------------------------------------------------ |
+| `client` 					| string 		| yes 					| Specify the `client` you want to call  																				|
+| `tapi_key` 				| string 		| no	 					| `tapi_key` is required if `client=tapi` 																			|
+| `key`			 				| string 		| no	 					| `key` is required if `client=mobile`  																				|
+| `device_id`			 	| string 		| no	 					| `device_id` is required if `client=mobile`.  																	|
+| `device_info`			| string 		| no	 					| `device_info` is optional, if `client=mobile` you can include this parameter 	|
+| `token`						| string 		| yes	 					| send the subscription token you want to revoke 																|
+
+#### Response Body
+| **Parameter**  		| **Type** 	| **Description**																								|
+| -----------------	| --------- | ------------------------------------------------------------- |
+| success 					| int				| if success=1 and failed=0 																		|
+| return						| object		| 																															|
+| return.message 		| string		| Info that successs revoke token  															|
+| error							| string		| error message of request 																			|
+| error_code				| string		| type of error  																								|
+
+**Success Response**
+```json
+{
+	"success": 1,
+	"return": {
+		"message": "Success revoke Token",
+	}
+}
+```
+
+**Failed Response**
+```json
+{
+    "success": 0,
+    "error": "Invalid TAPI key",
+    "error_code": "invalid_tapi_key"
+}
+```
+
 ## Private Websocket
-Connect using [Websocket](#websocket) Base URL
+
+| **Environment**  	| **Base URL**              			| **Description**	|
+| -----------------	| ------------------------------- | --------------- |
+| Production       	| wss://ws3.indodax.com/ws/   		| 								|
+| Demo             	| wss://ws.demo-indodax.com/ws/  	|									|
+
+Connect using Environment Base URL.
 
 ### Authentication
 Send request message with field `id` and `token` you get from [Generate Private Token and Private Channel](#generate-private-token-and-private-channel).
