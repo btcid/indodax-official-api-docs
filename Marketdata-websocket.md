@@ -266,7 +266,7 @@ Request:
 | method    | string           | specify the method you want to call                          | yes           |             |
 | params    | application/json | data type of the received response                           | yes           |             |
 | channel   | string           | pair information to be subscribed `market:order-book-<pair>` | yes           | ““          |
-| id        | int              | is a random request ID specified by websocket client         | yes           | ““          |
+| id        | int              | is a random request ID specified by WebSocket client         | yes           | ““          |
 
 ```json
 {
@@ -274,7 +274,7 @@ Request:
 	"params": {
 		"channel": "market:order-book-btcidr"
 	},
-	"id": 4 // is a random request ID specified by websocket client
+	"id": 4 // is a random request ID specified by WebSocket client
 }
 ```
 
@@ -335,7 +335,7 @@ Response:
 
 By following the steps starting from connecting to Market Data & authenticate using [Authentication](#authentication) section, then following the streaming steps 
 
-in the [Orderbook](#orderbook) section so you can get Market Data Websocket as long as they are connected to the WS3. 
+in the [Orderbook](#orderbook) section so you can get Market Data WebSocket as long as they are connected to the WS3. 
 
 ![result](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/results.png)
 

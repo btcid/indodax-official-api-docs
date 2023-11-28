@@ -1,4 +1,4 @@
-# Private Websocket Documentation
+# Private WebSocket Documentation
 
 ## Table of Contents
 
@@ -6,7 +6,7 @@
 	- [General Information](#general-information)
 	- [Generate Private Token and Private Channel](#generate-private-token-and-private-channel)
 	- [Revoke Token](#revoke-token)
-- [Private Websocket](#private-websocket)
+- [Private WebSocket](#private-websocket)
 	- [Authentication](#authentication)
 	- [Subscribing to Private Channel](#subscribing-to-private-channel)
 		- [Order Update Event](#order-update-event)
@@ -126,7 +126,7 @@ POST {base_url}/api/private_ws/v1/revoke_token
 }
 ```
 
-## Private Websocket
+## Private WebSocket
 
 | **Environment**  	| **Base URL**              			| **Description**	|
 | -----------------	| ------------------------------- | --------------- |
