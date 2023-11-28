@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Request Private Token and Private Channel](#request-private-token-and-private-channel)
-	- [General Information](#generate-information)
+	- [General Information](#general-information)
 	- [Generate Private Token and Private Channel](#generate-private-token-and-private-channel)
 	- [Revoke Token](#revoke-token)
 - [Private Websocket](#private-websocket)
