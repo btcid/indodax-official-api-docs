@@ -22,19 +22,13 @@
 | Production       	| https://indodax.com/ , https://btcapi.net   | Access for production. For https://btcapi.net need to be whitelist	|
 | Demo             	| https://demo-indodax.com/  	 								|	Access for demo.																										|
 
-#### ENUM Definitions
-**Parameter client:**
-* tapi
-* mobile
-* web
-
 #### Request Header
 | **Parameter**  	| **Type** 	| **Mandatory**	| **Description**			|
 | --------------	| --------- | ------------- |-------------------- |
-| `Sign`      			| string 		| no 						| `Sign` is required if request for client `tapi`. `Sign` Encrypted with method `HMAC-SHA512` using `tapi secret key`. (Request body (?param=val&param1=val1))   |
+| `Sign`      		| string 		| yes 					| `Sign` Encrypted with method `HMAC-SHA512` using `tapi secret key`. (Request body (?param=val&param1=val1))   |
 
 ### Generate Private Token and Private Channel
-Provide private token and private channel to use in websocker
+Provide private token and private channel to use in WebSocket
 
 #### PATH
 ```
@@ -42,13 +36,10 @@ POST {base_url}/api/private_ws/v1/generate_token
 ```
 
 #### Request Body
-| **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																																|
-| ----------------	| --------- | ------------- |------------------------------------------------------------------------------ |
-| `client` 					| string 		| yes 					| Specify the `client` you want to call  																				|
-| `tapi_key` 				| string 		| no	 					| `tapi_key` is required if `client=tapi` 																			|
-| `key`			 				| string 		| no	 					| `key` is required if `client=mobile`  																				|
-| `device_id`			 	| string 		| no	 					| `device_id` is required if `client=mobile`.  																	|
-| `device_info`			| string 		| no	 					| `device_info` is optional, if `client=mobile` you can include this parameter 	|
+| **Parameter**  		| **Type** 	| **Mandatory**	| **Description**		| **Default** |
+| ----------------	| --------- | ------------- |------------------ | ----------- |
+| `client` 					| string 		| yes 					| Specified client	| `tapi`			|
+| `tapi_key` 				| string 		| yes	 					| API Key						| 						|
 
 #### Response Body
 | **Parameter**  		| **Type** 	| **Description**																								|
@@ -89,14 +80,11 @@ POST {base_url}/api/private_ws/v1/revoke_token
 ```
 
 #### Request Body
-| **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																																|
-| ----------------	| --------- | ------------- |------------------------------------------------------------------------------ |
-| `client` 					| string 		| yes 					| Specify the `client` you want to call  																				|
-| `tapi_key` 				| string 		| no	 					| `tapi_key` is required if `client=tapi` 																			|
-| `key`			 				| string 		| no	 					| `key` is required if `client=mobile`  																				|
-| `device_id`			 	| string 		| no	 					| `device_id` is required if `client=mobile`.  																	|
-| `device_info`			| string 		| no	 					| `device_info` is optional, if `client=mobile` you can include this parameter 	|
-| `token`						| string 		| yes	 					| send the subscription token you want to revoke 																|
+| **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																	| **Default** |
+| ----------------	| --------- | ------------- |------------------------------------------------ | ----------- |
+| `client` 					| string 		| yes 					| Specified client																| `tapi`			|
+| `tapi_key` 				| string 		| yes	 					| API Key																					| 						|
+| `token`						| string 		| yes	 					| send the subscription token you want to revoke	| 						|
 
 #### Response Body
 | **Parameter**  		| **Type** 	| **Description**																								|
