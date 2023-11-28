@@ -38,7 +38,7 @@ POST {base_url}/api/private_ws/v1/generate_token
 #### Request Body
 | **Parameter**  		| **Type** 	| **Mandatory**	| **Description**		| **Default** |
 | ----------------	| --------- | ------------- |------------------ | ----------- |
-| `client` 					| string 		| yes 					| Specified client	| `tapi`			|
+| `client` 					| string 		| yes 					| `tapi`						| `tapi`			|
 | `tapi_key` 				| string 		| yes	 					| API Key						| 						|
 
 #### Response Body
@@ -82,7 +82,7 @@ POST {base_url}/api/private_ws/v1/revoke_token
 #### Request Body
 | **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																	| **Default** |
 | ----------------	| --------- | ------------- |------------------------------------------------ | ----------- |
-| `client` 					| string 		| yes 					| Specified client																| `tapi`			|
+| `client` 					| string 		| yes 					| `tapi`																					| `tapi`			|
 | `tapi_key` 				| string 		| yes	 					| API Key																					| 						|
 | `token`						| string 		| yes	 					| send the subscription token you want to revoke	| 						|
 
