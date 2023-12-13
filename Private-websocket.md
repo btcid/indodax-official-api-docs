@@ -5,7 +5,6 @@
 - [Request Private Token and Private Channel](#request-private-token-and-private-channel)
 	- [General Information](#general-information)
 	- [Generate Private Token and Private Channel](#generate-private-token-and-private-channel)
-	- [Revoke Token](#revoke-token)
 - [Private WebSocket](#private-websocket)
 	- [Authentication](#authentication)
 	- [Subscribing to Private Channel](#subscribing-to-private-channel)
@@ -70,49 +69,14 @@ POST {base_url}/api/private_ws/v1/generate_token
     "error_code": "invalid_tapi_key"
 }
 ```
+#### Error Code
+| **error_code**  		| **Error**              										| **Description**									|
+| -----------------		| ------------------------------- 								| --------------- 									|
+| invalid_tapi_key 		| Invalid TAPI key  											| `tapi_key` not properly sent or empty `tapi_key`. |
+| invalid_credentials 	| Invalid credentials. API not found or session has expired.	| Invalid `tapi_key` or doesn't exist. 				|
+| bad_sign			 	| Invalid credentials. Bad sign.								| Invalid `tapi_secret` to Encrypt Sign request 	|
 
-### Revoke Token
-Provide revoke subscription token.
 
-#### PATH
-```
-POST {base_url}/api/private_ws/v1/revoke_token
-```
-
-#### Request Body
-| **Parameter**  		| **Type** 	| **Mandatory**	| **Description**																	| **Default** |
-| ----------------	| --------- | ------------- |------------------------------------------------ | ----------- |
-| `client` 					| string 		| yes 					| `tapi`																					| `tapi`			|
-| `tapi_key` 				| string 		| yes	 					| API Key																					| 						|
-| `token`						| string 		| yes	 					| send the subscription token you want to revoke	| 						|
-
-#### Response Body
-| **Parameter**  		| **Type** 	| **Description**																								|
-| -----------------	| --------- | ------------------------------------------------------------- |
-| success 					| int				| if success=1 and failed=0 																		|
-| return						| object		| 																															|
-| return.message 		| string		| Info that successs revoke token  															|
-| error							| string		| error message of request 																			|
-| error_code				| string		| type of error  																								|
-
-**Success Response**
-```json
-{
-	"success": 1,
-	"return": {
-		"message": "Success revoke Token",
-	}
-}
-```
-
-**Failed Response**
-```json
-{
-    "success": 0,
-    "error": "Invalid TAPI key",
-    "error_code": "invalid_tapi_key"
-}
-```
 
 ## Private WebSocket
 
@@ -161,9 +125,11 @@ Request Message:
 
 ```json
 {
+    "method": 1,
     "params": {
-      "channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31"
-    }
+        "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e"
+    },
+    "id": 2
 }
 ```
 
