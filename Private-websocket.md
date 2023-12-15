@@ -150,7 +150,6 @@ Response New Order:
 						"unfilledQty": "10000",
 						"executedQty": "0",
 						"price": "1",
-						"pairRebrand": "vcgidr",
 						"description": "VCG/IDR",
 						"status": "NEW",
 						"transactionTime": 1698130393714
@@ -166,7 +165,6 @@ Response New Order:
 						"unfilledQty": "10000",
 						"executedQty": "0",
 						"price": "1",
-						"pairRebrand": "vcgidr",
 						"description": "VCG/IDR",
 						"status": "NEW",
 						"transactionTime": 1698130393720
@@ -196,7 +194,6 @@ Response Fills Order:
 						"unfilledQty": "227.73699863",
 						"executedQty": "8.41569312",
 						"price": "394800000",
-						"pairRebrand": "btcidr",
 						"description": "BTC/IDR",
 						"status": "FILL",
 						"transactionTime": 1698130393714,
@@ -236,7 +233,6 @@ Response Cancel Order:
 						"unfilledQty": "10000",
 						"executedQty": "0",
 						"price": "1",
-						"pairRebrand": "elfidr",
 						"description": "ELF/IDR",
 						"status": "CANCELLED",
 						"transactionTime": 1698130393714
@@ -266,7 +262,6 @@ Response Done Order:
 						"unfilledQty": "0",
 						"executedQty": "0.00058623",
 						"price": "17005000",
-						"pairRebrand": "mkridr",
 						"description": "MKR/IDR",
 						"status": "DONE",
 						"transactionTime": 1698130393714
@@ -296,7 +291,6 @@ Response Rejected (FOK) Order:
 						"unfilledQty": "20",
 						"executedQty": "0",
 						"price": "0",
-						"pairRebrand": "ankridr",
 						"description": "ANKR/IDR",
 						"status": "REJECTED",
 						"transactionTime": 1698130393714
