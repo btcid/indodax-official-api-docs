@@ -55,8 +55,8 @@ Sample Payload below:
 
     |Permission | Allowed Methods|
     |-|-|
-    |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder |
-    |trade | trade, cancelOrder |
+    |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder, getOrderByClientOrderId |
+    |trade | trade, cancelOrder, cancelByClientOrderId |
     |withdraw | withdrawFeee, withdrawCoin |
     
 ## Signed (TRADE and USER_DATA) Endpoint Security
