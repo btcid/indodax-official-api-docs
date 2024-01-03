@@ -90,6 +90,9 @@ Connect using Environment Base URL.
 ### Authentication
 Send request message with field `id` and `token` you get from [Generate Private Token and Private Channel](#generate-private-token-and-private-channel).
 
+
+#### Success Response
+
 Request Message:
 
 ```json
@@ -114,6 +117,32 @@ Response:
     }
 }
 ```
+
+#### Expired Token
+
+Request Message:
+
+```json
+{
+    "params": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIifQ.D4YxclnNWCRH6w47MNV9XcbpKT4aLrMboLg6DzCwm1M"
+    },
+    "id": 1
+}
+```
+Response:
+
+```json
+{
+    "id": 1,
+    "error": {
+        "code": 109,
+        "message": "token expired"
+    }
+}
+```
+
+When your token has expired, you will need to generate a new token. 
 
 ### Subscribing to Private Channel
 
