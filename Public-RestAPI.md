@@ -20,7 +20,7 @@ These are open data for public. It doesn't need an API key to call these methods
  - All time and timestamp related fields are in milliseconds.
 
 ## Limit
-Public API rate limited to 180request/minute.  
+Public API rate limited to 180request/minute.
 
 ## Server Time
 Provide server time on exchange
@@ -246,15 +246,27 @@ Provide Volume price Buy and Sell on each pair in exchange
 Provide OHLC history data
 #### Request
 ```
-/tradingview/history_v2?from=1698742200&symbol=IDXIDR&tf=15&to=1699347009
+/tradingview/history_v2?from=1698742200&symbol=$pair_id&tf=15&to=1699347009
 ```
 ##### Parameter 
 | Name | Type | Mandatory | Description |
 | ------ | ------ | ------ | ------ |
 | from | Int | Required| beginning of time frame (unixtimestamp), Example: 1698742200 |
 | to | Int | Required| end of time frame (unixtimestamp), Example: 1699347009 |
-| tf | Int | Required| time frame range in minute, Example: 1 -> 1 minute, 5 -> 5 minute, 15 -> 15 menute |
-| symbol | string | Required| Example: `BTCIDR`, `ETHIDR`, `IDXIDR`. For specific pair id please use Response from API [`/api/pairs`](#pairs) |
+| tf | String | Required| time frame range in minute, day, or week (see [`Timeframe List`](#timeframe-list)) |
+| symbol | String | Required| Example: `BTCIDR`, `ETHIDR`, `IDXIDR`. For specific pair id please use Response from API [`/api/pairs`](#pairs) |
+
+##### Timeframe List
+| Value | Description |
+| ------ | ------ |
+| 1 | 1 minute time frame |
+| 15 | 15 minute time frame |
+| 30 | 30 minute time frame |
+| 60 | 60 minute / 1 Hour time frame |
+| 240 | 240 minute / 4 Hours time frame |
+| 1D | 1 Day time frame |
+| 3D | 3 Day time frame |
+| 3W | 3 Week time frame |
 
 #### Response
 ```json
@@ -283,149 +295,5 @@ Provide OHLC history data
     "Close": 0.9996,
     "Volume": "0"
   },
-  {
-    "Time": 1699331400,
-    "Open": 0.9996,
-    "High": 0.9996,
-    "Low": 0.9996,
-    "Close": 0.9996,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699332300,
-    "Open": 0.9996,
-    "High": 0.9997,
-    "Low": 0.9996,
-    "Close": 0.9997,
-    "Volume": "18276.00000000"
-  },
-  {
-    "Time": 1699333200,
-    "Open": 0.9997,
-    "High": 0.9997,
-    "Low": 0.9997,
-    "Close": 0.9997,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699334100,
-    "Open": 0.9997,
-    "High": 0.9997,
-    "Low": 0.9997,
-    "Close": 0.9997,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699335000,
-    "Open": 1,
-    "High": 1.0002,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "101505.00000000"
-  },
-  {
-    "Time": 1699335900,
-    "Open": 1.0004,
-    "High": 1.0004,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "116834.00000000"
-  },
-  {
-    "Time": 1699336800,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699337700,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699338600,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699339500,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699340400,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699341300,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699342200,
-    "Open": 0.9999,
-    "High": 0.9999,
-    "Low": 0.9999,
-    "Close": 0.9999,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699343100,
-    "Open": 1.0003,
-    "High": 1.0003,
-    "Low": 1.0003,
-    "Close": 1.0003,
-    "Volume": "14685.00000000"
-  },
-  {
-    "Time": 1699344000,
-    "Open": 1.0001,
-    "High": 1.0003,
-    "Low": 1.0001,
-    "Close": 1.0003,
-    "Volume": "47480.00000000"
-  },
-  {
-    "Time": 1699344900,
-    "Open": 1.0003,
-    "High": 1.0003,
-    "Low": 1.0003,
-    "Close": 1.0003,
-    "Volume": "13480.00000000"
-  },
-  {
-    "Time": 1699345800,
-    "Open": 1.0003,
-    "High": 1.0003,
-    "Low": 1.0003,
-    "Close": 1.0003,
-    "Volume": "0"
-  },
-  {
-    "Time": 1699346700,
-    "Open": 1.0003,
-    "High": 1.0003,
-    "Low": 1.0003,
-    "Close": 1.0003,
-    "Volume": "0"
-  }
 ]
 ```
