@@ -201,6 +201,14 @@ Response
             "btc": "mainnet",
             "1inch": "erc20"
         },
+        "memo_is_required": {
+            "btc": {
+                "mainnet": false
+            },
+            "1inch": {
+                "erc20": false
+            },
+        },
         "user_id": "00001",
         "name": "Jhon Doe",
         "email": "jhonDoe@mail.com",
