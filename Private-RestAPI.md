@@ -207,7 +207,7 @@ Response
             },
             "1inch": {
                 "erc20": false
-            },
+            }
         },
         "user_id": "00001",
         "name": "Jhon Doe",
