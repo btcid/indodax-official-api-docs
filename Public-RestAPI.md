@@ -266,7 +266,7 @@ Provide OHLC history data
 | 240 | 240 minute / 4 Hours time frame |
 | 1D | 1 Day time frame |
 | 3D | 3 Day time frame |
-| 3W | 3 Week time frame |
+| 1W | 1 Week time frame |
 
 #### Response
 ```json
