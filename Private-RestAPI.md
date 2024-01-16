@@ -195,11 +195,32 @@ Response
         },
         "address": {
             "btc": "17wGZJCHfi1MJXY9V8NrbSwBYmUM2wXdER",
-            "1inch": "0xaDF5bF5e8fa6966451D6cf43A9dbe3f142695362"
+            "1inch": "0xaDF5bF5e8fa6966451D6cf43A9dbe3f142695362",
+            "eth": "0xa6fd81330501442e8dff403f966b6e023a53763e"
         },
         "network": {
             "btc": "mainnet",
-            "1inch": "erc20"
+            "1inch": "erc20",
+            "eth": [
+                "eth",
+                "arb",
+                "op",
+                "base"
+            ]
+        },
+        "memo_is_required": {
+            "btc": {
+                "mainnet": false
+            },
+             "1inch": {
+                "erc20": false
+            },
+            "eth": {
+                "eth": false,
+                "arb": false,
+                "op": false,
+                "base": false
+            }
         },
         "user_id": "00001",
         "name": "Jhon Doe",
