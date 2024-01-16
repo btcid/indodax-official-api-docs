@@ -55,8 +55,8 @@ Sample Payload below:
 
     |Permission | Allowed Methods|
     |-|-|
-    |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder |
-    |trade | trade, cancelOrder |
+    |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder, getOrderByClientOrderId |
+    |trade | trade, cancelOrder, cancelByClientOrderId |
     |withdraw | withdrawFeee, withdrawCoin |
     
 ## Signed (TRADE and USER_DATA) Endpoint Security
@@ -121,7 +121,9 @@ Linux command line using. `curl`
 * openOrders
 * orderHistory
 * getOrder
+* getOrderByClientOrderId
 * cancelOrder
+* cancelByClientOrderId
 * withdrawFee
 * withdrawCoin
 * listDownline
@@ -314,6 +316,9 @@ This method is for opening a new order
 > - You can try the new API version by creating account in https://demo-indodax.com. You will receive balance for some coins, approximately 1 minute after successfully sign-up.
 > - These coins can be used for trade testing, but can't be withdrawn. You also can't deposit any coin to demo-indodax.com.
 >
+> As per January 2024,
+> - You can create order by adding infomartional `client_order_id` (eg: `client_order_id : "clientx-sj82ks82j"`)
+>
 > ℹ️ **Information**
 > 
 > We also have a rate limit feature in place for the trade api. If you call the trade api for the same `pair` for more than 10 times in a second you would get the following error and would not be able to trade that `pair` for the next 5 seconds
@@ -335,6 +340,7 @@ Request Body
 |`idr`|numeric|required for (limit/market) buy order with amount in IDR|amount of rupiah to buy coin|1000000||
 |`btc`|numeric|required for limit buy order with amount in coin or sell order|amount of coin to buy/sell|0.001||
 |`order_type`|string|optional|type of order|limit/market|limit|
+|`client_order_id`|string|optional, max 36 character, allowed = alphanumeric _-|set your client order id|eg: clientx-sj82ks82j||
 |`time_in_force`|string|optional|currently only valid for "limit" order type, defines how long an order remains working till it is expired by the system|GTC,MOC|GTC|
 
 **Notes**
@@ -347,9 +353,10 @@ Sample Payload for limit order using idr amount:
 {
 	"method": "trade"
 	"nonce": 4531235
-        "idr": 100000,
+    "idr": 100000,
 	"price": 500000,
 	"type": "buy",
+    "client_order_id": "clientx-sj82ks82j", // New field (optional)
  	"time_in_force": "MOC" // New field (GTC, MOC)
 }
 ```
@@ -359,10 +366,11 @@ Sample Payload for limit order using idr amount:
 {
 	"method": "trade",
 	"nonce": 4531235,
-        "btc": 0.001,
+    "btc": 0.001,
 	"order_type": "limit",
 	"price": 500000,
 	"type": "buy",
+    "client_order_id": "clientx-sj82ks82j", // New field (optional)
 	"time_in_force": "MOC" // New field (GTC, MOC)
 }
 ```
@@ -372,9 +380,10 @@ Sample Payload for limit order using idr amount:
 {
 	"method": "trade",
 	"nonce": 4531235,
-    	"idr": 200000,
-    	"order_type": "market",
-    	"type": "buy"
+    "idr": 200000,
+    "order_type": "market",
+    "type": "buy",
+    "client_order_id": "clientx-sj82ks82j" // New field (optional)
 }
 ```
 
@@ -389,7 +398,8 @@ Response
         "spend_rp": 0,
         "fee": 0,
         "remain_rp": 5000000,
-        "order_id": 59632813
+        "order_id": 59632813,
+        "client_order_id": "clientx-sj82ks82j"
     }
 }
 ```
@@ -418,6 +428,14 @@ Response `limit in the money`
     "success": 0,
     "error": "Order cancelled because it’s not maker."
 } 
+```
+
+Response `client_order_id`
+```json
+{
+    "success": 0,
+    "error": "client order id clientx-sj82ks82j already exists"
+}
 ```
 
 #### Trade History Endpoints
@@ -450,7 +468,8 @@ Response
                 "btc": "0.00313482",
                 "price": "107202000",
                 "fee": "0",
-                "trade_time": "1578645297"
+                "trade_time": "1578645297",
+                "client_order_id": "clientx-sj82ks82j"
             },
             ...
         ]
@@ -476,6 +495,7 @@ Response `pair btc_idr`
         "orders": [
                 {
                     "order_id": "172",
+                    "client_order_id": "clientx-sj82ks82j",
                     "submit_time": "1693226027",
                     "price": "421004000",
                     "type": "sell",
@@ -485,6 +505,7 @@ Response `pair btc_idr`
                 },
                 {
                     "order_id": "173",
+                    "client_order_id": "clientx-sj82ks83j",
                     "submit_time": "1693280465",
                     "price": "421003000.00000000",
                     "type": "buy",
@@ -506,6 +527,7 @@ Response `if pair is not set`
             "btc_idr": [
                 {
                     "order_id": "172",
+                    "client_order_id": "clientx-sj82ks82j",
                     "submit_time": "1693226027",
                     "price": "421004000",
                     "type": "sell",
@@ -515,6 +537,7 @@ Response `if pair is not set`
                 },
                 {
                     "order_id": "173",
+                    "client_order_id": "clientx-sj82ks83j",
                     "submit_time": "1693280465",
                     "price": "421003000.00000000",
                     "type": "buy",
@@ -548,6 +571,7 @@ Response
         "orders": [
             {
                 "order_id": "59639504",
+                "client_order_id": "clientx-sj82ks82j",
                 "type": "buy",
                 "price": "100207000",
                 "submit_time": "1578648363",
@@ -558,6 +582,7 @@ Response
             },
             {
                 "order_id": "59636253",
+                "client_order_id": "clientx-sj82ks83j",
                 "type": "sell",
                 "price": "107202000",
                 "submit_time": "1578645288",
@@ -597,6 +622,7 @@ Response
             "finish_time": "1578649332",
             "status": "cancelled",
             "receive_idr": "336058",
+            "client_order_id": "clientx-sj82ks82j"
         }
     }
 }
@@ -616,7 +642,60 @@ Response for `refund order done`
             "finish_time": "1578649332",
             "status": "cancelled",
             "receive_idr": "336058",
-	    "refund_idr": "3866"
+	        "refund_idr": "3866",
+            "client_order_id": "clientx-sj82ks82j"
+        }
+    }
+}
+```
+
+#### Get Order By Client Order ID Endpoints
+Use getOrderByClientOrderId to get specific order details by Client Order ID.
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |getOrderByClientOrderId||
+|`client_order_id`|string|yes|Client Order ID|clientx-sj82ks82j||
+
+Response
+```json
+{
+    "success": 1,
+    "return": {
+        "order": {
+            "order_id": "59639504",
+            "client_order_id": "clientx-sj82ks82j",
+            "price": "100207000",
+            "type": "buy",
+            "order_rp": "336058",
+            "remain_rp": "336058",
+            "submit_time": "1578648363",
+            "finish_time": "1578649332",
+            "status": "cancelled",
+            "receive_idr": "336058",
+        }
+    }
+}
+```
+Response for `refund order done`
+```json
+{
+    "success": 1,
+    "return": {
+        "order": {
+            "order_id": "59639504",
+            "client_order_id": "clientx-sj82ks82j",
+            "price": "100207000",
+            "type": "buy",
+            "order_rp": "336058",
+            "remain_rp": "336058",
+            "submit_time": "1578648363",
+            "finish_time": "1578649332",
+            "status": "cancelled",
+            "receive_idr": "336058",
+	        "refund_idr": "3866"
         }
     }
 }
@@ -641,6 +720,38 @@ Response
     "success": 1,
     "return": {
         "order_id": 666883,
+        "client_order_id": "clientx-sj82ks82j",
+        "type": "sell",
+        "pair": "btc_idr",
+        "balance": {
+            "idr": "33605800",
+            "btc": "0.00000000",
+            ...
+            "frozen_idr": "0",
+            "frozen_btc": "0.00000000",
+            ...
+        }
+    }
+}
+```
+
+#### Cancel Order By Client Order ID Endpoints
+This method is for canceling an existing open order by client_order_id.
+
+Request Body
+
+| Name | Type | Mandatory | Description | Value | default |
+|-|-|-|-|-|-|
+|`method`| string |yes|Specify the method you want to call |cancelByClientOrderId||
+|`client_order_id`|string|yes|Client Order ID|clientx-sj82ks82j||
+
+Response
+```json
+{
+    "success": 1,
+    "return": {
+        "order_id": 666883,
+        "client_order_id": "clientx-sj82ks82j",
         "type": "sell",
         "pair": "btc_idr",
         "balance": {
