@@ -20,7 +20,7 @@ These are open data for public. It doesn't need an API key to call these methods
  - All time and timestamp related fields are in milliseconds.
 
 ## Limit
-Public API rate limited to 180request/minute.  
+Public API rate limited to 180request/minute.
 
 ## Server Time
 Provide server time on exchange
@@ -240,4 +240,60 @@ Provide Volume price Buy and Sell on each pair in exchange
         ]
     ]
 }
+```
+
+## OHLC History
+Provide OHLC history data
+#### Request
+```
+/tradingview/history_v2?from=1698742200&symbol=$pair_id&tf=15&to=1699347009
+```
+##### Parameter 
+| Name | Type | Mandatory | Description |
+| ------ | ------ | ------ | ------ |
+| from | Int | Required| beginning of time frame (unixtimestamp), Example: 1698742200 |
+| to | Int | Required| end of time frame (unixtimestamp), Example: 1699347009 |
+| tf | String | Required| time frame range in minute, day, or week (see [`Timeframe List`](#timeframe-list)) |
+| symbol | String | Required| Example: `BTCIDR`, `ETHIDR`, `IDXIDR`. For specific pair id please use Response from API [`/api/pairs`](#pairs) |
+
+##### Timeframe List
+| Value | Description |
+| ------ | ------ |
+| 1 | 1 minute time frame |
+| 15 | 15 minute time frame |
+| 30 | 30 minute time frame |
+| 60 | 60 minute / 1 Hour time frame |
+| 240 | 240 minute / 4 Hours time frame |
+| 1D | 1 Day time frame |
+| 3D | 3 Day time frame |
+| 1W | 1 Week time frame |
+
+#### Response
+```json
+[
+  {
+    "Time": 1699328700,
+    "Open": 0.9999,
+    "High": 0.9999,
+    "Low": 0.9999,
+    "Close": 0.9999,
+    "Volume": "14814.00000000"
+  },
+  {
+    "Time": 1699329600,
+    "Open": 0.9996,
+    "High": 0.9996,
+    "Low": 0.9996,
+    "Close": 0.9996,
+    "Volume": "12359.00000000"
+  },
+  {
+    "Time": 1699330500,
+    "Open": 0.9996,
+    "High": 0.9996,
+    "Low": 0.9996,
+    "Close": 0.9996,
+    "Volume": "0"
+  },
+]
 ```
