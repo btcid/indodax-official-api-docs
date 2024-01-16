@@ -229,7 +229,8 @@ Response
         "email": "jhonDoe@mail.com",
         "profile_picture": null,
         "verification_status": "verified",
-        "gauth_enable": true
+        "gauth_enable": true,
+        "withdraw_status" : 1 // 1 if user can withdraw, 0 if user can't withdraw
     }
 }
 ```
