@@ -56,7 +56,7 @@ POST {base_url}/api/private_ws/v1/generate_token
 	"success": 1,
 	"return": {
 		"connToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIifQ.D4YxclnNWCRH6w47MNV9XcbpKT4aLrMboLg6DzCwm1M",
-		"channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31"
+		"channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e"
 	}
 }
 ```
@@ -82,55 +82,37 @@ POST {base_url}/api/private_ws/v1/generate_token
 
 | **Environment**  	| **Base URL**              			| **Description**	|
 | -----------------	| ------------------------------- | --------------- |
-| Production       	| wss://ws3.indodax.com/ws/   		| 								|
-| Demo             	| wss://ws.demo-indodax.com/ws/  	|									|
+| Production       	| wss://pws.indodax.com/ws/   		| Access for production							|
+| Demo             	| wss://pws.demo-indodax.com/ws/  	| Access for staging									|
 
 Connect using Environment Base URL.
 
 ### Authentication
 Send request message with field `id` and `token` you get from [Generate Private Token and Private Channel](#generate-private-token-and-private-channel).
 
-
-#### Success Response
-
 Request Message:
 
 ```json
-{
-    "params": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIifQ.D4YxclnNWCRH6w47MNV9XcbpKT4aLrMboLg6DzCwm1M"
-    },
-    "id": 1
-}
+{"connect":{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMWFlMGUzYjU1NzNlMzI1YTU1MGM1ZDg2MGM1YjQ3ZDQyYjdkZjMxIiwiZXhwIjoxNzA1NzE4NjEyfQ.T1dymQ7dGS4sASLlZC3VE4JTjdvdsasJSsadaK"},"id": 1}
 ```
 
-Response:
+#### Success Response
 
 ```json
 {
     "id": 1,
-    "result": {
-        "client": "9690f773-a529-4277-9b09-57fa3ddea251",
-        "version": "2.8.6",
+    "connect": {
+        "client": "3e2601e1-8cc7-45b2-a38d-2b4630f2ab13",
+        "version": "5.2.0",
         "expires": true,
-        "ttl": 311392452
+        "ttl": 86230,
+        "ping": 25,
+        "pong": true
     }
 }
 ```
 
-#### Expired Token
-
-Request Message:
-
-```json
-{
-    "params": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIifQ.D4YxclnNWCRH6w47MNV9XcbpKT4aLrMboLg6DzCwm1M"
-    },
-    "id": 1
-}
-```
-Response:
+#### Expired Token Response
 
 ```json
 {
@@ -153,181 +135,173 @@ You can **subscribe** to **private channel** using `channel` you get from [Gener
 Request Message:
 
 ```json
-{
-    "method": 1,
-    "params": {
-        "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e"
-    },
-    "id": 2
-}
+{"subscribe":{"channel":"pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e"},"id":2}
 ```
 
+#### Success Response
 Response New Order:
 ```json
 {
-	"result": {
-		"channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
-		"data": {
-			"data": [
-				{
-					"event_type": "order_update",
-					"order": {
-						"orderId": "vcgidr-limit-93",
-						"symbol": "vcgidr",
-						"side": "BUY",
-						"origQty": "10000",
-						"unfilledQty": "10000",
-						"executedQty": "0",
-						"price": "1",
-						"description": "VCG/IDR",
-						"status": "NEW",
-						"transactionTime": 1698130393714
-					}
-				},
-				{
-					"event_type": "order_update",
-					"order": {
-						"orderId": "vcgidr-limit-94",
-						"symbol": "vcgidr",
-						"side": "BUY",
-						"origQty": "10000",
-						"unfilledQty": "10000",
-						"executedQty": "0",
-						"price": "1",
-						"description": "VCG/IDR",
-						"status": "NEW",
-						"transactionTime": 1698130393720
-					}
-				}
-			],
-			"offset": 1
-		}
-	}
+  "push": {
+    "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e",
+    "pub": {
+      "data": [
+        {
+          "eventType": "order_update",
+          "order": {
+            "orderId": "aaveidr-limit-3397",
+            "symbol": "aaveidr",
+            "side": "BUY",
+            "origQty": "0.00996909",
+            "unfilledQty": "0.00996909",
+            "executedQty": "0",
+            "price": "2000000",
+            "description": "AAVE/IDR",
+            "status": "NEW",
+            "transactionTime": 1705635775203,
+            "clientOrderId": "lendidr-limit-3397"
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
 Response Fills Order:
 ```json
 {
-	"result": {
-		"channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
-		"data": {
-			"data": [
-				{
-					"event_type": "order_update",
-					"order": {
-						"orderId": "btcidr-stoplimit-399",
-						"symbol": "btcidr",
-						"side": "BUY", //BUY OR SELL
-						"origQty": "236.15269175",
-						"unfilledQty": "227.73699863",
-						"executedQty": "8.41569312",
-						"price": "394800000",
-						"description": "BTC/IDR",
-						"status": "FILL",
-						"transactionTime": 1698130393714,
-						"fillInformation": {
-							"participant": "MAKER", //MAKER OR TAKER
-							"fillQty": "0.0001",
-							"feeAsset": "idr",
-							"feeRate": 0.001,
-							"fee": "40",
-							"taxAsset": "idr",
-							"taxRate": 0.001,
-							"tax": "39"
-						}
-					}
-				}
-			],
-			"offset": 1
-		}
-	}
+  "push": {
+    "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e",
+    "pub": {
+      "data": [
+        {
+          "eventType": "order_update",
+          "order": {
+            "orderId": "aaveidr-limit-3397",
+            "symbol": "aaveidr",
+            "side": "BUY",
+            "origQty": "0.00996909",
+            "unfilledQty": "0",
+            "executedQty": "0.00996909",
+            "price": "2000000",
+            "description": "AAVE/IDR",
+            "status": "FILL",
+            "transactionTime": 1705635775203,
+            "fillInformation": {
+              "participant": "TAKER",
+              "fillQty": "0.00996909",
+              "feeAsset": "idr",
+              "feeRate": 0.002,
+              "fee": "39",
+              "taxAsset": "idr",
+              "taxRate": 0.0011,
+              "tax": "21"
+            }
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
 Response Cancel Order:
 ```json
 {
-	"result": {
-		"channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
-		"data": {
-			"data": [
-				{
-					"event_type": "order_update",
-					"order": {
-						"orderId": "elfidr-limit-504",
-						"symbol": "elfidr",
-						"side": "BUY", //BUY OR SELL
-						"origQty": "10000",
-						"unfilledQty": "10000",
-						"executedQty": "0",
-						"price": "1",
-						"description": "ELF/IDR",
-						"status": "CANCELLED",
-						"transactionTime": 1698130393714
-					}
-				}
-			],
-			"offset": 1
-		}
-	}
+  "push": {
+    "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e",
+    "pub": {
+      "data": [
+        {
+          "eventType": "order_update",
+          "order": {
+            "orderId": "aaveidr-limit-3399",
+            "symbol": "aaveidr",
+            "side": "SELL",
+            "origQty": "0.05015045",
+            "unfilledQty": "0.05015045",
+            "executedQty": "0",
+            "price": "2000000",
+            "description": "AAVE/IDR",
+            "status": "CANCELLED",
+            "transactionTime": 1705636274643,
+            "clientOrderId": "lendidr-limit-3399"
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
 Response Done Order:
 ```json
 {
-	"result": {
-		"channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
-		"data": {
-			"data": [
-				{
-					"event_type": "order_update",
-					"order": {
-						"orderId": "mkridr-limit-91",
-						"symbol": "mkridr",
-						"side": "BUY", //BUY OR SELL
-						"origQty": "0.00058623",
-						"unfilledQty": "0",
-						"executedQty": "0.00058623",
-						"price": "17005000",
-						"description": "MKR/IDR",
-						"status": "DONE",
-						"transactionTime": 1698130393714
-					}
-				}
-			],
-			"offset": 1
-		}
-	}
+  "push": {
+    "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e",
+    "pub": {
+      "data": [
+        {
+          "eventType": "order_update",
+          "order": {
+            "orderId": "aaveidr-limit-3397",
+            "symbol": "aaveidr",
+            "side": "BUY",
+            "origQty": "0.00996909",
+            "unfilledQty": "0",
+            "executedQty": "0.00996909",
+            "price": "2000000",
+            "description": "AAVE/IDR",
+            "status": "DONE",
+            "transactionTime": 1705635775203,
+            "clientOrderId": "lendidr-limit-3397"
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
 Response Rejected (FOK) Order:
 ```json
 {
-	"result": {
-		"channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
-		"data": {
-			"data": [
-				{
-					"event_type": "order_update",
-					"order": {
-						"orderId": "ankridr-market-1133",
-						"symbol": "ankridr",
-						"side": "BUY", //BUY OR SELL
-						"origQty": "20",
-						"unfilledQty": "20",
-						"executedQty": "0",
-						"price": "0",
-						"description": "ANKR/IDR",
-						"status": "REJECTED",
-						"transactionTime": 1698130393714
-					}
-				}
-			],
-			"offset": 1
-		}
-	}
+  "push": {
+    "channel": "pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e",
+    "pub": {
+      "data": [
+        {
+          "eventType": "order_update",
+          "order": {
+            "orderId": "aaveidr-limit-3397",
+            "symbol": "aaveidr",
+            "side": "BUY",
+            "origQty": "0.00996909",
+            "unfilledQty": "0",
+            "executedQty": "0.00996909",
+            "price": "2000000",
+            "description": "AAVE/IDR",
+            "status": "REJECTED",
+            "transactionTime": 1705635775203,
+            "clientOrderId": "lendidr-limit-3397"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+#### Failed Response
+When you subscribe to wrong `channel`, the response will failed as below.
+
+```json
+{
+    "id": 2,
+    "error": {
+        "code": 103,
+        "message": "permission denied"
+    }
 }
 ```
