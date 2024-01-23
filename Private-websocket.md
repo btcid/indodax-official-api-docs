@@ -82,8 +82,8 @@ POST {base_url}/api/private_ws/v1/generate_token
 
 | **Environment**  	| **Base URL**              			| **Description**	|
 | -----------------	| ------------------------------- | --------------- |
-| Production       	| wss://pws.indodax.com/ws/   		| Access for production							|
-| Demo             	| wss://pws.demo-indodax.com/ws/  	| Access for staging									|
+| Production       	| wss://pws.indodax.com/ws/?cf_ws_frame_ping_pong=true   		| Access for production							|
+| Demo             	| wss://pws.demo-indodax.com/ws/?cf_ws_frame_ping_pong=true  	| Access for staging									|
 
 Connect using Environment Base URL.
 
