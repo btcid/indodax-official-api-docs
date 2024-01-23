@@ -102,12 +102,10 @@ Request Message:
 {
     "id": 1,
     "connect": {
-        "client": "3e2601e1-8cc7-45b2-a38d-2b4630f2ab13",
+        "client": "0f812879-fc64-482f-a220-eb1860c71189",
         "version": "5.2.0",
         "expires": true,
-        "ttl": 86230,
-        "ping": 25,
-        "pong": true
+        "ttl": 86133
     }
 }
 ```
