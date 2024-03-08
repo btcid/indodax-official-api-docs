@@ -177,6 +177,7 @@ Response Fills Order:
           "eventType": "order_update",
           "order": {
             "orderId": "aaveidr-limit-3397",
+            "tradeId": "144332127176055681",
             "symbol": "aaveidr",
             "side": "BUY",
             "origQty": "0.00996909",
