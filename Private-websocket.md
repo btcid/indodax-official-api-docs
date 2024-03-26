@@ -177,6 +177,7 @@ Response Fills Order:
           "eventType": "order_update",
           "order": {
             "orderId": "aaveidr-limit-3397",
+            "tradeId": "144332127176055681",
             "symbol": "aaveidr",
             "side": "BUY",
             "origQty": "0.00996909",
@@ -195,7 +196,8 @@ Response Fills Order:
               "taxAsset": "idr",
               "taxRate": 0.0011,
               "tax": "21"
-            }
+            },
+            "clientOrderId": "lendidr-limit-3397"
           }
         }
       ]
