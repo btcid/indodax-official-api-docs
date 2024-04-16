@@ -306,7 +306,7 @@ Response
 ```
 
 #### Trade Endpoints
-This method is for opening a new order
+Provides access to essential trading functionalities and data for seamless integration with trading platforms.
 
 > ℹ️ **Important Updates**
 > 
