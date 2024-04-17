@@ -255,7 +255,7 @@ Received Message:
 
 ### Orderbook
 
-Provide real-time buy and sell orders for cryptocurrencies, giving insights into market depth and trading liquidity. To do streaming for btcidr pair, you needs to submit message using market:order-book-<pair> as channel.
+Provide real-time buy and sell orders for cryptocurrencies, giving insights into market depth and trading liquidity. Use market:order-book-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
 Send request so it will give the following response.
 
