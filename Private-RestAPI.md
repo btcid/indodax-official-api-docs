@@ -306,7 +306,7 @@ Response
 ```
 
 #### Trade Endpoints
-This method is for opening a new order
+Provides access to essential trading functionalities and data for seamless integration with trading platforms.
 
 > ℹ️ **Important Updates**
 > 
@@ -322,7 +322,7 @@ This method is for opening a new order
 >
 > ℹ️ **Information**
 > 
-> We also have a rate limit feature in place for the trade api. If you call the trade api for the same `pair` for more than 10 times in a second you would get the following error and would not be able to trade that `pair` for the next 5 seconds
+> The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
 > ```json
 > status code: 429
 > content type: application/json

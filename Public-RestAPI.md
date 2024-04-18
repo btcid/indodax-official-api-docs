@@ -87,6 +87,7 @@ Provide price increments of each pairs on exchange
 ```
 
 ## Summaries
+Provide summary information for the pairs
 #### Request
 ```
 /api/summaries
@@ -176,7 +177,7 @@ Provide All Ticker Prices in exchange
 ```
 
 ## Trades
-Provide Order Book trade on each pair in exchange
+Provide transaction Information from all pairs/selected pair
 #### Request
 ```
 /api/trades/$pair_id
@@ -243,7 +244,7 @@ Provide Volume price Buy and Sell on each pair in exchange
 ```
 
 ## OHLC History
-Provide OHLC history data
+Provide OHLC (Open, High, Low, Close) Charting History Information for pairs
 #### Request
 ```
 /tradingview/history_v2?from=1698742200&symbol=$pair_id&tf=15&to=1699347009

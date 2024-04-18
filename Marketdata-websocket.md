@@ -61,7 +61,8 @@ Response:
 
 ## Ping/Pong
 
-Use `7` as `method`.
+Provide a command to send a test signal to a server to check for its availability and response time. Use 7 as method.
+
 
 Request:
 
@@ -86,7 +87,7 @@ You can **subscribe** to a **channel** to get live stream of events using a **si
 
 ### Chart Data
 
-Use `chart:tick-<pair>` as `channel`. Change `<pair>` to the one that you want to subscribe to.
+Provide a visualization cryptocurrency price movements and trends for easy analysis. Use chart:tick-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
 Request:
 
@@ -136,7 +137,8 @@ Received Message:
 
 ### Market Summary
 
-Use `market:summary-24h` as `channel`.
+Provides a quick overview of essential cryptocurrency market information in one place. Use market:summary-24h as channel.
+
 
 Request:
 
@@ -200,7 +202,7 @@ Received Message:
 
 ### Trade Activity
 
-Use `market:trade-activity-<pair>` as `channel`. Change `<pair>` to the one that you want to subscribe to.
+Provide real-time transactions and trading activity for cryptocurrencies, offering insights into market dynamics and trends. Use market:trade-activity-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
 Request:
 
@@ -253,9 +255,9 @@ Received Message:
 
 ### Orderbook
 
-To do streaming for btcidr pair, you needs to submit message using `market:order-book-<pair>` as `channel`. 
+Provide real-time buy and sell orders for cryptocurrencies, giving insights into market depth and trading liquidity. Use market:order-book-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
-Send request so it will give the following response. 
+Send request so it will give the following response.
 
 ![orderbook](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/orderbooks.png)
 
