@@ -87,6 +87,60 @@ POST {base_url}/api/private_ws/v1/generate_token
 
 Connect using Environment Base URL.
 
+## Establishing WebSocket Connection
+
+## Issue Description
+When establishing a WebSocket connection, regardless of the programming language used (Python, Go, PHP, etc.), the default behavior of the client library often sets the `Origin` header to a value that doesn't match, resulting in the client receiving a 403 Forbidden error response.
+
+## Solution
+To address this issue, it's essential to ensure that the `Origin` header sent during the WebSocket handshake matches the expected value or is removed altogether.
+
+### Python Solution (as per provided code)
+For Python, using the `websocket-client` library, the solution involves setting the `suppress_origin=True` option when calling `pws.run_forever()`. This removes the `Origin` header from the WebSocket handshake request. Reference:  [websocket-client](https://websocket-client.readthedocs.io/en/latest/examples.html#suppress-origin-header)
+
+
+### Go Solution
+For Go, when using libraries like `gorilla/websocket`, you can set the `Origin` header manually or remove it altogether when establishing the WebSocket connection.
+
+### PHP Solution
+For PHP, utilizing an unset() if isset() header origin exist.
+
+## Implementation
+
+### Python
+
+```python
+def start_websocket():
+    global pws
+    url = "wss://pws.indodax.com/ws/?cf_ws_frame_ping_pong=true"
+    pws_instance = PWS()
+    pws = websocket.WebSocketApp(url,
+                                on_message=pws_instance.on_message,
+                                on_error=pws_instance.on_error,
+                                on_close=pws_instance.on_close,
+                                on_open = pws_instance.on_open)
+    pws.run_forever(suppress_origin=True)
+```
+### Golang
+```go
+func main() {
+    u := url.URL{Scheme: "wss", Host: "pws.indodax.com", Path: "/ws/", RawQuery: "cf_ws_frame_ping_pong=true"}
+
+    c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+    if err != nil {
+        log.Fatal("Error connecting to WebSocket:", err)
+    }
+    defer c.Close()
+}
+```
+
+### PHP
+```php
+if (isset($options['headers']['Origin'])) {
+    unset($options['headers']['Origin']);
+}
+```
+
 ### Authentication
 Send request message with field `id` and `token` you get from [Generate Private Token and Private Channel](#generate-private-token-and-private-channel).
 
