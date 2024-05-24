@@ -9,6 +9,8 @@
 	- [Authentication](#authentication)
 	- [Subscribing to Private Channel](#subscribing-to-private-channel)
 		- [Order Update Event](#order-update-event)
+	- [Establishing WebSocket Connection](#establishing-webSocket-connection)
+
 
 
 ## Request Private Token and Private Channel
