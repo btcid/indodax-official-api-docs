@@ -246,7 +246,8 @@ Request Body
 |`start`| date |optional|Specify the start date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
 |`end`| date |required if start date is set|Specify the end date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
 
-Response
+Response 
+
 ```json
 {
     "success": 1,
@@ -264,13 +265,64 @@ Response
                     "withdraw_id": "1783717",
                     "tx": "BTC-IDR-RDTVVO2P-ETD0EVAW-VTNZGMIR-HTNTUAPI-84ULM9OI"
                 },
-                ...
-            ],
+                {
+                   "status": "pending",
+                    "type": "bank",
+                    "rp": "200000000",
+                    "fee": "51000",
+                    "amount": "199949000",
+                    "submit_time": "1696559334",
+                    "success_time": "0",
+                    "withdraw_id": "1744",
+                    "tx": "",
+                    "sender": null,
+                    "used_by": null  
+                },
+    		{
+                    "status": "wait",
+                    "type": "pulsa",
+                    "rp": "101000",
+                    "fee": "1000",
+                    "amount": "100000",
+                    "submit_time": "1695609773",
+                    "success_time": "0",
+                    "withdraw_id": "1688",
+                    "tx": "",
+                    "sender": null,
+                    "used_by": null
+                },
+                {
+                    "status": "in_progress",
+                    "type": "bank",
+                    "rp": "100379",
+                    "fee": "13500",
+                    "amount": "86879",
+                    "submit_time": "1695286078",
+                    "success_time": "0",
+                    "withdraw_id": "1686",
+                    "tx": "",
+                    "sender": null,
+                    "used_by": null
+                },
+		{
+                    "status": "cancelled",
+                    "type": "bank",
+                    "rp": "300000",
+                    "fee": "13500",
+                    "amount": "286500",
+                    "submit_time": "1694405316",
+                    "success_time": "1694405702",
+                    "withdraw_id": "1554",
+                    "tx": "",
+                    "sender": null,
+                    "used_by": null
+                },
+	],
             "btc": [],
             "abyss": [],
             ...
-        },
-        "deposit": {
+	},
+	"deposit": {
             "idr": [
                 {
                     "status": "success",
@@ -283,7 +335,31 @@ Response
                     "deposit_id": "3395438",
                     "tx": "Duitku OVO Settlement"
                 },
-                ...
+		{
+		    "status": "pending",
+                    "type": "intrajasa",
+		    "rp": "459900",
+ 		    "fee": "0",
+		    "amount": "459900",
+		    "submit_time": "1695784951",
+		    "success_time": "0",
+		    "deposit_id": "2036",
+		    "tx": "1PKH5G5T9AILVM1CR0V34",
+		    "sender": null
+	        },
+		{
+		    "status": "pending_bedanama",
+		    "type": "bank",
+		    "rp": "850472",
+		    "fee": "0",
+		    "amount": "850472",
+		    "submit_time": "1693320606",
+		    "success_time": "0",
+		    "deposit_id": "1890",
+		    "tx": "IDXBCA#472-1693320443",
+		    "sender": null
+		},
+		...
             ],
             "btc": [
                 {
@@ -302,6 +378,12 @@ Response
     }
 }
 ```
+
+**Notes** 
+- List status Withdraw : `success`, `wait`, `pending`, `in progress`, `cancelled`
+- List status Deposit : `success`, `pending`, `pending_bedanama`
+- If the behavior start & end parameters are not sent, it will display the transaction history of the latest 30 asset data for each withdrawal and deposit.
+       
 
 #### Trade Endpoints
 Provides access to essential trading functionalities and data for seamless integration with trading platforms.
