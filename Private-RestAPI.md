@@ -46,7 +46,7 @@ Sample Payload below:
     |`method`| Specify the method you want to call | no | getInfo
     |`timestamp`| This parameter should be the millisecond timestamp of when the request was created and sent | no | 1578303960000
     |`recvWindow`| The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds) | no | 1578303937000
-    
+
 ## Endpoint Security Type
 * API-keys are passed into the Rest API via the `Key`
   header.
@@ -58,7 +58,7 @@ Sample Payload below:
     |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder, getOrderByClientOrderId |
     |trade | trade, cancelOrder, cancelByClientOrderId |
     |withdraw | withdrawFeee, withdrawCoin |
-    
+
 ## Signed (TRADE and USER_DATA) Endpoint Security
 * `SIGNED` endpoints require an additional parameter, `Sign`, to be
   sent in the  `header`.
@@ -67,7 +67,7 @@ Sample Payload below:
 * The `signature` is **not case sensitive**.
 * `totalParams` is defined as the `query string` concatenated with the
   `request body`. example `*(?param=val&param1=val1) encrypted with method HMAC-SHA512 using secret key*`
-  
+
 ### Timing Security
 * A `SIGNED` endpoint also requires a parameter, `timestamp`, to be sent which
   should be the millisecond timestamp of when the request was created and sent.
@@ -262,9 +262,7 @@ Response
                     "submit_time": "1539844166",
                     "success_time": "1539844189",
                     "withdraw_id": "1783717",
-                    "tx": "BTC-IDR-RDTVVO2P-ETD0EVAW-VTNZGMIR-HTNTUAPI-84ULM9OI",
-                    "sender": "boris",
-                    "used_by": "viginia88"
+                    "tx": "BTC-IDR-RDTVVO2P-ETD0EVAW-VTNZGMIR-HTNTUAPI-84ULM9OI"
                 },
                 ...
             ],
@@ -309,7 +307,7 @@ Response
 Provides access to essential trading functionalities and data for seamless integration with trading platforms.
 
 > ℹ️ **Important Updates**
-> 
+>
 > As per 10 September 2022,
 > - You may experience under filled order if using `idr` parameter when create buy order. To solve this issue, simply send `btc` instead `idr` and use `order_type : "limit"`.
 > - You can create buy limit order using coin (eg: `btc`) as amount.
@@ -321,7 +319,7 @@ Provides access to essential trading functionalities and data for seamless integ
 > - You can create order by adding infomartional `client_order_id` (eg: `client_order_id : "clientx-sj82ks82j"`)
 >
 > ℹ️ **Information**
-> 
+>
 > The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
 > ```json
 > status code: 429
@@ -405,14 +403,14 @@ Response
 }
 ```
 
-Negative case  
+Negative case
 
 Response `order_type = limit`
 ```json
 {
     "success": 0,
     "error": "Order cancelled because it’s not maker."
-} 
+}
 ```
 
 Response `time_in_force = MOC`
@@ -420,7 +418,7 @@ Response `time_in_force = MOC`
 {
     "success": 0,
     "error": "Order cancelled because it’s not maker."
-} 
+}
 ```
 
 Response `limit in the money`
@@ -428,7 +426,7 @@ Response `limit in the money`
 {
     "success": 0,
     "error": "Order cancelled because it’s not maker."
-} 
+}
 ```
 
 Response `client_order_id`
@@ -770,11 +768,11 @@ Response
 #### Withdraw Fee Endpoints
 This method is for check withdraw fee
 
-To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error. 
+To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error.
 
 Request Body
 
-| Name | Type | Mandatory | Description | Value | default | 
+| Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |withdrawFee||
 |`currency`|string|yes|Currency for check withdraw fee |btc, ltc, doge, eth, etc||
@@ -804,11 +802,11 @@ Response with `invalid network`
 #### Withdraw Coin Endpoints
 This method is for withdrawing assets (except IDR). You can  use  `address` and [username](https://github.com/btcid/indodax-official-api-docs/blob/master/Private-RestAPI.md#withdraw-coin-by-username) option when sending crypto via TAPI
 
-If client withdraw from TAPI by  `internal address`, there’s no fee **(fee=0)**. 
+If client withdraw from TAPI by  `internal address`, there’s no fee **(fee=0)**.
 
-To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error. 
+To be able to use this method you need to enable withdraw permission when you generate the API Key. Otherwise you will get “No permission” error.
 
-You also need to prepare a Callback URL. Callback URL is a URL that our system will call to verify your withdrawal requests. Various parameters will be sent to Callback URL, make sure to check this information on your server side. If all the data is correct, print out a string “ok”  (without quotes). We will continue the request if only we receive “ok” (without quotes) response, otherwise the request will be failed. 
+You also need to prepare a Callback URL. Callback URL is a URL that our system will call to verify your withdrawal requests. Various parameters will be sent to Callback URL, make sure to check this information on your server side. If all the data is correct, print out a string “ok”  (without quotes). We will continue the request if only we receive “ok” (without quotes) response, otherwise the request will be failed.
 
 Callback call will be sent through a POST request, with 5 seconds connection timeout.
 
@@ -855,7 +853,7 @@ Callback Parameter Sent to Client
 
 #### Withdraw Coin by Username
 
-Client can view and use `username` option when sending crypto via TAPI. If client withdraw from TAPI by Indodax `username`, there’s no fee **(fee=0)**. 
+Client can view and use `username` option when sending crypto via TAPI. If client withdraw from TAPI by Indodax `username`, there’s no fee **(fee=0)**.
 
 When successfully receiving a response body with status `success = 1` so  client can confirm approve/reject withdraw via email received. Clik URL in the red box to confirm and green box to cancel request.
 
@@ -915,7 +913,7 @@ Response `Withdraw Username (AAVE) > Maksimum Coin per Day`
 {
     "success": 1,
     "error" : "Exceeded today's limit. Remain limit: 217.35817575 AAVE. To increase the limit, please contact customer service."
-}    
+}
 ```
 
 Callback Parameter Sent to Client
@@ -978,7 +976,7 @@ Response
 ```
 
 #### Check Downline Endpoints
-This method is for check wheter email exists in current user downline or not 
+This method is for check wheter email exists in current user downline or not
 return is 1 or 0.
 1 means this email is exists in current user downline
 0 means email doesn't exists in current user downline
