@@ -240,11 +240,9 @@ This method gives list of deposits and withdrawals of all currencies.
 
 > ℹ️ **Information**
 >
-> - fetch transaction history have a validation maximum day 7 days
+> - fetch transaction history have a validation maximum day 7 days, default: last 7 days
 > 
 > - parameters start and end must have valid date yyyy-mm-dd
-> 
-> - parameters start and end must be less than the end
 > 
 >    ```
 >   {
@@ -255,9 +253,9 @@ This method gives list of deposits and withdrawals of all currencies.
 >    }
 >    ```
 > 
-> - max limit per fetch is 500 pages for coin assets will be accumulated and idr will not accumulated
+> - max limit per fetch is 500 records 
 > 
-> - the transaction history will be sorted by desc
+> - order descending by submit_time
 > 
 
 Request Body
