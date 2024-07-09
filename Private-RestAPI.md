@@ -238,6 +238,28 @@ Response
 #### Transaction History Endpoints
 This method gives list of deposits and withdrawals of all currencies.
 
+> ℹ️ **Information**
+>
+> - fetch transaction history have a validation maximum day 7 days
+> 
+> - parameters start and end must have valid date yyyy-mm-dd
+> 
+> - parameters start and end must be less than the end
+> 
+>    ```
+>   {
+>       "method": "transHistory",
+>       "nonce":  1735516800,
+>       "start": "2024-07-30", // this not valid date 
+>       "end":   "2024-07-01",
+>    }
+>    ```
+> 
+> - max limit per fetch is 500 pages for coin assets will be accumulated and idr will not accumulated
+> 
+> - the transaction history will be sorted by desc
+> 
+
 Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
