@@ -240,33 +240,35 @@ This method gives list of deposits and withdrawals of all currencies.
 
 > ℹ️ **Information**
 >
-> - fetch transaction history have a validation maximum day 7 days, default: last 7 days
-> 
-> - parameters start and end must have valid date yyyy-mm-dd
-> 
->    ```
->   {
->       "method": "transHistory",
->       "nonce":  1735516800,
->       "start": "2024-07-30", // this not valid date 
->       "end":   "2024-07-01",
->    }
->    ```
-> 
-> - max limit per fetch is 500 records 
-> 
-> - order descending by submit_time
-> 
+> As per 24 July 2024,
+>
+> Fetch transaction history have a validation maximum 7 days, default: last 7 days
+>
+> Max limit per fetch is 500 records (per deposit coin, withdraw coin, deposit idr, withdraw idr)
+>
+> Order descending by submit_time
+>
 
 Request Body
 
-| Name | Type | Mandatory | Description | Value | default |
+| Name | Type | Mandatory | Description | Value | Default |
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |transHistory||
-|`start`| date |optional|Specify the start date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
-|`end`| date |required if start date is set|Specify the end date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
+|`start`| date |optional|Specify the start date of transaction history you want to search |Y-m-d (eg: 2021-07-17)|7 days ago from today|
+|`end`  | date   |optional|Specify the end date of transaction history you want to search |Y-m-d (eg: 2021-07-17)|today|
 
-Response
+#### Example payload
+```json
+{
+    "method": "transHistory",
+    "nonce":  1735516800,
+    "start": "2024-07-01",
+    "end":   "2024-07-07"
+}
+```
+
+### Response
+#### Positive Case
 ```json
 {
     "success": 1,
@@ -320,6 +322,35 @@ Response
             ...
         }
     }
+}
+```
+
+
+#### Negative Case
+- Invalid Format Date
+```json
+{
+    "success": 0,
+    "error": "date format must be formatted yyyy-mm-dd",
+    "error_code": "invalid_date"
+}
+```
+
+- Days greater than 7 days
+```json
+{
+    "success": 0,
+    "error": "range date can't more than 7 days",
+    "error_code": "invalid_date"
+}
+```
+
+- Start date greater then end date
+```json
+{
+    "success": 0,
+    "error": "start date must be less then end date",
+    "error_code": "invalid_date"
 }
 ```
 
