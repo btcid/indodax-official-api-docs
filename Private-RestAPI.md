@@ -890,6 +890,16 @@ Response
 }
 ```
 
+Response `Withdraw to Own Address`
+
+```json
+{
+    "success": 0,
+    "error": "Please use recipient address other than your Indodax account address",
+    "error_code": ""
+}
+```
+
 Callback Parameter Sent to Client
 
 |Parameter|Description|
@@ -964,6 +974,16 @@ Response `Withdraw Username (AAVE) > Maksimum Coin per Day`
 {
     "success": 1,
     "error" : "Exceeded today's limit. Remain limit: 217.35817575 AAVE. To increase the limit, please contact customer service."
+}
+```
+
+Response `Withdraw to Own Username`
+
+```json
+{
+    "success": 0,
+    "error": "Please use recipient address other than your Indodax account address",
+    "error_code": ""
 }
 ```
 
