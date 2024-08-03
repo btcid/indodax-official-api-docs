@@ -6,11 +6,10 @@
 
 Name | Description | Example | Version
 ------------ | ------------ | ------------ | ------------
-[Public REST API](./Public-RestAPI.md) | Public API Documentation | |
-[Private REST API](./Private-RestAPI.md) | Private API Documentation | [PHP](./example/Private-RestAPI-php.md) | v2.0.1 
+[Public REST API](./Public-RestAPI.md) | Public API Documentation |[DART](./example/Private-RestAPI-dart.md)|
+[Private REST API](./Private-RestAPI.md) | Private API Documentation | [DART](./example/Private-RestAPI-dart.md), [PHP](./example/Private-RestAPI-php.md) | v2.0.1 
 [Market Data WebSocket](./Marketdata-websocket.md) | Market Data WebSocket Documentation | |
 [Private WebSocket](./Private-websocket.md) | Private WebSocket Documentation | |
-
 
 ### Todo
  - Add Troubleshooting 
