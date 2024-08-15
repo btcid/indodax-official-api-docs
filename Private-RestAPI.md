@@ -760,13 +760,14 @@ This method is for canceling an existing open order.
 >
 > The trade API implements a `rate limit of 30 requests per second` for cancel order.
 > ```json
-> status code: 429
-> content type: application/json
-> body: {
+> "status code": 429
+> "Content-Type": "application/json"
+> "Response Body": 
+>  {
 >    "success": 0,
 >    "error": "Your User ID sent too many cancel order requests",
 >    "error_code": "too_many_requests"
->}
+>  }
 > ```
 
 Request Body
@@ -809,13 +810,14 @@ This method is for canceling an existing open order by client_order_id.
 >
 > The trade API implements a `rate limit of 30 requests per second` for cancel order by Client Order ID.
 > ```json
-> status code: 429
-> content type: application/json
-> body: {
+> "status code": 429
+> "Content-Type": "application/json"
+> "Response Body": 
+>  {
 >    "success": 0,
 >    "error": "Your User ID sent too many cancel order requests",
 >    "error_code": "too_many_requests"
->}
+>  }
 > ```
 
 Request Body
