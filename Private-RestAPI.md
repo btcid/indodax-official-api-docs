@@ -754,6 +754,21 @@ Response for `refund order done`
 #### Cancel Order Endpoints
 This method is for canceling an existing open order.
 
+> ℹ️ **Information**
+>
+> As per August 2024,
+>
+> The trade API implements a `rate limit of 30 requests per second` for cancel order.
+> ```json
+> status code: 429
+> content type: application/json
+> body: {
+>    "success": 0,
+>    "error": "Your User ID sent too many cancel order requests",
+>    "error_code": "too_many_requests"
+>}
+> ```
+
 Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
@@ -787,6 +802,21 @@ Response
 
 #### Cancel Order By Client Order ID Endpoints
 This method is for canceling an existing open order by client_order_id.
+
+> ℹ️ **Information**
+>
+> As per August 2024,
+>
+> The trade API implements a `rate limit of 30 requests per second` for cancel order by Client Order ID.
+> ```json
+> status code: 429
+> content type: application/json
+> body: {
+>    "success": 0,
+>    "error": "Your User ID sent too many cancel order requests",
+>    "error_code": "too_many_requests"
+>}
+> ```
 
 Request Body
 
