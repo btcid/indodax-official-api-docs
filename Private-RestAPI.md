@@ -756,7 +756,7 @@ This method is for canceling an existing open order.
 
 > ℹ️ **Information**
 >
-> As per August 2024,
+> As per 28 August 2024,
 >
 > The trade API implements a `rate limit of 30 requests per second` for cancel order.
 > ```json
@@ -806,7 +806,7 @@ This method is for canceling an existing open order by client_order_id.
 
 > ℹ️ **Information**
 >
-> As per August 2024,
+> As per 28 August 2024,
 >
 > The trade API implements a `rate limit of 30 requests per second` for cancel order by Client Order ID.
 > ```json
