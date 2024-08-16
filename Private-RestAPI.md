@@ -238,6 +238,17 @@ Response
 #### Transaction History Endpoints
 This method gives list of deposits and withdrawals of all currencies.
 
+> ℹ️ **Information**
+>
+> As per 21 August 2024,
+>
+> Fetch transaction history have a validation maximum 7 days, default: last 7 days
+>
+> Max limit per fetch is 500 records (per deposit coin, withdraw coin, deposit idr, withdraw idr)
+>
+> Order descending by submit_time
+>
+
 Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
