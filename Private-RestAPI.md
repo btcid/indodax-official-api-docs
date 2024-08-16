@@ -372,10 +372,19 @@ Provides access to essential trading functionalities and data for seamless integ
 > ℹ️ **Information**
 >
 > The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
+>
+> As per 24 August 2024,
+> - We update the response format for rate limit trade like bellow
 > ```json
-> status code: 429
-> content type: application/json
-> body: { "message": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds" }
+> "status code": 429
+> "Content-Type": "application/json"
+> "Response Body": 
+>  {
+>    "success": 0,
+>    "error": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds",
+>    "message": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds",
+>    "error_code": "too_many_requests"
+>  }
 > ```
 
 \
