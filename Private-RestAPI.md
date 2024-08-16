@@ -251,13 +251,24 @@ This method gives list of deposits and withdrawals of all currencies.
 
 Request Body
 
-| Name | Type | Mandatory | Description | Value | default |
+| Name | Type | Mandatory | Description | Value | Default |
 |-|-|-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |transHistory||
-|`start`| date |optional|Specify the start date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
-|`end`| date |required if start date is set|Specify the end date of transaction history you want to search |Y-m-d (eg: 2021-07-17)||
+|`start`| date |optional|Specify the start date of transaction history you want to search |Y-m-d (eg: 2021-07-17)|7 days ago from today|
+|`end`  | date   |optional|Specify the end date of transaction history you want to search |Y-m-d (eg: 2021-07-17)|today|
 
-Response
+#### Example payload
+```json
+{
+    "method": "transHistory",
+    "nonce":  1735516800,
+    "start": "2024-07-01",
+    "end":   "2024-07-07"
+}
+```
+
+### Response
+#### Positive Case
 ```json
 {
     "success": 1,
@@ -311,6 +322,35 @@ Response
             ...
         }
     }
+}
+```
+
+
+#### Negative Case
+- Invalid Format Date
+```json
+{
+    "success": 0,
+    "error": "date format must be formatted yyyy-mm-dd",
+    "error_code": "invalid_date"
+}
+```
+
+- Days greater than 7 days
+```json
+{
+    "success": 0,
+    "error": "range date can't more than 7 days",
+    "error_code": "invalid_date"
+}
+```
+
+- Start date greater then end date
+```json
+{
+    "success": 0,
+    "error": "start date must be less then end date",
+    "error_code": "invalid_date"
 }
 ```
 
@@ -850,6 +890,16 @@ Response
 }
 ```
 
+Response `Withdraw to Own Address`
+
+```json
+{
+    "success": 0,
+    "error": "Please use recipient address other than your Indodax account address",
+    "error_code": ""
+}
+```
+
 Callback Parameter Sent to Client
 
 |Parameter|Description|
@@ -924,6 +974,16 @@ Response `Withdraw Username (AAVE) > Maksimum Coin per Day`
 {
     "success": 1,
     "error" : "Exceeded today's limit. Remain limit: 217.35817575 AAVE. To increase the limit, please contact customer service."
+}
+```
+
+Response `Withdraw to Own Username`
+
+```json
+{
+    "success": 0,
+    "error": "Please use recipient address other than your Indodax account address",
+    "error_code": ""
 }
 ```
 
