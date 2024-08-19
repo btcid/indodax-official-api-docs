@@ -373,7 +373,7 @@ Provides access to essential trading functionalities and data for seamless integ
 >
 > The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
 >
-> As per 24 August 2024,
+> As per 28 August 2024,
 > - We update the response format for rate limit trade like bellow
 > ```json
 > "status code": 429
