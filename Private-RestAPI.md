@@ -240,7 +240,7 @@ This method gives list of deposits and withdrawals of all currencies.
 
 > ℹ️ **Information**
 >
-> As per 24 July 2024,
+> As per 21 August 2024,
 >
 > Fetch transaction history have a validation maximum 7 days, default: last 7 days
 >
