@@ -372,10 +372,19 @@ Provides access to essential trading functionalities and data for seamless integ
 > ℹ️ **Information**
 >
 > The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
+>
+> As per 28 August 2024,
+> - We update the response format for rate limit trade like bellow
 > ```json
-> status code: 429
-> content type: application/json
-> body: { "message": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds" }
+> "status code": 429
+> "Content-Type": "application/json"
+> "Response Body": 
+>  {
+>    "success": 0,
+>    "error": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds",
+>    "message": "Your User ID sent too many trade request for pair BTCIDR, please try again in 5 seconds",
+>    "error_code": "too_many_requests"
+>  }
 > ```
 
 \
@@ -754,6 +763,22 @@ Response for `refund order done`
 #### Cancel Order Endpoints
 This method is for canceling an existing open order.
 
+> ℹ️ **Information**
+>
+> As per 28 August 2024,
+>
+> The trade API implements a `rate limit of 30 requests per second` for cancel order.
+> ```json
+> "status code": 429
+> "Content-Type": "application/json"
+> "Response Body": 
+>  {
+>    "success": 0,
+>    "error": "Your User ID sent too many cancel order requests",
+>    "error_code": "too_many_requests"
+>  }
+> ```
+
 Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
@@ -787,6 +812,22 @@ Response
 
 #### Cancel Order By Client Order ID Endpoints
 This method is for canceling an existing open order by client_order_id.
+
+> ℹ️ **Information**
+>
+> As per 28 August 2024,
+>
+> The trade API implements a `rate limit of 30 requests per second` for cancel order by Client Order ID.
+> ```json
+> "status code": 429
+> "Content-Type": "application/json"
+> "Response Body": 
+>  {
+>    "success": 0,
+>    "error": "Your User ID sent too many cancel order requests",
+>    "error_code": "too_many_requests"
+>  }
+> ```
 
 Request Body
 
