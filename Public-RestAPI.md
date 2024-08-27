@@ -298,9 +298,9 @@ Provide OHLC (Open, High, Low, Close) Charting History Information for pairs
   },
 ]
 ```
-# Reestablish WebSocket connection
-## Issue Description
-The VM instance for our chart service is designed to scale up and down automatically, and this occurs frequently. As a result, WebSocket clients may get disconnected from the server, potentially causing some messages to be missed.
+# Disconnected Client Issue
+## Description
+WebSocket clients may get disconnected from the server, potentially causing some messages to be missed.
 ## Solution
 If you experience this issue, you can add a handler to reconnect upon disconnection.
 ## Implementation
