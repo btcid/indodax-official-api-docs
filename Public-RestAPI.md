@@ -300,7 +300,7 @@ Provide OHLC (Open, High, Low, Close) Charting History Information for pairs
 ```
 # Disconnected Client Issue
 ## Description
-WebSocket clients may get disconnected from the server, potentially causing some messages to be missed.
+WebSocket clients may get disconnected from the server due to internal rebalancing, potentially causing some messages to be missed.
 ## Solution
 If you experience this issue, you can add a handler to reconnect upon disconnection.
 ## Implementation
