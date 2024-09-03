@@ -442,3 +442,128 @@ Response:
     }
 }
 ```
+# Disconnected Client Issue
+## Description
+WebSocket clients may get disconnected from the server due to internal rebalancing, potentially causing some messages to be missed.
+## Solution
+If you experience this issue, you can add a handler to reconnect upon disconnection.
+## Implementation
+### Javascript Implementation
+```
+<script  src="https://unpkg.com/centrifuge@5.0.1/dist/centrifuge.js"></script>
+<script  type="text/javascript">
+	const  websocketURL = "wss://indodax.com/ws/";
+
+	function  connectWS() {
+		const  ws = new  WebSocket(websocketURL);
+
+		ws.onclose = (event) => {
+			// Handle on close event
+
+			connectWS()
+		};
+
+        ws.onerror = (error) => {
+            // Handle on error event
+
+            // trigger on close event
+            ws.close()
+        };
+	}
+
+	connectWS()
+</script>
+```
+### Go Implementation
+Example below use `gorilla/websocket`.
+```
+type  wsClient  struct {
+	conn  *websocket.Conn
+}
+  
+type  wsError  struct {
+	Reason 		string  `json:"reason"`
+	Reconnect	bool 	`json:"reconnect"`
+}
+
+func (c *wsClient) connectWS() {
+	if  c.conn  !=  nil {
+		c.conn.Close()
+	}
+
+	u  :=  url.URL{Scheme: "wss", Host: "indodax.com", Path: "/ws/"}
+
+	conn, _, err  :=  websocket.DefaultDialer.Dial(u.String(), nil)
+	if  err  !=  nil {
+		log.Fatal("Dial:", err)
+	}
+
+	c.conn  =  conn
+}
+
+func (c *wsClient) handleMessages() {
+	for {
+		messageType, msg, err  :=  c.conn.ReadMessage()
+		if  err  !=  nil {
+			errText  :=  err.(*websocket.CloseError).Text
+			
+			var  wsErr  wsError
+
+			errUnmarshal  :=  json.Unmarshal([]byte(errText), &wsErr)
+			if  errUnmarshal  !=  nil {
+				log.Fatal("error unmarshal:", errUnmarshal)
+			}
+
+			if  !wsErr.Reconnect {
+				log.Println("Read error:", err)
+				return
+			}
+
+			c.connectWS()
+			continue
+	    }
+
+	    // Handle messages
+    }
+}
+
+func  main() {
+	client  :=  wsClient{}
+
+	client.connectWS()
+	defer  client.conn.Close()
+
+	go  client.handleMessages()
+
+	quit  :=  make(chan  os.Signal, 10)
+
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+
+	<-quit
+	log.Print("Shutdown client ...")
+}
+```
+### Python Implementation
+```
+def  on_close(ws, code, reason):
+	// Handle on close event
+
+	start_websocket()
+
+def on_error(ws, error):
+    // Handle on error event
+
+    // Trigger on close event
+    ws.close()
+
+def  start_websocket():
+	url  =  "wss://indodax.com/ws/"
+	ws  =  websocket.WebSocketApp(url,
+		on_message  =  on_message,
+		on_error  =  on_error,
+		on_close  =  on_close,
+		on_open  =  on_open)
+	ws.run_forever(suppress_origin=True)
+
+start_websocket()
+```
