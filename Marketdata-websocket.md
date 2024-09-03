@@ -14,6 +14,7 @@
   	 - [Streaming Result](#streaming-result)
 - [Unsubscribing from Channel](#unsubscribing-from-channel)
 - [Get Data from Specific Offset and Subscribe](#get-data-from-specific-offset-and-subscribe)
+- [Disconnected Client Issue](#disconnected-client-issue)
 
 ## General Information
 
