@@ -10,6 +10,7 @@
 	- [Subscribing to Private Channel](#subscribing-to-private-channel)
 		- [Order Update Event](#order-update-event)
 	- [Establishing WebSocket Connection](#establishing-webSocket-connection)
+	- [Disconnected Client Issue](./Marketdata-websocket.md#disconnected-client-issue)
 
 
 
