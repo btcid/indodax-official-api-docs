@@ -14,7 +14,8 @@
   	 - [Streaming Result](#streaming-result)
 - [Unsubscribing from Channel](#unsubscribing-from-channel)
 - [Get Data from Specific Offset and Subscribe](#get-data-from-specific-offset-and-subscribe)
-- [Disconnected Client Issue](#disconnected-client-issue)
+- [Troubleshooting](#troubleshooting)
+    - [Disconnected Client Issue](#disconnected-client-issue)
 
 ## General Information
 
@@ -443,13 +444,14 @@ Response:
     }
 }
 ```
-# Disconnected Client Issue
-## Description
+# Troubleshooting
+## Disconnected Client Issue
+### Description
 WebSocket clients may get disconnected from the server due to internal rebalancing, potentially causing some messages to be missed.
-## Solution
+### Solution
 If you experience this issue, you can add a handler to reconnect upon disconnection.
-## Implementation
-### Javascript Implementation
+### Implementation
+#### Javascript Implementation
 ```
 <script  src="https://unpkg.com/centrifuge@5.0.1/dist/centrifuge.js"></script>
 <script  type="text/javascript">
@@ -475,7 +477,7 @@ If you experience this issue, you can add a handler to reconnect upon disconnect
 	connectWS()
 </script>
 ```
-### Go Implementation
+#### Go Implementation
 Example below use `gorilla/websocket`.
 ```
 type  wsClient  struct {
@@ -544,7 +546,7 @@ func  main() {
 	log.Print("Shutdown client ...")
 }
 ```
-### Python Implementation
+#### Python Implementation
 ```
 def  on_close(ws, code, reason):
 	// Handle on close event

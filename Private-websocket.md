@@ -9,8 +9,10 @@
 	- [Authentication](#authentication)
 	- [Subscribing to Private Channel](#subscribing-to-private-channel)
 		- [Order Update Event](#order-update-event)
-	- [Establishing WebSocket Connection](#establishing-webSocket-connection)
+- [Troubleshooting](#troubleshooting)
+	- [Establishing WebSocket Connection](#establishing-websocket-connection)
 	- [Disconnected Client Issue](./Marketdata-websocket.md#disconnected-client-issue)
+  - [Connection Expired](#connection-expired)
 
 
 
@@ -309,27 +311,28 @@ When you subscribe to wrong `channel`, the response will failed as below.
 }
 
 ```
+# Troubleshooting
 ## Establishing WebSocket Connection
 
-## Issue Description
+### Issue Description
 When establishing a WebSocket connection, regardless of the programming language used (Python, Go, PHP, etc.), the default behavior of the client library often sets the `Origin` header to a value that doesn't match, resulting in the client receiving a 403 Forbidden error response.
 
-## Solution
+### Solution
 To address this issue, it's essential to ensure that the `Origin` header sent during the WebSocket handshake matches the expected value or is removed altogether.
 
-### Python Solution (as per provided code)
+#### Python Solution (as per provided code)
 For Python, using the `websocket-client` library, the solution involves setting the `suppress_origin=True` option when calling `pws.run_forever()`. This removes the `Origin` header from the WebSocket handshake request. Reference:  [websocket-client](https://websocket-client.readthedocs.io/en/latest/examples.html#suppress-origin-header)
 
 
-### Go Solution
+#### Go Solution
 For Go, when using libraries like `gorilla/websocket`, you can set the `Origin` header manually or remove it altogether when establishing the WebSocket connection.
 
-### PHP Solution
+#### PHP Solution
 For PHP, utilizing an unset() if isset() header origin exist.
 
-## Implementation
+### Implementation
 
-### Python
+#### Python
 
 ```python
 def start_websocket():
@@ -343,7 +346,7 @@ def start_websocket():
                                 on_open = pws_instance.on_open)
     pws.run_forever(suppress_origin=True)
 ```
-### Golang
+#### Golang
 ```go
 func main() {
     u := url.URL{Scheme: "wss", Host: "pws.indodax.com", Path: "/ws/", RawQuery: "cf_ws_frame_ping_pong=true"}
@@ -356,9 +359,190 @@ func main() {
 }
 ```
 
-### PHP
+#### PHP
 ```php
 if (isset($options['headers']['Origin'])) {
     unset($options['headers']['Origin']);
 }
+```
+
+## Connection Expired
+### Description
+A token is required to connect to our private WebSocket and is valid for only 24 hours. Clients should request a new token each time they connect and continue to request it regularly.
+### Solution
+This is sample to request a new token
+### Implementation
+#### Javascript Implementation
+```
+const crypto = require("crypto");
+
+function generateHMAC(requestBody, secret) {
+  const key = Buffer.from(secret, "utf-8");
+  const hmac = crypto.createHmac("sha512", key);
+  hmac.update(requestBody, "utf-8");
+  return hmac.digest("hex");
+}
+
+async function RequestToken() {
+  const url = "https://indodax.com/api/private_ws/v1/generate_token";
+  const secret = <tapi_secret>;
+  const key = <tapi_key>;
+
+  const requestBody = `client=tapi&tapi_key=${key}`;
+
+  const sign = generateHMAC(requestBody, secret);
+
+  const opt = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Sign: sign,
+    },
+    body: requestBody,
+  };
+
+  let response;
+  try {
+    response = await fetch(url, opt);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+
+  const responseData = await response.json()
+
+  return responseData
+}
+
+RequestToken()
+  .then((data) => {
+    console.log("token:", data.return.connToken);
+    console.log("channel:", data.return.channel)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+```
+#### Go Implementation
+```
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha512"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
+)
+
+type PwsToken struct {
+	ConnToken string `json:"connToken"`
+	Channel   string `json:"channel"`
+}
+
+type Response struct {
+	Success int      `json:"success"`
+	Token   PwsToken `json:"return"`
+}
+
+func generateHMAC(requestBody, secret string) string {
+	key := []byte(secret)
+	h := hmac.New(sha512.New, key)
+	h.Write([]byte(requestBody))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+func sendRequest(url, method, requestBody, sign string) (Response, error) {
+	payload := strings.NewReader(requestBody)
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, payload)
+	if err != nil {
+		return Response{}, nil
+	}
+
+	req.Header.Add("Sign", sign)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := client.Do(req)
+	if err != nil {
+		return Response{}, nil
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return Response{}, err
+	}
+
+	var response Response
+
+	err = json.Unmarshal(body, &response)
+	if err != nil {
+		return Response{}, nil
+	}
+
+	return response, nil
+}
+
+func main() {
+	url := "https://indodax.com/api/private_ws/v1/generate_token"
+	method := "POST"
+	secret := <tapi_secret>
+	key := <tapi_key>
+
+	requestBody := fmt.Sprintf("client=tapi&tapi_key=%s", key)
+
+	sign := generateHMAC(requestBody, secret)
+
+	res, err := sendRequest(url, method, requestBody, sign)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("token", res.Token.ConnToken)
+	fmt.Println("channel", res.Token.Channel)
+}
+```
+#### Python Implementation
+```
+import hmac
+import hashlib
+import requests
+
+def generate_hmac(request_body, secret):
+    key = secret.encode('utf-8')
+    hmac_obj = hmac.new(key, request_body.encode('utf-8'), hashlib.sha512)
+    return hmac_obj.hexdigest()
+
+def request_token():
+    url = 'https://indodax.com/api/private_ws/v1/generate_token'
+    secret = <tapi_secret>
+    key = <tapi_key>
+
+    request_body = f'client=tapi&tapi_key={key}'
+    sign = generate_hmac(request_body, secret)
+
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Sign': sign
+    }
+
+    try:
+        response = requests.post(url, headers=headers, data=request_body)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        raise SystemExit(e)
+
+    response_data = response.json()
+    return response_data
+
+try:
+    data = request_token()
+    print("token:", data['return']['connToken'])
+    print("channel:", data['return']['channel'])
+except Exception as e:
+    print("Error:", e)
 ```
