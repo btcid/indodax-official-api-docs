@@ -5,26 +5,25 @@
 	- [Base URL](#base-url)
     - [Headers](#headers)
 - [API Endpoint](#api-endpoint)
-    - [Cancel All Open Orders](#cancel-all-open-orders)
-        - [Request Parameters](#request-parameters)
+    - [SIGN Endpoint Security ](#sign-endpoint-security)
         - [Example](#example)
             - [Using Query String + URL Encoded](#using-query-string--url-encoded)
             - [Using Request Body](#using-request-body)
+    - [POST /countdownCancelAll](#post-countdowncancelall)
+        - [Request Parameters](#request-parameters)
         - [Response](#response)
         - [Error Codes](#error-codes)
 
 ## General Information
-This rest endpoint means to ensure your open orders are canceled in case of an outage. The endpoint should be called repeatedly as heartbeats so that the existing countdown time can be canceled and repalced by a new one.
+This rest endpoint means to ensure your open orders are canceled in case of an outage. The endpoint should be called repeatedly as heartbeats so that the existing countdown time can be canceled and replaced by a new one.
 
-**Example Usage :**
-* Call this endpoint at 30s intervals with an `countdownTime` of 120000 (120s).
-If this endpoint is not called within 120 seconds, all your orders of the specified symbol will be automatically canceled.
-If this endpoint is called with an `countdownTime` of 0, the countdown timer will be stopped.
-* The system will check all countdowns **approximately every 10 milliseconds**, so please note that sufficient redundancy should be considered when using this function. We do not recommend setting the countdown time to be too precise or too small.
+Call this endpoint at 30s intervals with an `countdownTime` of 120000 (120s). If this endpoint is not called within 120 seconds, all your orders of the specified symbol will be automatically canceled. If this endpoint is called with an `countdownTime` of 0, the countdown timer will be stopped.
+
+The system will check all countdowns **approximately every 10 milliseconds**, so please note that sufficient redundancy should be considered when using this function. We do not recommend setting the countdown time to be too precise or too small.
 
 **Additional Notes :** 
 * All `recvWindow` and `timestamp` related fields are in **milliseconds**.
-* All endpoints return either a JSON object.
+* All endpoints return a JSON object.
 * URL Ratelimit 10 requests per 10 seconds per IP.
 * Only whitelisted user IDs can use this feature, whether on the production or demo environment.
 
@@ -43,23 +42,31 @@ If this endpoint is called with an `countdownTime` of 0, the countdown timer wil
 | `Content-Type` | `text/plain`                           | The type of content being sent in the request. |
 
 ## API Endpoint 
-### Cancel All Open Orders
-Cancel all open orders of the specified pair at the end of the specified countdown.
-`POST /countdownCancelAll (HMAC SHA512)`
 
-#### Request Parameters
-
-You can choose to fill either the `nonce` field or the `recvWindow` and `timestamp` fields.
-
-| Parameter       | Type                                         | Description                                                                                                                                                      |
-| --------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **countdownTime** | Optional (default: `5000`)                   | Countdown time in milliseconds. Use `1000` for 1 second. Set to `0` to cancel the timer.                                                                          |
-| **pair**          | Required                                     | Specifies the trading pair(s). Use a comma separator for multiple pairs. Example values: `btc_idr`, `btc_idr,eth_idr`, `btc_idr%2Ceth_idr` (URL encoded).        |
-| **timestamp**     | Optional (required if `nonce` is empty)      | The millisecond timestamp of when the request was created and sent.                                                                                               |
-| **recvWindow**    | Optional (required if `nonce` is empty)      | Specifies how many milliseconds after the timestamp the request is valid. The request is valid between `timestamp` and `timestamp + recvWindow`. Default is `5000` ms. |
-| **nonce**         | Optional (required if `timestamp` and `recvWindow` are empty) | An incremental integer. For example, if the last request's `nonce` was `1000`, the next request should be `1001` or a larger number.    
+### SIGN Endpoint Security 
+* `SIGNED` endpoints require an additional parameter `Sign`, to be
+  sent in the  `header`.
+* Endpoints use `HMAC SHA512` signatures.
+  Use your `Key` as the key and `totalParams` as the value for the HMAC operation.
+* The `signature` is **not case sensitive**.
+* `totalParams` is defined as the `query string` concatenated with the
+  `request body`. 
 
 #### Example
+Here is a step-by-step example of how to send a vaild signed payload from the
+Linux command line using `curl`.
+
+| Key | Value
+|-|-
+| `apiKey` | LSCE7NJG-JACRNTBX-D834R4UG-KMMTV8OP-PS1NHRBA
+| `secretKey` | da78a39e9dda31c399bcc293d997a347dc7fd0408cb5151931243a302b273ec3238510ea61e11f7c
+
+| Parameter | Value |
+|-|-|
+|`pair`| btc_idr,eth_idr |
+|`countdownTime`| 10000|
+|`timestamp`| 1578304294001 |
+|`recvWindow`| 1578303937000 |
 
 ##### Using Query String + URL Encoded
 
@@ -91,6 +98,21 @@ curl --location -X POST 'https://demo-indodax.com/tapi/countdownCancelAll' \
 --header 'Content-Type: text/plain' \
 --data 'pair=btc_idr,eth_idr&countdownTime=10000&timestamp=1578304294001&recvWindow=1578303937000'
 ```
+
+### POST /countdownCancelAll 
+Cancel all open orders of the specified pair at the end of the specified countdown.
+
+#### Request Parameters
+
+You can choose to fill either the `nonce` field or the `recvWindow` and `timestamp` fields.
+
+| Parameter       | Type                                         | Mandatory | Description                                                                                                                                                      |
+| --------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| **countdownTime** | `integer` | Optional (default: `5000`) | Countdown time in milliseconds. Use `1000` for 1 second. Set to `0` to cancel the timer.                                                                          |
+| **pair**          | `string` | Required | Specifies the trading pair(s). Use a comma separator for multiple pairs. Example values: `btc_idr`, `btc_idr,eth_idr`, `btc_idr%2Ceth_idr` (URL encoded).        |
+| **timestamp**     |   `integer`    | Optional (required if `nonce` is empty) | The millisecond timestamp of when the request was created and sent.                                                                                               |
+| **recvWindow**    |   `integer`    | Optional (required if `nonce` is empty) | Specifies how many milliseconds after the timestamp the request is valid. The request is valid between `timestamp` and `timestamp + recvWindow`. Default is `5000` ms. |
+| **nonce**         | `integer` | Optional (required if `timestamp` and `recvWindow` are empty) | An incremental integer. For example, if the last request's `nonce` was `1000`, the next request should be `1001` or a larger number.    
 
 #### Response
 Success

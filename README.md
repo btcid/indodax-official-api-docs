@@ -10,8 +10,4 @@ Name | Description | Example | Version
 [Private REST API](./Private-RestAPI.md) | Private API Documentation | [PHP](./example/Private-RestAPI-php.md) | v2.0.1 
 [Market Data WebSocket](./Marketdata-websocket.md) | Market Data WebSocket Documentation | |
 [Private WebSocket](./Private-websocket.md) | Private WebSocket Documentation | |
-
-
-### Todo
- - Add Troubleshooting 
- - Add Code Examples
+[Deadman Switch](./Deadman-switch.md) | Deadman Switch Documentation | | 
