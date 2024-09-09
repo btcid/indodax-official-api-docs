@@ -11,14 +11,22 @@
             - [Using Query String + URL Encoded](#using-query-string--url-encoded)
             - [Using Request Body](#using-request-body)
         - [Response](#response)
-        - [Error Code](#error-code)
+        - [Error Codes](#error-codes)
 
 ## General Information
+This rest endpoint means to ensure your open orders are canceled in case of an outage. The endpoint should be called repeatedly as heartbeats so that the existing countdown time can be canceled and repalced by a new one.
 
-* All recvWindow and timestamp related fields are in **milliseconds**.
+**Example Usage :**
+* Call this endpoint at 30s intervals with an `countdownTime` of 120000 (120s).
+If this endpoint is not called within 120 seconds, all your orders of the specified symbol will be automatically canceled.
+If this endpoint is called with an `countdownTime` of 0, the countdown timer will be stopped.
+* The system will check all countdowns **approximately every 10 milliseconds**, so please note that sufficient redundancy should be considered when using this function. We do not recommend setting the countdown time to be too precise or too small.
+
+**Additional Notes :** 
+* All `recvWindow` and `timestamp` related fields are in **milliseconds**.
 * All endpoints return either a JSON object.
 * URL Ratelimit 10 requests per 10 seconds per IP.
-* Only whitelisted user IDs can use this feature.
+* Only whitelisted user IDs can use this feature, whether on the production or demo environment.
 
 ### Base URL
 | **Environment**  | **Base URL**               | **Description**												|
@@ -50,13 +58,6 @@ You can choose to fill either the `nonce` field or the `recvWindow` and `timesta
 | **timestamp**     | Optional (required if `nonce` is empty)      | The millisecond timestamp of when the request was created and sent.                                                                                               |
 | **recvWindow**    | Optional (required if `nonce` is empty)      | Specifies how many milliseconds after the timestamp the request is valid. The request is valid between `timestamp` and `timestamp + recvWindow`. Default is `5000` ms. |
 | **nonce**         | Optional (required if `timestamp` and `recvWindow` are empty) | An incremental integer. For example, if the last request's `nonce` was `1000`, the next request should be `1001` or a larger number.    
-
-* This rest endpoint means to ensure your open orders are canceled in case of an outage. The endpoint should be called repeatedly as heartbeats so that the existing countdown time can be canceled and repalced by a new one.
-* Example usage:
-Call this endpoint at 30s intervals with an countdownTime of 120000 (120s).
-If this endpoint is not called within 120 seconds, all your orders of the specified symbol will be automatically canceled.
-If this endpoint is called with an countdownTime of 0, the countdown timer will be stopped.
-* The system will check all countdowns approximately every 10 milliseconds, so please note that sufficient redundancy should be considered when using this function. We do not recommend setting the countdown time to be too precise or too small.
 
 #### Example
 
@@ -90,7 +91,6 @@ curl --location -X POST 'https://demo-indodax.com/tapi/countdownCancelAll' \
 --header 'Content-Type: text/plain' \
 --data 'pair=btc_idr,eth_idr&countdownTime=10000&timestamp=1578304294001&recvWindow=1578303937000'
 ```
-
 
 #### Response
 Success
