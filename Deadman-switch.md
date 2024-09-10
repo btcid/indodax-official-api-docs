@@ -52,7 +52,7 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
 * `totalParams` is defined as the `query string` concatenated with the
   `request body`. 
 
-#### Example
+#### **Example**
 Here is a step-by-step example of how to send a vaild signed payload from the
 Linux command line using `curl`.
 
@@ -68,7 +68,7 @@ Linux command line using `curl`.
 |`timestamp`| 1578304294001 | Field in milliseconds
 |`recvWindow`| 1578303937000 | Field in milliseconds
 
-##### Using Query String + URL Encoded
+#### **Using Query String + URL Encoded**
 
 Generate the HMAC SHA512 signature using the query string:
 
@@ -83,7 +83,7 @@ curl --location -X POST 'https://demo-indodax.com/tapi/countdownCancelAll?pair=b
 --header 'Sign: 29ff89378b9f33954b0f5319488190078f091c7723d886c5c2a4a0b06ef793d7d3b99155d63410203a21355e5e2757cb4e566adbd67ec37b8257a68d8c72877c'
 ```
 
-##### Using Request Body
+#### **Using Request Body**
 Generate the HMAC SHA512 signature using the request body:
 ```bash
 ➜ echo -n "pair=btc_idr,eth_idr&countdownTime=10000&timestamp=1578304294001&recvWindow=1578303937000" | openssl dgst -sha512 -hmac "da78a39e9dda31c399bcc293d997a347dc7fd0408cb5151931243a302b273ec3238510ea61e11f7c"
@@ -102,7 +102,7 @@ curl --location -X POST 'https://demo-indodax.com/tapi/countdownCancelAll' \
 ### POST /countdownCancelAll 
 Cancel all open orders of the specified pair at the end of the specified countdown.
 
-#### Request Parameters
+### **Request Parameters**
 
 You can choose to fill either the `nonce` field or the `recvWindow` and `timestamp` fields.
 
@@ -114,9 +114,9 @@ You can choose to fill either the `nonce` field or the `recvWindow` and `timesta
 | **recvWindow**    |   `integer`    | Optional (required if `nonce` is empty) | Specifies how many milliseconds after the timestamp the request is valid. The request is valid between `timestamp` and `timestamp + recvWindow`. Default is `5000` ms. |
 | **nonce**         | `integer` | Optional (required if `timestamp` and `recvWindow` are empty) | An incremental integer. For example, if the last request's `nonce` was `1000`, the next request should be `1001` or a larger number.    
 
-#### Response
+### **Response**
 Success
-```
+```json
 HTTP Code: 200
 Response Body:
 {
@@ -124,7 +124,7 @@ Response Body:
 }
 ```
 Error
-```
+```json
 HTTP Code: 200
 Response Body:
 {
@@ -133,7 +133,7 @@ Response Body:
   "error_code": "key_not_found"
 }
 ```
-#### Error Codes
+### **Error Codes**
 | Error Code              | Error Message                              |
 | ----------------------- | ------------------------------------------ |
 | **internal_server_error** | Failed to process request                  |
