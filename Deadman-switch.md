@@ -63,7 +63,7 @@ Linux command line using `curl`.
 
 | Parameter | Value | Description |
 |--|--|--|
-|`pair`| btc_idr,eth_idr | To get available pairs, access the [api/pairs](./Public-RestApi.md#pairs) endpoint and use the `ticker_id` values.
+|`pair`| btc_idr,eth_idr | To get available pairs, access the [api/pairs](./Public-RestAPI.md#pairs) endpoint and use the `ticker_id` values.
 |`countdownTime`| 10000| Field in milliseconds
 |`timestamp`| 1578304294001 | Field in milliseconds
 |`recvWindow`| 1578303937000 | Field in milliseconds
