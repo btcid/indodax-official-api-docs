@@ -108,11 +108,11 @@ You can choose to fill either the `nonce` field or the `recvWindow` and `timesta
 
 | Parameter       | Type                                         | Mandatory | Description                                                                                                                                                      |
 | --------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| **countdownTime** | `integer` | Optional (default: `5000`) | Countdown time in milliseconds. Use `1000` for 1 second. Set to `0` to cancel the timer.                                                                          |
-| **pair**          | `string` | Required | Specifies the trading pair(s). Use a comma separator for multiple pairs. Example values: `btc_idr`, `btc_idr,eth_idr`, `btc_idr%2Ceth_idr` (URL encoded).        |
-| **timestamp**     |   `integer`    | Optional (required if `nonce` is empty) | The millisecond timestamp of when the request was created and sent.                                                                                               |
-| **recvWindow**    |   `integer`    | Optional (required if `nonce` is empty) | Specifies how many milliseconds after the timestamp the request is valid. The request is valid between `timestamp` and `timestamp + recvWindow`. Default is `5000` ms. |
-| **nonce**         | `integer` | Optional (required if `timestamp` and `recvWindow` are empty) | An incremental integer. For example, if the last request's `nonce` was `1000`, the next request should be `1001` or a larger number.    
+| `countdownTime` | `integer` | Optional (default: `5000`) | Countdown time in milliseconds. Use `1000` for 1 second. Set to `0` to cancel the timer.                                                                          |
+| `pair`          | `string` | Required | Specifies the trading pair(s). Use a comma separator for multiple pairs. Example values: `btc_idr`, `btc_idr,eth_idr`, `btc_idr%2Ceth_idr` (URL encoded).        |
+| `timestamp`     |   `integer`    | Optional (required if `nonce` is empty) | The millisecond timestamp of when the request was created and sent.                                                                                               |
+| `recvWindow`    |   `integer`    | Optional (required if `nonce` is empty) | Specifies how many milliseconds after the timestamp the request is valid. The request is valid between `timestamp` and `timestamp + recvWindow`. Default is `5000` ms. |
+| `nonce`         | `integer` | Optional (required if `timestamp` and `recvWindow` are empty) | An incremental integer. For example, if the last request's `nonce` was `1000`, the next request should be `1001` or a larger number.    
 
 ### **Response**
 Success
@@ -136,13 +136,13 @@ Error
 ### **Error Codes**
 | Error Code              | Error Message                              |
 | ----------------------- | ------------------------------------------ |
-| **internal_server_error** | Failed to process request                  |
-| **internal_server_error** | Validation signature failed.               |
-| **bad_request**           | Pair `btc_idr` disabled                    |
-| **bad_request**           | Invalid pair                               |
-| **bad_request**           | Invalid countdown time                     |
-| **bad_request**           | Pair is empty                              |
-| **sign_not_found**        | Sign not found in header.                  |
-| **key_not_found**         | API key not found in header.               |
-| **bad_sign**              | Invalid credentials. Bad sign.             |
-| **not_authorized**        | Your user ID is not on the whitelist       |
+| `internal_server_error` | Failed to process request                  |
+| `internal_server_error` | Validation signature failed.               |
+| `bad_request`           | Pair `btc_idr` disabled                    |
+| `bad_request`          | Invalid pair                               |
+| `bad_request`           | Invalid countdown time                     |
+| `bad_request`           | Pair is empty                              |
+| `sign_not_found`        | Sign not found in header.                  |
+| `key_not_found`         | API key not found in header.               |
+| `bad_sign`              | Invalid credentials. Bad sign.             |
+| `not_authorized`        | Your user ID is not on the whitelist       |
