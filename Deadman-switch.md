@@ -117,16 +117,16 @@ You can choose to fill either the `nonce` field or the `recvWindow` and `timesta
 ### **Response**
 Success
 ```json
-HTTP Code: 200
-Response Body:
+"HttpCode": 200
+"Response Body":
 {
   "success": 1
 }
 ```
 Error
 ```json
-HTTP Code: 200
-Response Body:
+"HttpCode": 200
+"Response Body":
 {
   "success": 0,
   "error": "API key not found in header",
