@@ -17,7 +17,7 @@
 ## General Information
 This rest endpoint means to ensure your open orders are canceled in case of an outage. The endpoint should be called repeatedly as heartbeats so that the existing countdown time can be canceled and replaced by a new one.
 
-Call this endpoint at 30s intervals with an `countdownTime` of 120000 (120s). If this endpoint is not called within 120 seconds, all your orders of the specified symbol will be automatically canceled. If this endpoint is called with an `countdownTime` of 0, the countdown timer will be stopped.
+Example, you call this endpoint at 30s intervals with an `countdownTime` of 120000 (120s). If this endpoint is not called within 120 seconds, all your orders of the specified symbol will be automatically canceled. If this endpoint is called with an `countdownTime` of 0, the countdown timer will be stopped.
 
 The system will check all countdowns **approximately every 10 milliseconds**, so please note that sufficient redundancy should be considered when using this function. We do not recommend setting the countdown time to be too precise or too small.
 
@@ -25,7 +25,7 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
 * All `recvWindow` and `timestamp` related fields are in **milliseconds**.
 * All endpoints return a JSON object.
 * URL Ratelimit 10 requests per 10 seconds per IP.
-* Only whitelisted user IDs can use this feature, whether on the production or demo environment.
+* Only **whitelisted** user IDs can use this feature, whether on the production or demo environment.
 
 ### Base URL
 | **Environment**  | **Base URL**               | **Description**												|
@@ -56,17 +56,17 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
 Here is a step-by-step example of how to send a vaild signed payload from the
 Linux command line using `curl`.
 
-| Key | Value
-|-|-
-| `apiKey` | LSCE7NJG-JACRNTBX-D834R4UG-KMMTV8OP-PS1NHRBA
-| `secretKey` | da78a39e9dda31c399bcc293d997a347dc7fd0408cb5151931243a302b273ec3238510ea61e11f7c
+| Key | Value 
+|--|--|
+| `apiKey` | LSCE7NJG-JACRNTBX-D834R4UG-KMMTV8OP-PS1NHRBA 
+| `secretKey` | da78a39e9dda31c399bcc293d997a347dc7fd0408cb5151931243a302b273ec3238510ea61e11f7c 
 
-| Parameter | Value |
-|-|-|
-|`pair`| btc_idr,eth_idr |
-|`countdownTime`| 10000|
-|`timestamp`| 1578304294001 |
-|`recvWindow`| 1578303937000 |
+| Parameter | Value | Description |
+|--|--|--|
+|`pair`| btc_idr,eth_idr | To get available pairs, access the [api/pairs](./Public-RestApi.md#pairs) endpoint and use the `ticker_id` values.
+|`countdownTime`| 10000| Field in milliseconds
+|`timestamp`| 1578304294001 | Field in milliseconds
+|`recvWindow`| 1578303937000 | Field in milliseconds
 
 ##### Using Query String + URL Encoded
 
