@@ -200,7 +200,10 @@ Response Fills Order:
               "fee": "39",
               "taxAsset": "idr",
               "taxRate": 0.0011,
-              "tax": "21"
+              "tax": "21",
+              "clearingAsset": "idr",
+              "clearingRate": 2.22E-4,
+              "clearing": "3"
             },
             "clientOrderId": "lendidr-limit-3397"
           }
