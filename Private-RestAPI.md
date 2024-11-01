@@ -1091,7 +1091,7 @@ Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
 |-|-|-|-|-|-|
-|`method`| string |yes|Specify the method you want to call |listDownline||
+|`method`| string |yes|Specify the method you want to call |checkDownline||
 |`email`|string|yes|Email want to check|btc@gmail.com, idx@yahoo.com||
 
 Response
