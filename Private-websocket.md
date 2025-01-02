@@ -181,31 +181,32 @@ Response Fills Order:
         {
           "eventType": "order_update",
           "order": {
-            "orderId": "aaveidr-limit-3397",
-            "tradeId": "144332127176055681",
+            "orderId": "aaveidr-limit-13525",
+            "tradeId": "72057594037968281",
             "symbol": "aaveidr",
             "side": "BUY",
-            "origQty": "0.00996909",
+            "origQty": "0.0046462",
             "unfilledQty": "0",
-            "executedQty": "0.00996909",
-            "price": "2000000",
+            "executedQty": "0.0046462",
+            "price": "4289899",
             "description": "AAVE/IDR",
             "status": "FILL",
-            "transactionTime": 1705635775203,
+            "transactionTime": 1734490232679,
             "fillInformation": {
               "participant": "TAKER",
-              "fillQty": "0.00996909",
+              "filledQty": "0.0046462",
+              "qty": "0.0046462",
               "feeAsset": "idr",
               "feeRate": 0.002,
               "fee": "39",
               "taxAsset": "idr",
-              "taxRate": 0.0011,
-              "tax": "21",
+              "taxRate": 0.0012,
+              "tax": "23",
               "clearingAsset": "idr",
-              "clearingRate": 2.22E-4,
-              "clearing": "3"
+              "clearingRate": 2.24E-4,
+              "clearing": "4"
             },
-            "clientOrderId": "lendidr-limit-3397"
+            "clientOrderId": "lendidr-limit-13525"
           }
         }
       ]
