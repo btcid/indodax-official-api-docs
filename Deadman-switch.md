@@ -25,7 +25,6 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
 * All `recvWindow` and `timestamp` related fields are in **milliseconds**.
 * All endpoints return a JSON object.
 * URL Ratelimit 10 requests per 10 seconds per IP.
-* Only **whitelisted** user IDs can use this feature, whether on the production or demo environment.
 
 ### Base URL
 | **Environment**  | **Base URL**               | **Description**												|
@@ -145,4 +144,3 @@ Error
 | `sign_not_found`        | Sign not found in header.                  |
 | `key_not_found`         | API key not found in header.               |
 | `bad_sign`              | Invalid credentials. Bad sign.             |
-| `not_authorized`        | Your user ID is not on the whitelist       |
