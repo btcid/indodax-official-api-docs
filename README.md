@@ -10,4 +10,5 @@ Name | Description | Example | Version
 [Private REST API](./Private-RestAPI.md) | Private API Documentation | [PHP](./example/Private-RestAPI-php.md) | v2.0.1 
 [Market Data WebSocket](./Marketdata-websocket.md) | Market Data WebSocket Documentation | |
 [Private WebSocket](./Private-websocket.md) | Private WebSocket Documentation | |
-[Deadman Switch](./Deadman-switch.md) | Deadman Switch Documentation | | 
+[Deadman Switch](./Deadman-switch.md) | Deadman Switch Documentation | |
+[INDODAX Trade API 2.0](./INDODAX-TradeAPI-2.md) | Official INDODAX Trade API 2.0 Documentation | | 2.0
