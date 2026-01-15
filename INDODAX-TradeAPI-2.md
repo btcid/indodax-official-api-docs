@@ -34,7 +34,7 @@ As of `Jan 20, 2026` these endpoints now have dedicated REST endpoints for impro
 
     > ℹ️ Important Information
     > - Users of the old `/tapi` endpoint **must migrate to these new endpoint**s for Order & Trade History queries.
-    > - The old endpoint will **continue to function** for historical trades and orders, but is scheduled for decommission on `Mar 10, 2026`.
+    > - The old endpoint will **continue to function** for historical trades and orders, but is scheduled for decommission on `Mar 23, 2026`.
 
 ## General API Information
 * **The base endpoint is:** 
@@ -101,11 +101,11 @@ Error codes are grouped by category:
 * Each request must include a `nonce` or `timestamp` parameter to be valid
 
 #### Request Parameters
-| Paramter | Mandatory | Description | Value |
+| Parameter | Mandatory | Description | Value |
 |----------|-----------|-------------|-------|
 | `nonce` | no | An increment integer (learn more about [nonce](http://en.wikipedia.org/wiki/Cryptographic_nonce)). | Must be greater than the nonce of the last request.<br><br> e.g., if the last request's nonce is `1000`, the next request should be `1001` or greater. |
 
-| Paramter | Mandatory | Description | Value |
+| Parameter | Mandatory | Description | Value |
 |----------|-----------|-------------|-------|
 | `timestamp` | no | Millisecond timestamp when the request was generated. | Timestamp in milliseconds (ms) when the request was created and sent. |
 | `recvWindow` | no | Validity window for request in milliseconds (ms). | Default: `5000 ms`<br><br> The value should specify the number of milliseconds after the timestamp where your request is valid.<br><br> e.g., your request is still valid if it is sent and processed within the `timestamp` and the `timestamp + recvWindow`. |
