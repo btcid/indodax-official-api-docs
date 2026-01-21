@@ -913,7 +913,9 @@ Request Body
 |`withdraw_address`|string|yes|Receiver address|a valid address||
 |`withdraw_amount`|numeric|yes|Amount to send|10.00000000||
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
-|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|||
+|`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|
+| `beneficiary_name`| string | no | The name of the beneficiary in a format with underscores (_) instead of spaces. Example: john_doe | john_doe | 
+| `beneficiary_address`| string | no | The address of the beneficiary, formatted with underscores (_) instead of spaces. | valid_address_format |||
 
 Response
 ```json
@@ -967,7 +969,9 @@ Request Body
 |`withdraw_memo`|string|no|Memo to be sent to the receiver, if supported by the asset platform. Exchanges use this memo for accepting deposits for certain assets.Example: Destination Tag (for Ripple)Message (for NXT)Memo (for BitShares)|a valid memo/message/destination tag||
 |`request_id`|alphanumeric max 255 char|yes|Custom string you need to provide to identify each withdrawal request.|request_id will be passed to callback call so your system can identify the request.d|||
 |`withdraw_input_method`| |yes|Withdraw using method username or address |username||
-|`withdraw_username`|alphanumeric|yes|username withdraw from your request & followed by special character underscrore (_) or strip (-). Mandatory id withdraw_input_method = username |||
+|`withdraw_username`|alphanumeric|yes|username withdraw from your request & followed by special character underscrore (_) or strip (-). Mandatory id withdraw_input_method = username |
+| `beneficiary_name`| string | no | The name of the beneficiary in a format with underscores (_) instead of spaces. Example: john_doe | john_doe | 
+| `beneficiary_address`| string | no | The address of the beneficiary, formatted with underscores (_) instead of spaces. | valid_address_format |||
 
 Response success `Withdraw Username (BNB)`
 ```json
