@@ -91,9 +91,10 @@ Error codes are grouped by category:
 | 403 Forbidden | 1104 | Account locked. |
 | 403 Forbidden | 1105 | Account disabled. |
 | 403 Forbidden | 1106 | No permission. |
-| 400 Bad Request | 1107 | Mandatory parameter not sent, empty/null, or malformed.<br> e.g.,`Mandatory parameter '%s' was not sent Param '%s' or '%s' must be sent` |
-| 400 Bad Request | 1108 | Invalid parameter value. |
-| 400 Bad Request | 1109 | Invalid symbol. |
+| 400 Bad Request | 1107 | Request header fields too large. |
+| 400 Bad Request | 1108 | Mandatory parameter not sent, empty/null, or malformed.<br> e.g.,`Mandatory parameter '%s' was not sent Param '%s' or '%s' must be sent` |
+| 400 Bad Request | 1109 | Invalid parameter value. |
+| 400 Bad Request | 1110 | Invalid symbol. |
 
 ### General Information on Endpoints
 
