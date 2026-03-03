@@ -263,92 +263,107 @@ Response Fill Order :
 Response Multi Fill Order:
 ```json
 {
-  "push": {
-    "channel": "pws:#e3e6d962c4fefef2abc800a7d12a2543a610e1f9",
-    "pub": {
-    "data": 
-      [
-        {
-          "eventType": "order_update",
-          "order": {
-            "orderId": "apeidr-limit-19357",
-            "tradeId": "72057594038022915",
-            "symbol": "apeidr",
-            "side": "SELL",
-            "origQty": "40168.34553614",
-            "unfilledQty": "0",
-            "executedQty": "40168.34553614",
-            "price": "5",
-            "description": "APE/IDR",
-            "status": "FILL",
-            "transactionTime": 1772166353710,
-            "fillInformation": {
-              "participant": "MAKER",
-              "filledQty": "40168.34553614",
-              "qty": "40168.34553614",
-              "feeAsset": "idr",
-              "feeRate": 0.001,
-              "fee": "200",
-              "taxAsset": "idr",
-              "taxRate": 0.0021,
-              "tax": "421",
-              "clearingAsset": "idr",
-              "clearingRate": 1.11E-4,
-              "clearing": "22"
-            },
-            "clientOrderId": "apeidr-limit-19357"
-          }
-        },
-        {
-          "eventType": "order_update",
-          "order": {
-            "orderId": "apeidr-limit-19358",
-            "tradeId": "72057594038022916",
-            "symbol": "apeidr",
-            "side": "SELL",
-            "origQty": "28691.67538295",
-            "unfilledQty": "8197.6364802",
-            "executedQty": "20494.03890275",
-            "price": "7",
-            "description": "APE/IDR",
-            "status": "FILL",
-            "transactionTime": 1772166353710,
-            "fillInformation": {
-              "participant": "MAKER",
-              "filledQty": "20494.03890275",
-              "qty": "20494.03890275",
-              "feeAsset": "idr",
-              "feeRate": 0.001,
-              "fee": "143",
-              "taxAsset": "idr",
-              "taxRate": 0.0021,
-              "tax": "301",
-              "clearingAsset": "idr",
-              "clearingRate": 1.11E-4,
-              "clearing": "15"
-            },
-            "clientOrderId": "apeidr-limit-19358"
-          }
-        },
-        {
-          "eventType": "order_update",
-          "order": {
-            "orderId": "apeidr-limit-19357",
-            "symbol": "apeidr",
-            "side": "SELL",
-            "origQty": "40168.34553614",
-            "unfilledQty": "0",
-            "executedQty": "40168.34553614",
-            "price": "5",
-            "description": "APE/IDR",
-            "status": "DONE",
-            "transactionTime": 1772166353710,
-            "clientOrderId": "apeidr-limit-19357"
-          }
+    "push": {
+        "channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
+        "pub": {
+            "data": [
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0.02504373",
+                        "executedQty": "0",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "NEW",
+                        "transactionTime": 1772510251374,
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                },
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "tradeId": "72057594038023405",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0.01260086",
+                        "executedQty": "0.01244287",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "FILL",
+                        "transactionTime": 1772510267697,
+                        "fillInformation": {
+                            "participant": "MAKER",
+                            "filledQty": "0.01244287",
+                            "qty": "0.01244287",
+                            "feeAsset": "idr",
+                            "feeRate": 0.001,
+                            "fee": "49",
+                            "taxAsset": "idr",
+                            "taxRate": 0.0021,
+                            "tax": "0",
+                            "clearingAsset": "idr",
+                            "clearingRate": 1.11E-4,
+                            "clearing": "0"
+                        },
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                },
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "tradeId": "72057594038023406",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0",
+                        "executedQty": "0.02504373",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "FILL",
+                        "transactionTime": 1772510281185,
+                        "fillInformation": {
+                            "participant": "MAKER",
+                            "filledQty": "0.02504373",
+                            "qty": "0.01260086",
+                            "feeAsset": "idr",
+                            "feeRate": 0.001,
+                            "fee": "50",
+                            "taxAsset": "idr",
+                            "taxRate": 0.0021,
+                            "tax": "0",
+                            "clearingAsset": "idr",
+                            "clearingRate": 1.11E-4,
+                            "clearing": "0"
+                        },
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                },
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0",
+                        "executedQty": "0.02504373",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "DONE",
+                        "transactionTime": 1772510281185,
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                }
+            ]
         }
-      ]
     }
-  }
 }
 ```
 
