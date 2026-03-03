@@ -211,21 +211,35 @@ This REST endpoint serves to retrieve an account’s order history for a specifi
 {
   "data": [
     {
-      "orderId": "aaveidr-limit-3568",  // the order id
-      "clientOrderId": "clientx-2",     // the client order id
-      "symbol": "aaveidr",              // symbol
-      "side": "SELL",                   // side of the order, BUY or SELL
-      "type": "LIMIT",                  // order type
-      "status": "FILLED",               // order status,FILLED|CANCELLED|REJECTED
-      "price": "1564455",               // order price
-      "oriQty": "0.1",                  // original order quantity
-      "executedQty": "0.1",             // executed order quantity
-      "submitTime": 1723442692520,      // time of the order submitted
-      "finishTime": 1723442692520       // time of the order finish
+      "orderId": "aaveidr-limit-3568",
+      "clientOrderId": "clientx-2",
+      "symbol": "aaveidr",
+      "side": "SELL",
+      "type": "LIMIT",
+      "status": "FILLED",
+      "price": "1564455",
+      "oriQty": "0.1",
+      "executedQty": "0.1",
+      "submitTime": 1723442692520,
+      "finishTime": 1723442692520
     }
   ]
 }
 ```
+### Response Description
+| Field | Description |
+|-----------|-------|
+| orderId | Unique identifier for the order. |
+| clientOrderId | Client-specified ID for the order. |
+| symbol | Trading pair symbol (e.g., aaveidr). |
+| side | Side of the order: BUY or SELL. |
+| type | Type of the order: LIMIT or MARKET. |
+| status | Current status of the order: FILLED, CANCELLED, or REJECTED. |
+| price | Order price per unit of the base asset: IDR or USDT. |
+| oriQty | Original quantity specified in the order. |
+| executedQty | Executed quantity of the order |
+| submitTime | Timestamp when the order was submitted (milliseconds since epoch). |
+| finishTime | Timestamp when the order was completed (milliseconds since epoch). |
 
 ## Trade History
 ```
@@ -269,19 +283,34 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 {
   "data": [
     {
-      "tradeId": "72057594037936570",   // the trade id
-      "orderId": "aaveidr-limit-3568",  // the order id
-      "clientOrderId": "clientx-1",     // the client order id
-      "symbol": "aaveidr",              // pair symbol
-      "price": "1564455",               // order price
-      "qty": "0.1",                     // base quantity
-      "quoteQty": "156445",             // quote quantity
-      "commission": "468",              // fee+tax commission on the trades of the order.
-      "commissionAsset": "idr",         // commission asset
-      "isBuyer": false,                 // the trade as buyer or not
-      "isMaker": false,                 // the trade as maker or not
-      "time": 1723442692520             // time execution of the trade
+      "tradeId": "72057594037936570",
+      "orderId": "aaveidr-limit-3568",
+      "clientOrderId": "clientx-1",
+      "symbol": "aaveidr",
+      "price": "1564455",
+      "qty": "0.1",
+      "quoteQty": "156445",
+      "commission": "468",
+      "commissionAsset": "idr",
+      "isBuyer": false,
+      "isMaker": false,
+      "time": 1723442692520
     }
   ]
 }
 ``` 
+### Response Description
+| Field | Description |
+|-----------|-------|
+| tradeId | Unique identifier for the trade. |
+| orderId | Unique identifier for the order. |
+| clientOrderId | Client-specified ID for the order. |
+| symbol | Trading pair symbol (e.g., aaveidr). |
+| price | Order price per unit of the base asset: IDR or USDT. |
+| qty | Base asset quantity executed in this trade (e.g., btcidr, qty is btc). |
+| quoteQty | Total trade value in the quote asset: IDR or USDT (e.g., btcusdt, quoteQty is USDT), calculated as qty × price. |
+| commission | Total fees paid for the trade (incl. trading fees and any applicable taxes). |
+| commissionAsset | Asset used to pay the commission: IDR or USDT. |
+| isBuyer | true if the account is the Buyer side in this trade; otherwise false. |
+| isMaker | true if the account is the Maker in this trade; otherwise false. |
+| time | Timestamp when the trade was executed (milliseconds since epoch). |
