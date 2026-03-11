@@ -34,7 +34,7 @@ As of `Jan 20, 2026` these endpoints now have dedicated REST endpoints for impro
 
     > ℹ️ Important Information
     > - Users of the old `/tapi` endpoint **must migrate to these new endpoint**s for Order & Trade History queries.
-    > - The old endpoint will **continue to function** for historical trades and orders, but is scheduled for decommission on `Mar 23, 2026`.
+    > - The old endpoint will **continue to function** for historical trades and orders, but is scheduled for decommission on `April 7th, 2026`.
 
 ## General API Information
 * **The base endpoint is:** 
