@@ -500,6 +500,15 @@ Response `client_order_id`
 #### Trade History Endpoints
 This method gives information about transaction in buying and selling history.
 
+> ℹ️ **Important Update**
+>
+> As of **March 23rd, 2026**, this `tradeHistory` method will be decommissioned and will no longer be available.
+> - To continue accessing the trade data, please migrate to the **new Trade History endpoint**: `GET /api/v2/myTrades`
+> - The new endpoint provides **enhanced stability**, **reliability**, and **Trade ID consistency** for easier transaction tracking.
+> - Users must migrate and ensure that all integrations are updated to avoid service disruption.
+>
+> For details, refer to the [INDODAX Trade API v2 Docs](https://github.com/btcid/indodax-official-api-docs/blob/master/INDODAX-TradeAPI-2.md).
+
 Request Body
 
 | Name | Type | Mandatory | Description | Value | default |
@@ -612,6 +621,15 @@ Response `if pair is not set`
 
 #### Order History
 This method gives the list of order history (buy and sell)
+
+> ℹ️ **Important Update**
+>
+> As of **March 23rd, 2026**, this `orderHistory` method will be decommissioned and will no longer be available.
+> - To continue accessing the order data, please migrate to the **new Order History endpoint**: `GET /api/v2/order/histories`
+> - The new endpoint provides **enhanced stability**, **reliability**, and **Trade ID consistency** for easier transaction tracking.
+> - Users must migrate and ensure that all integrations are updated to avoid service disruption.
+>
+> For details, refer to the [INDODAX Trade API v2 Docs](https://github.com/btcid/indodax-official-api-docs/blob/master/INDODAX-TradeAPI-2.md).
 
 Request Body
 
