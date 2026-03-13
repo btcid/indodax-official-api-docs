@@ -626,7 +626,7 @@ This method gives the list of order history (buy and sell)
 >
 > As of **April 7th, 2026**, this `orderHistory` method will be decommissioned and will no longer be available.
 > - To continue accessing the order data, please migrate to the **new Order History endpoint**: `GET /api/v2/order/histories`
-> - The new endpoint provides **enhanced stability**, **reliability**, and **Trade ID consistency** for easier transaction tracking.
+> - The new endpoint provides **enhanced stability** and **reliability** for easier transaction tracking.
 > - Users must migrate and ensure that all integrations are updated to avoid service disruption.
 >
 > For details, refer to the [INDODAX Trade API v2 Docs](https://github.com/btcid/indodax-official-api-docs/blob/master/INDODAX-TradeAPI-2.md).
