@@ -259,7 +259,8 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 | Name | Mandatory | Description | Value | Default |
 |------|-----------|-------------|-------|---------|
 | symbol | yes | Trading pair symbol | e.g., `btcidr`, `ethidr`, etc | |
-| orderId | no | Filter trades by order; must be used with `symbol` | e.g., `aaveidr-limit-3568` | |
+| orderId | no | Filter trades by orderId; must be used with `symbol` | e.g., `aaveidr-limit-3568` | |
+| clientOrderId | no | Filter trades by clientOrderId; must be used with `symbol` | e.g., `clientx-1` | |
 | startTime | no | Start of query range (Timestamp) | Unix in milliseconds (UTC)<br><br>e.g., `1723442692520` |Last 24 hours |
 | endTime | no | End of query range (Timestamp) |Unix in milliseconds (UTC)<br><br> e.g., `1723442692520` | Last 24 hours |
 | limit | no | Number of orders to be returned for display | Allowed range: min. 10, max. 1000 | 500 |
@@ -273,6 +274,7 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 >
 >       - `symbol`
 >       - `symbol` + `orderId`
+>       - `symbol` + `clientOrderId`
 >       - `symbol` + `startTime`
 >       - `symbol` + `endTime`
 >       - `symbol` + `startTime` + `endTime`
