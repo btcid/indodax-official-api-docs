@@ -95,6 +95,9 @@ Error codes are grouped by category:
 | 400 Bad Request | 1108 | Mandatory parameter not sent, empty/null, or malformed.<br> e.g.,`Mandatory parameter '%s' was not sent Param '%s' or '%s' must be sent` |
 | 400 Bad Request | 1109 | Invalid parameter value. |
 | 400 Bad Request | 1110 | Invalid symbol. |
+| 405 Method Not Allowed | 1111 | Method not allowed. |
+| 404 Not Found | 1112 | Order not found. |
+| 404 Not Found | 1113 | The requested resource does not exist. |
 
 ### General Information on Endpoints
 
@@ -259,7 +262,8 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 | Name | Mandatory | Description | Value | Default |
 |------|-----------|-------------|-------|---------|
 | symbol | yes | Trading pair symbol | e.g., `btcidr`, `ethidr`, etc | |
-| orderId | no | Filter trades by order; must be used with `symbol` | e.g., `aaveidr-limit-3568` | |
+| orderId | no | Filter trades by orderId; must be used with `symbol` | e.g., `aaveidr-limit-3568` | |
+| clientOrderId | no | Filter trades by clientOrderId; must be used with `symbol` | e.g., `clientx-1` | |
 | startTime | no | Start of query range (Timestamp) | Unix in milliseconds (UTC)<br><br>e.g., `1723442692520` |Last 24 hours |
 | endTime | no | End of query range (Timestamp) |Unix in milliseconds (UTC)<br><br> e.g., `1723442692520` | Last 24 hours |
 | limit | no | Number of orders to be returned for display | Allowed range: min. 10, max. 1000 | 500 |
@@ -273,6 +277,7 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 >
 >       - `symbol`
 >       - `symbol` + `orderId`
+>       - `symbol` + `clientOrderId`
 >       - `symbol` + `startTime`
 >       - `symbol` + `endTime`
 >       - `symbol` + `startTime` + `endTime`
