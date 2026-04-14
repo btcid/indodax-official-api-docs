@@ -97,6 +97,7 @@ Error codes are grouped by category:
 | 400 Bad Request | 1110 | Invalid symbol. |
 | 405 Method Not Allowed | 1111 | Method not allowed. |
 | 404 Not Found | 1112 | Order not found. |
+| 404 Not Found | 1113 | The requested resource does not exist. |
 
 ### General Information on Endpoints
 
