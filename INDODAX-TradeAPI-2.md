@@ -95,7 +95,7 @@ Error codes are grouped by category:
 | 400 Bad Request | 1108 | Mandatory parameter not sent, empty/null, or malformed.<br> e.g.,`Mandatory parameter '%s' was not sent Param '%s' or '%s' must be sent` |
 | 400 Bad Request | 1109 | Invalid parameter value. |
 | 400 Bad Request | 1110 | Invalid symbol. |
-| 404 Not Found | 1111 | Method not allowed. |
+| 405 Method Not Allowed | 1111 | Method not allowed. |
 | 404 Not Found | 1112 | Order not found. |
 
 ### General Information on Endpoints
