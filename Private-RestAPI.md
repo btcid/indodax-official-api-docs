@@ -57,7 +57,7 @@ Sample Payload below:
     |-|-|
     |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder, getOrderByClientOrderId |
     |trade | trade, cancelOrder, cancelByClientOrderId |
-    |withdraw | withdrawFeee, withdrawCoin |
+    |withdraw | withdrawFee, withdrawCoin |
 
 ## Signed (TRADE and USER_DATA) Endpoint Security
 * `SIGNED` endpoints require an additional parameter, `Sign`, to be
@@ -85,7 +85,7 @@ Sample Payload below:
 **Serious trading is about timing.** Networks can be unstable and unreliable, which can lead to requests taking varying amounts of time to reach the servers. With `recvWindow`, you can specify that the request must be processed within a certain number of milliseconds or be rejected by the server.
 
 ### SIGNED Endpoint Examples for POST getInfo
-Here is a step-by-step example of how to send a vaild signed payload from the
+Here is a step-by-step example of how to send a valid signed payload from the
 Linux command line using. `curl`
 
 | Key | Value

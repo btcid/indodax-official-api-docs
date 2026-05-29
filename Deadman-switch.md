@@ -52,7 +52,7 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
   `request body`. 
 
 #### **Example**
-Here is a step-by-step example of how to send a vaild signed payload from the
+Here is a step-by-step example of how to send a valid signed payload from the
 Linux command line using `curl`.
 
 | Key | Value 
