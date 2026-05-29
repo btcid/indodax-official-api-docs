@@ -57,7 +57,7 @@ Sample Payload below:
     |-|-|
     |view | getInfo, transHistory, tradeHistory, openOrders, orderHistory, getOrder, getOrderByClientOrderId |
     |trade | trade, cancelOrder, cancelByClientOrderId |
-    |withdraw | withdrawFeee, withdrawCoin |
+    |withdraw | withdrawFee, withdrawCoin |
 
 ## Signed (TRADE and USER_DATA) Endpoint Security
 * `SIGNED` endpoints require an additional parameter, `Sign`, to be
