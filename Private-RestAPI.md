@@ -45,7 +45,7 @@ Sample Payload below:
     |-|-|-| - |
     |`method`| Specify the method you want to call | no | getInfo
     |`timestamp`| This parameter should be the millisecond timestamp of when the request was created and sent | no | 1578303960000
-    |`recvWindow`| The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds) | no | 1578303937000
+    |`recvWindow`| The value should specify the number of milliseconds after the timestamp where your request is valid. That means your request is still valid if it is sent and processed within the timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds) | no | 1578303937000
 
 ## Endpoint Security Type
 * API-keys are passed into the Rest API via the `Key`
@@ -85,8 +85,8 @@ Sample Payload below:
 **Serious trading is about timing.** Networks can be unstable and unreliable, which can lead to requests taking varying amounts of time to reach the servers. With `recvWindow`, you can specify that the request must be processed within a certain number of milliseconds or be rejected by the server.
 
 ### SIGNED Endpoint Examples for POST getInfo
-Here is a step-by-step example of how to send a vaild signed payload from the
-Linux command line using. `curl`
+Here is a step-by-step example of how to send a valid signed payload from the
+Linux command line using `curl`.
 
 | Key | Value
 |-|-
@@ -150,25 +150,25 @@ Linux command line using. `curl`
 * ltc
 
 ### Private API Endpoints
-All request sent to this endpoint
+All requests are sent to this endpoint
 
     POST https://indodax.com/tapi
 
-All request sent with Request header
+All requests are sent with Request header
 
 | Name | Type | Mandatory | Description |
 |-|-|-|-|
 |`Key`| string | yes | API Key|
 |`Sign`| string | yes | Encrypted with method HMAC-SHA512 using secret key. (Request body (?param=val&param1=val1))|
 
-All request sent with Request body
+All requests are sent with Request body
 
 | Name | Type | Mandatory | Description |
 |-|-|-|-|
 |`method`| string |yes|Specify the method you want to call |
-|`timestamp`| timestamp in milisecond | optional when sending request using `nonce` | The millisecond timestamp of when the request was created and sent. Default value is 5000 (milliseconds).|
-|`recvWindow`| timestamp in milisecond | no | This parameter is optional when you sending request using timestamp. The value should specify the number of millisecond after timestamp where your request is valid. That mean your request still valid if it sent and processed within timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds).|
-|`nonce`|int|optional when sending request using `timestamp`|An increment integer. For example if the last request's nonce is 1000, the next request should be 1001 or a larger number.
+|`timestamp`| timestamp in milliseconds | optional when sending a request using `nonce` | The millisecond timestamp of when the request was created and sent. Default value is 5000 (milliseconds).|
+|`recvWindow`| timestamp in milliseconds | no | This parameter is optional when you are sending a request using a timestamp. The value should specify the number of milliseconds after the timestamp where your request is valid. That means your request is still valid if it is sent and processed within the timestamp and timestamp + recvWindow. Default value is 5000 (milliseconds).|
+|`nonce`|int|optional when sending a request using `timestamp`|An increment integer. For example if the last request's nonce is 1000, the next request should be 1001 or a larger number.
 
 #### Get Info Endpoint
 This method gives user balances and server's timestamp.

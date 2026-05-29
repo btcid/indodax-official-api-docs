@@ -20,10 +20,10 @@ These are open data for public. It doesn't need an API key to call these methods
  - All time and timestamp related fields are in milliseconds.
 
 ## Limit
-Public API rate limited to 180request/minute.
+Public API rate limited to 180 requests/minute.
 
 ## Server Time
-Provide server time on exchange
+Provides server time on exchange
 #### Request
 ```
 /api/server_time
@@ -37,7 +37,7 @@ Provide server time on exchange
 ```
 
 ## Pairs
-Provide available pairs on exchange
+Provides available pairs on exchange
 #### Request
 ```
 /api/pairs
@@ -68,7 +68,7 @@ Provide available pairs on exchange
 ```
 
 ## Price Increments
-Provide price increments of each pairs on exchange
+Provides price increments of each pair on exchange
 #### Request
 ```
 /api/price_increments
@@ -87,7 +87,7 @@ Provide price increments of each pairs on exchange
 ```
 
 ## Summaries
-Provide summary information for the pairs
+Provides summary information for the pairs
 #### Request
 ```
 /api/summaries
@@ -126,7 +126,7 @@ Provide summary information for the pairs
 ```
 
 ## Ticker
-Provide Single Ticker Price on each pair in exchange
+Provides single ticker price on each pair in exchange
 #### Request
 ```
 /api/ticker/$pair_id
@@ -153,7 +153,7 @@ Provide Single Ticker Price on each pair in exchange
 ```
 
 ## Ticker All
-Provide All Ticker Prices in exchange
+Provides all ticker prices in exchange
 #### Request
 ```
 /api/ticker_all
@@ -177,7 +177,7 @@ Provide All Ticker Prices in exchange
 ```
 
 ## Trades
-Provide transaction Information from all pairs/selected pair
+Provides transaction information from all pairs/selected pair
 #### Request
 ```
 /api/trades/$pair_id
@@ -208,7 +208,7 @@ Provide transaction Information from all pairs/selected pair
 ```
 
 ## Depth
-Provide Volume price Buy and Sell on each pair in exchange
+Provides volume price for Buy and Sell on each pair in exchange
 #### Request
 ```
 /api/depth/$pair_id
@@ -244,7 +244,7 @@ Provide Volume price Buy and Sell on each pair in exchange
 ```
 
 ## OHLC History
-Provide OHLC (Open, High, Low, Close) Charting History Information for pairs
+Provides OHLC (Open, High, Low, Close) Charting History information for pairs
 #### Request
 ```
 /tradingview/history_v2?from=1698742200&symbol=$pair_id&tf=15&to=1699347009

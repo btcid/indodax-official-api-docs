@@ -63,7 +63,7 @@ Response:
 
 ## Ping/Pong
 
-Provide a command to send a test signal to a server to check for its availability and response time. Use 7 as method.
+Provides a command to send a test signal to a server to check for its availability and response time. Use 7 as method.
 
 
 Request:
@@ -89,7 +89,7 @@ You can **subscribe** to a **channel** to get live stream of events using a **si
 
 ### Chart Data
 
-Provide a visualization cryptocurrency price movements and trends for easy analysis. Use chart:tick-<pair> as channel. Change <pair> to the one that you want to subscribe to.
+Provides a visualization of cryptocurrency price movements and trends for easy analysis. Use chart:tick-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
 Request:
 
@@ -204,7 +204,7 @@ Received Message:
 
 ### Trade Activity
 
-Provide real-time transactions and trading activity for cryptocurrencies, offering insights into market dynamics and trends. Use market:trade-activity-<pair> as channel. Change <pair> to the one that you want to subscribe to.
+Provides real-time transactions and trading activity for cryptocurrencies, offering insights into market dynamics and trends. Use market:trade-activity-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
 Request:
 
@@ -257,7 +257,7 @@ Received Message:
 
 ### Orderbook
 
-Provide real-time buy and sell orders for cryptocurrencies, giving insights into market depth and trading liquidity. Use market:order-book-<pair> as channel. Change <pair> to the one that you want to subscribe to.
+Provides real-time buy and sell orders for cryptocurrencies, giving insights into market depth and trading liquidity. Use market:order-book-<pair> as channel. Change <pair> to the one that you want to subscribe to.
 
 Send request so it will give the following response.
 
@@ -293,7 +293,7 @@ Response:
 | data.ask       | json     | required on limit order           | yes           |             |
 | ask.btc_volume | float    | trading volume                    | yes           |             |
 | ask.idr_volume | float    | trading volume                    | yes           |             |
-| ask.price      | numeric  | order pice                        | yes           |             |
+| ask.price      | numeric  | order price                       | yes           |             |
 | bid.btc_volume | float    | trading volume                    | yes           |             |
 | bid.idr_volume | float    | trading volume                    | yes           |             |
 | bid.price      | numeric  | order price                       | yes           |             |
@@ -337,10 +337,9 @@ Response:
 
 #### Streaming Result
 
-By following the steps starting from connecting to Market Data & authenticate using [Authentication](#authentication) section, then following the streaming steps 
+By following the steps starting from connecting to Market Data & authenticating using [Authentication](#authentication) section, then following the streaming steps
 
-in the [Orderbook](#orderbook) section so you can get Market Data WebSocket as long as they are connected to the WS3. 
-
+in the [Orderbook](#orderbook) section so you can get Market Data WebSocket as long as you are connected to the WS3.
 ![result](https://github.com/btcid/indodax-official-api-docs/blob/e4ddf92cc75d0fca3bfe501d17c8d95f09423ffc/assets/results.png)
 
 ## Unsubscribing from Channel

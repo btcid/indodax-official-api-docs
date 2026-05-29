@@ -23,7 +23,7 @@
 #### Base URL
 | **Environment**  	| **Base URL**              									| **Description**																											|
 | -----------------	| ------------------------------------------- | ------------------------------------------------------------------- |
-| Production       	| https://indodax.com/ , https://btcapi.net   | Access for production. For https://btcapi.net need to be whitelist	|
+| Production       	| https://indodax.com/ , https://btcapi.net   | Access for production. For https://btcapi.net, it needs to be whitelisted	|
 | Demo             	| https://demo-indodax.com/  	 								|	Access for demo.																										|
 
 #### Request Header
@@ -50,9 +50,9 @@ POST {base_url}/api/private_ws/v1/generate_token
 | -----------------	| --------- | ------------------------------------------------------------- |
 | success 					| int				| if success=1 and failed=0 																		|
 | return						| object		| 																															|
-| return.connToken 	| string		| Use to established connection and verify user private channel |
+| return.connToken 	| string		| Used to establish connection and verify user private channel |
 | return.channel		| string		| private channel to subscribe 																	|
-| error							| string		| error message of request 																			|
+| error							| string		| error message of the request 																			|
 | error_code				| string		| type of error  																								|
 
 **Success Response**
@@ -79,7 +79,7 @@ POST {base_url}/api/private_ws/v1/generate_token
 | -----------------		| ------------------------------- 								| --------------- 									|
 | invalid_tapi_key 		| Invalid TAPI key  											| `tapi_key` not properly sent or empty `tapi_key`. |
 | invalid_credentials 	| Invalid credentials. API not found or session has expired.	| Invalid `tapi_key` or doesn't exist. 				|
-| bad_sign			 	| Invalid credentials. Bad sign.								| Invalid `tapi_secret` to Encrypt Sign request 	|
+| bad_sign			 	| Invalid credentials. Bad sign.								| Invalid `tapi_secret` to encrypt the Sign request 	|
 
 
 
