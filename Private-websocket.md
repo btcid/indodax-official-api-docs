@@ -236,7 +236,7 @@ Response Cancel Order:
             "status": "CANCELLED",
             "transactionTime": 1705636274643,
             "clientOrderId": "lendidr-limit-3399",
-            "cancelReason": "SELF_TRADE_PREVENTION" // optional, present when order is cancelled by STP
+            "cancelReason": "SELF_TRADE_PREVENTION" // present when order is cancelled by STP
           }
         }
       ]
