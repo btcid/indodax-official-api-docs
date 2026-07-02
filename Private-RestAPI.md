@@ -369,7 +369,7 @@ Provides access to essential trading functionalities and data for seamless integ
 > As per January 2024,
 > - You can create order by adding infomartional `client_order_id` (eg: `client_order_id : "clientx-sj82ks82j"`)
 >
-> As per July 2026,
+> As per 14 July 2026,
 > - You can create order by adding `smp_cancel` (eg: `smp_cancel : TAKER | MAKER| BOTH`)
 >
 > ℹ️ **Information**
