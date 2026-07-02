@@ -117,7 +117,7 @@ The `smp_cancel` parameter specifies how the matching engine resolves a self-tra
 
 ---
 
-### POST `/api/v2/order/histories` (STP Cancellation Reason)
+### GET `/api/v2/order/histories` (STP Cancellation Reason)
 
 When an order is cancelled by the Self-Trade Prevention (STP), the cancellation reason is recorded in the order history for post-trade reconciliation, auditing, and monitoring purposes. 
 
