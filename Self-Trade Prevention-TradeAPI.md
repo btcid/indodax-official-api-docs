@@ -130,7 +130,7 @@ To verify an order’s cancellation status, check the `cancelReason` field in th
 | Name | Type | Mandatory | Value |
 |---|---|---|---|
 | `X-APIKEY` | string | yes | User’s API key |
-| `Sign` | string | yes | Encrypted with method HMAC-SHA512 using secret key. (Request body (?param=val&param1=val1)) |
+| `Sign` | string | yes | SIGNED endpoint (must be HMAC-SHA512 encrypted using secret key on query string, e.g., `?param=value&param1=value1`) |
 
 #### Request Parameters
 
@@ -181,7 +181,7 @@ To verify an order’s cancellation status, check the `cancelReason` field in th
 
 ### Private WebSocket (STP Order Update Event)
 
-When Self-Trade Prevention (STP) cancels an order, a real-time order update event gets published via the Private WebSocket. Users must be subscribed to the Private WebSocket (PWS) to receive this event. 
+When Self-Trade Prevention (STP) cancels an order, a real-time order update event gets published via the Private WebSocket. Users must be subscribed to the [Private WebSocket (PWS)](./Private-websocket.md#subscribing-to-private-channel) to receive this event. 
 
 Without an active PWS subscription, STP cancellations will only be visible via `/api/v2/order/histories`.
 
