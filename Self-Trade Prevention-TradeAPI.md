@@ -47,7 +47,7 @@ A potential self-trade occurs when the incoming order and any resting order in t
 
 ### POST `/tapi` (STP Parameters for `createOrder`)
 
-Self-Trade Prevention (STP) is evaluated by the matching engine before the order is being executed. To place an order with STP parameters, all order creation requests must be sent using the Trade method to this endpoint:
+Self-Trade Prevention (STP) is evaluated by the matching engine before the order is being executed. To place an order with STP parameters, all order creation requests must be sent using the [Trade](./Private-RestAPI.md#trade-endpoints) method to this endpoint:
 
 `POST https://indodax.com/tapi`
 
@@ -56,8 +56,7 @@ Self-Trade Prevention (STP) is evaluated by the matching engine before the order
 | Name | Type | Mandatory | Value |
 |---|---|---|---|
 | `Key` | string | yes | API Key |
-| `Sign` | string | yes | SIGNED endpoint (must be HMAC-SHA512 encrypted using secret key on query string, e.g., `?param=value&param1=value1`) |
-| `Content-Type` | string | yes | Must be `application/json` |
+| `Sign` | string | yes | Encrypted with method HMAC-SHA512 using secret key. (Request body (?param=val&param1=val1)) |
 
 #### Request Parameters
 
@@ -114,7 +113,7 @@ The `smp_cancel` parameter specifies how the matching engine resolves a self-tra
 }
 ```
 
-> ℹ️ **Note:** The response format remains unchanged. STP cancellation details are available through the Trade API 2.0: Order History endpoint.
+> ℹ️ **Note:** The response format remains unchanged. STP cancellation details are available through the [Trade API 2.0: Order History](./INDODAX-TradeAPI-2.md#order-history) endpoint.
 
 ---
 
@@ -122,7 +121,7 @@ The `smp_cancel` parameter specifies how the matching engine resolves a self-tra
 
 When an order is cancelled by the Self-Trade Prevention (STP), the cancellation reason is recorded in the order history for post-trade reconciliation, auditing, and monitoring purposes. 
 
-To verify an order’s cancellation status, check the `cancelReason` field in the Order History response. A value of `SELF_TRADE_PREVENTION` indicates the order was cancelled by STP. This information can be retrieved via the Order History endpoint:
+To verify an order’s cancellation status, check the `cancelReason` field in the Order History response. A value of `SELF_TRADE_PREVENTION` indicates the order was cancelled by STP. This information can be retrieved via the [Order History](./INDODAX-TradeAPI-2.md#order-history) endpoint:
 
 `GET /api/v2/order/histories`
 
@@ -131,7 +130,7 @@ To verify an order’s cancellation status, check the `cancelReason` field in th
 | Name | Type | Mandatory | Value |
 |---|---|---|---|
 | `X-APIKEY` | string | yes | User’s API key |
-| `Sign` | string | yes | SIGNED endpoint (must be HMAC-SHA512 encrypted using secret key on query string, e.g., `?param=value&param1=value1`) |
+| `Sign` | string | yes | Encrypted with method HMAC-SHA512 using secret key. (Request body (?param=val&param1=val1)) |
 
 #### Request Parameters
 

@@ -369,6 +369,9 @@ Provides access to essential trading functionalities and data for seamless integ
 > As per January 2024,
 > - You can create order by adding infomartional `client_order_id` (eg: `client_order_id : "clientx-sj82ks82j"`)
 >
+> As per July 2026,
+> - You can create order by adding `smp_cancel` (eg: `smp_cancel : TAKER | MAKER| BOTH`)
+>
 > ℹ️ **Information**
 >
 > The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
