@@ -369,6 +369,9 @@ Provides access to essential trading functionalities and data for seamless integ
 > As per January 2024,
 > - You can create order by adding infomartional `client_order_id` (eg: `client_order_id : "clientx-sj82ks82j"`)
 >
+> As per 14 July 2026,
+> - You can create order by adding `smp_cancel` (eg: `smp_cancel : TAKER | MAKER| BOTH`)
+>
 > ℹ️ **Information**
 >
 > The trade API implements a `rate limit of 20 requests per second` per `account` and `pair`. Exceeding this triggers a `5-second trading block` for the affected account and pair.
@@ -401,11 +404,13 @@ Request Body
 |`order_type`|string|optional|type of order|limit/market|limit|
 |`client_order_id`|string|optional, max 36 character, allowed = alphanumeric _-|set your client order id|eg: clientx-sj82ks82j||
 |`time_in_force`|string|optional|currently only valid for "limit" order type, defines how long an order remains working till it is expired by the system|GTC,MOC|GTC|
+|`smp_cancel`|string|optional|Self-Trade Prevention (STP) cancellation mode. Determines which order is cancelled when a self-match is detected. Default: `MAKER`.|`MAKER`, `TAKER`, `BOTH`|`MAKER`|
 
 **Notes**
 - Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
 - Currently MARKET BUY order only support amount in `idr`.
 - Trade Request from Trade API with `order_type = limit` and `time_in_force = MOC` specified will be rejected if price is better than top of book price.
+- **Self-Trade Prevention (STP):** You can configure STP parameters on a per-order basis using the `smp_cancel` parameter. For detailed explanations of STP behaviors and cancellation modes, please refer to the [Self-Trade Prevention (STP) Documentation](./Self-Trade%20Prevention-TradeAPI.md).
 
 Sample Payload for limit order using idr amount:
 ```javascript
@@ -430,7 +435,8 @@ Sample Payload for limit order using idr amount:
 	"price": 500000,
 	"type": "buy",
     "client_order_id": "clientx-sj82ks82j", // New field (optional)
-	"time_in_force": "MOC" // New field (GTC, MOC)
+	"time_in_force": "MOC", // New field (GTC, MOC)
+	"smp_cancel": "MAKER" // New field (optional - MAKER, TAKER, BOTH)
 }
 ```
 

@@ -387,7 +387,8 @@ Response Cancel Order:
             "description": "AAVE/IDR",
             "status": "CANCELLED",
             "transactionTime": 1705636274643,
-            "clientOrderId": "lendidr-limit-3399"
+            "clientOrderId": "lendidr-limit-3399",
+            "cancelReason": "SELF_TRADE_PREVENTION" // present when order is cancelled by STP
           }
         }
       ]
@@ -395,6 +396,8 @@ Response Cancel Order:
   }
 }
 ```
+
+> ℹ️ **Note:** The `cancelReason` field is only present when the order was cancelled by Self-Trade Prevention (STP). For detailed explanations, please refer to the [Self-Trade Prevention (STP) Documentation](./Self-Trade%20Prevention-TradeAPI.md).
 
 Response Done Order:
 ```json

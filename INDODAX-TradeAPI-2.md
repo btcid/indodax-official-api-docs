@@ -188,6 +188,7 @@ This REST endpoint serves to retrieve an account’s order history for a specifi
 - Original and executed quantities
 - Order type and status (`FILLED`, `CANCELLED`, `REJECTED`)
 - Timestamps for submission and completion
+- `cancelReason` (optional, present when status is `CANCELLED` due to Self-Trade Prevention)
 
 ### Parameters
 | Name | Mandatory | Description | Value | Default |
@@ -208,23 +209,38 @@ This REST endpoint serves to retrieve an account’s order history for a specifi
 >       - `symbol` + `startTime`
 >       - `symbol` + `endTime`
 >       - `symbol` + `startTime` + `endTime`
+> 4. **Self-Trade Prevention (STP):** For orders cancelled due to Self-Trade Prevention, the response will include a `cancelReason` field set to `"SELF_TRADE_PREVENTION"`. For complete details on STP, please refer to the [Self-Trade Prevention (STP) Documentation](./Self-Trade%20Prevention-TradeAPI.md).
 
 ### Sample Response Body
 ```json
 {
   "data": [
     {
-      "orderId": "aaveidr-limit-3568",
-      "clientOrderId": "clientx-2",
-      "symbol": "aaveidr",
-      "side": "SELL",
-      "type": "LIMIT",
-      "status": "FILLED",
-      "price": "1564455",
-      "oriQty": "0.1",
-      "executedQty": "0.1",
-      "submitTime": 1723442692520,
-      "finishTime": 1723442692520
+      "orderId": "aaveidr-limit-3568",  // the order id
+      "clientOrderId": "clientx-2",     // the client order id
+      "symbol": "aaveidr",              // symbol
+      "side": "SELL",                   // side of the order, BUY or SELL
+      "type": "LIMIT",                  // order type
+      "status": "FILLED",               // order status,FILLED|CANCELLED|REJECTED
+      "price": "1564455",               // order price
+      "oriQty": "0.1",                  // original order quantity
+      "executedQty": "0.1",             // executed order quantity
+      "submitTime": 1723442692520,      // time of the order submitted
+      "finishTime": 1723442692520       // time of the order finish
+    },
+    {
+      "orderId": "btcidr-limit-31695",  // the order id
+      "clientOrderId": "btcidr-limit-31695", // the client order id
+      "symbol": "btcidr",               // symbol
+      "side": "BUY",                    // side of the order, BUY or SELL
+      "type": "LIMIT",                  // order type
+      "status": "CANCELLED",            // order status
+      "price": "0.001",                 // order price
+      "oriQty": "10000000",             // original order quantity
+      "executedQty": "0",               // executed order quantity
+      "submitTime": 1781153210349,      // time of the order submitted
+      "finishTime": 1781153238386,      // time of the order finish
+      "cancelReason": "SELF_TRADE_PREVENTION" // present when order was cancelled by STP
     }
   ]
 }
