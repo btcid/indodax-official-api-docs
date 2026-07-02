@@ -34,7 +34,7 @@ As of `Jan 20, 2026` these endpoints now have dedicated REST endpoints for impro
 
     > ℹ️ Important Information
     > - Users of the old `/tapi` endpoint **must migrate to these new endpoint**s for Order & Trade History queries.
-    > - The old endpoint will **continue to function** for historical trades and orders, but is scheduled for decommission on `Mar 23, 2026`.
+    > - The old endpoint will **continue to function** for historical trades and orders, but is scheduled for decommission on `April 7th, 2026`.
 
 ## General API Information
 * **The base endpoint is:** 
@@ -95,6 +95,9 @@ Error codes are grouped by category:
 | 400 Bad Request | 1108 | Mandatory parameter not sent, empty/null, or malformed.<br> e.g.,`Mandatory parameter '%s' was not sent Param '%s' or '%s' must be sent` |
 | 400 Bad Request | 1109 | Invalid parameter value. |
 | 400 Bad Request | 1110 | Invalid symbol. |
+| 405 Method Not Allowed | 1111 | Method not allowed. |
+| 404 Not Found | 1112 | Order not found. |
+| 404 Not Found | 1113 | The requested resource does not exist. |
 
 ### General Information on Endpoints
 
@@ -242,6 +245,20 @@ This REST endpoint serves to retrieve an account’s order history for a specifi
   ]
 }
 ```
+### Response Description
+| Field | Description |
+|-----------|-------|
+| orderId | Unique identifier for the order. |
+| clientOrderId | Client-specified ID for the order. |
+| symbol | Trading pair symbol (e.g., aaveidr). |
+| side | Side of the order: BUY or SELL. |
+| type | Type of the order: LIMIT or MARKET. |
+| status | Current status of the order: FILLED, CANCELLED, or REJECTED. |
+| price | Order price per unit of the base asset: IDR or USDT. |
+| oriQty | Original quantity specified in the order. |
+| executedQty | Executed quantity of the order |
+| submitTime | Timestamp when the order was submitted (milliseconds since epoch). |
+| finishTime | Timestamp when the order was completed (milliseconds since epoch). |
 
 ## Trade History
 ```
@@ -261,7 +278,8 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 | Name | Mandatory | Description | Value | Default |
 |------|-----------|-------------|-------|---------|
 | symbol | yes | Trading pair symbol | e.g., `btcidr`, `ethidr`, etc | |
-| orderId | no | Filter trades by order; must be used with `symbol` | e.g., `aaveidr-limit-3568` | |
+| orderId | no | Filter trades by orderId; must be used with `symbol` | e.g., `aaveidr-limit-3568` | |
+| clientOrderId | no | Filter trades by clientOrderId; must be used with `symbol` | e.g., `clientx-1` | |
 | startTime | no | Start of query range (Timestamp) | Unix in milliseconds (UTC)<br><br>e.g., `1723442692520` |Last 24 hours |
 | endTime | no | End of query range (Timestamp) |Unix in milliseconds (UTC)<br><br> e.g., `1723442692520` | Last 24 hours |
 | limit | no | Number of orders to be returned for display | Allowed range: min. 10, max. 1000 | 500 |
@@ -275,6 +293,7 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 >
 >       - `symbol`
 >       - `symbol` + `orderId`
+>       - `symbol` + `clientOrderId`
 >       - `symbol` + `startTime`
 >       - `symbol` + `endTime`
 >       - `symbol` + `startTime` + `endTime`
@@ -285,19 +304,34 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 {
   "data": [
     {
-      "tradeId": "72057594037936570",   // the trade id
-      "orderId": "aaveidr-limit-3568",  // the order id
-      "clientOrderId": "clientx-1",     // the client order id
-      "symbol": "aaveidr",              // pair symbol
-      "price": "1564455",               // order price
-      "qty": "0.1",                     // base quantity
-      "quoteQty": "156445",             // quote quantity
-      "commission": "468",              // fee+tax commission on the trades of the order.
-      "commissionAsset": "idr",         // commission asset
-      "isBuyer": false,                 // the trade as buyer or not
-      "isMaker": false,                 // the trade as maker or not
-      "time": 1723442692520             // time execution of the trade
+      "tradeId": "72057594037936570",
+      "orderId": "aaveidr-limit-3568",
+      "clientOrderId": "clientx-1",
+      "symbol": "aaveidr",
+      "price": "1564455",
+      "qty": "0.1",
+      "quoteQty": "156445",
+      "commission": "468",
+      "commissionAsset": "idr",
+      "isBuyer": false,
+      "isMaker": false,
+      "time": 1723442692520
     }
   ]
 }
 ``` 
+### Response Description
+| Field | Description |
+|-----------|-------|
+| tradeId | Unique identifier for the trade. |
+| orderId | Unique identifier for the order. |
+| clientOrderId | Client-specified ID for the order. |
+| symbol | Trading pair symbol (e.g., aaveidr). |
+| price | Order price per unit of the base asset: IDR or USDT. |
+| qty | Base asset quantity executed in this trade (e.g., btcidr, qty is btc). |
+| quoteQty | Total trade value in the quote asset: IDR or USDT (e.g., btcusdt, quoteQty is USDT), calculated as qty × price. |
+| commission | Total fees paid for the trade (incl. trading fees and any applicable taxes). |
+| commissionAsset | Asset used to pay the commission: IDR or USDT. |
+| isBuyer | true if the account is the Buyer side in this trade; otherwise false. |
+| isMaker | true if the account is the Maker in this trade; otherwise false. |
+| time | Timestamp when the trade was executed (milliseconds since epoch). |

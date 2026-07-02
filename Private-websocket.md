@@ -140,6 +140,52 @@ Request Message:
 ```json
 {"subscribe":{"channel":"pws:#c12d3ca099785ede15c37c9b7642ab89d19bc96e"},"id":2}
 ```
+### Response Description
+
+#### Order Fields
+
+| Field | Description |
+|-------|------------|
+| `order.orderId` | Unique identifier for the order. |
+| `order.tradeId` | Unique identifier for the trade. |
+| `order.symbol` | Trading pair symbol (e.g., aaveidr). |
+| `order.side` | Side of the order: `BUY` or `SELL`. |
+| `order.origQty` | Original quantity specified in the order. |
+| `order.unfilledQty` | Remaining quantity not yet executed in the order. |
+| `order.executedQty` | Executed quantity of the order. |
+| `order.price` | Order price per unit of the base asset: IDR or USDT. |
+| `order.description` | Readable pair (e.g., AAVE/IDR). |
+| `order.status` | Current status of the order: `FILLED`, `CANCELLED`, or `REJECTED`. |
+| `order.transactionTime` | Event timestamp (milliseconds since epoch). |
+| `order.clientOrderId` | Client-specified ID for the order. |
+
+---
+
+#### Fill Information Fields
+
+| Field | Description |
+|-------|------------|
+| `order.fillInformation.participant` | Liquidity role: `MAKER` or `TAKER`. |
+| `order.fillInformation.filledQty` | Cumulative matched quantity for the order (total executed quantity). |
+| `order.fillInformation.qty` | Quantity for a single trade (individual execution). |
+| `order.fillInformation.feeAsset` | Asset used to pay trading fee: IDR or USDT. |
+| `order.fillInformation.feeRate` | Fee rate applied to the trade. |
+| `order.fillInformation.fee` | Fee amount charged. |
+| `order.fillInformation.taxAsset` | Asset used to pay tax: IDR or USDT. |
+| `order.fillInformation.taxRate` | Tax rate applied. |
+| `order.fillInformation.tax` | Tax amount charged. |
+| `order.fillInformation.clearingAsset` | Asset used for clearing fee: IDR or USDT. |
+| `order.fillInformation.clearingRate` | Clearing fee rate applied. |
+| `order.fillInformation.clearing` | Clearing fee amount charged. |
+
+---
+
+#### Error Fields
+
+| Field | Description |
+|-------|------------|
+| `error.code` | Error code (failed subscription). |
+| `error.message` | Error description indicating failure reason. |
 
 #### Success Response
 Response New Order:
@@ -170,8 +216,8 @@ Response New Order:
   }
 }
 ```
+Response Fill Order :
 
-Response Fills Order:
 ```json
 {
   "push": {
@@ -212,6 +258,112 @@ Response Fills Order:
       ]
     }
   }
+}
+```
+Response Multi Fill Order:
+```json
+{
+    "push": {
+        "channel": "pws:#31ae0e3b5573e325a550c5d860c5b47d42b7df31",
+        "pub": {
+            "data": [
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0.02504373",
+                        "executedQty": "0",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "NEW",
+                        "transactionTime": 1772510251374,
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                },
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "tradeId": "72057594038023405",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0.01260086",
+                        "executedQty": "0.01244287",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "FILL",
+                        "transactionTime": 1772510267697,
+                        "fillInformation": {
+                            "participant": "MAKER",
+                            "filledQty": "0.01244287",
+                            "qty": "0.01244287",
+                            "feeAsset": "idr",
+                            "feeRate": 0.001,
+                            "fee": "49",
+                            "taxAsset": "idr",
+                            "taxRate": 0.0021,
+                            "tax": "0",
+                            "clearingAsset": "idr",
+                            "clearingRate": 1.11E-4,
+                            "clearing": "0"
+                        },
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                },
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "tradeId": "72057594038023406",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0",
+                        "executedQty": "0.02504373",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "FILL",
+                        "transactionTime": 1772510281185,
+                        "fillInformation": {
+                            "participant": "MAKER",
+                            "filledQty": "0.02504373",
+                            "qty": "0.01260086",
+                            "feeAsset": "idr",
+                            "feeRate": 0.001,
+                            "fee": "50",
+                            "taxAsset": "idr",
+                            "taxRate": 0.0021,
+                            "tax": "0",
+                            "clearingAsset": "idr",
+                            "clearingRate": 1.11E-4,
+                            "clearing": "0"
+                        },
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                },
+                {
+                    "eventType": "order_update",
+                    "order": {
+                        "orderId": "aaveidr-limit-30212",
+                        "symbol": "aaveidr",
+                        "side": "SELL",
+                        "origQty": "0.02504373",
+                        "unfilledQty": "0",
+                        "executedQty": "0.02504373",
+                        "price": "4009900",
+                        "description": "AAVE/IDR",
+                        "status": "DONE",
+                        "transactionTime": 1772510281185,
+                        "clientOrderId": "lendidr-limit-30212"
+                    }
+                }
+            ]
+        }
+    }
 }
 ```
 

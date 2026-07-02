@@ -293,7 +293,7 @@ Response:
 | data.ask       | json     | required on limit order           | yes           |             |
 | ask.btc_volume | float    | trading volume                    | yes           |             |
 | ask.idr_volume | float    | trading volume                    | yes           |             |
-| ask.price      | numeric  | order pice                        | yes           |             |
+| ask.price      | numeric  | order price                        | yes           |             |
 | bid.btc_volume | float    | trading volume                    | yes           |             |
 | bid.idr_volume | float    | trading volume                    | yes           |             |
 | bid.price      | numeric  | order price                       | yes           |             |
