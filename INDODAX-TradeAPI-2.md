@@ -81,6 +81,7 @@ Error codes are grouped by category:
 | 401 Unauthorized | 1001 |Invalid credentials. API not found or session expired. Please generate a new key. |
 | 400 Bad Request | 1002 | Invalid timestamp.<br> Timestamp outside `recvWindow`. |
 | 400 Bad Request | 1003 | Invalid nonce.<br> Nonce must be greater than `last_nonce`. |
+| 503 Internal Server Error | 9999 | Can't access Trade API. Maintenance in progress from {time} until {time}.|
 
 **2. Request Issues (11xx)**
 | HTTP Status | Code |Error Description |
