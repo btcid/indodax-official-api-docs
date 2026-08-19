@@ -7,6 +7,7 @@
 - [Error Codes](#error-codes)
 - [General Information on Endpoints](#general-information-on-endpoints)
   - [Generate API Key](#generate-api-key)
+  - [General Rate Limit by Endpoints](#general-rate-limit-by-endpoints)
   - [Endpoint Security Type](#endpoint-security-type)
   - [SIGNED Endpoint Examples](#signed-endpoint-examples)
 - [Private API Endpoints](#private-api-endpoints)
@@ -175,6 +176,32 @@ An API key cannot be activated for a permission unless the corresponding whiteli
 > - After users regenerate API keys, coin withdrawals via API will only be available after 24 hours. During that period, users can still make coin withdrawals via website and mobile app.
 > - Users should keep their whitelist configurations up to date whenever server IPs or withdrawal destinations change.
 > - IDR withdrawal must be made to a bank account registered under the same name as the KYC-verified account holder.
+
+### General Rate Limit by Endpoints
+
+API requests are rate-limited **per IP address**. The applicable limit depends on the endpoint.
+
+| Endpoint Name | Method | Endpoint Path | Rate Limit |
+|---|---|---|---|
+| [Create Order](#create-order) | POST | `/api/v2/order` | 300 requests / minute |
+| [Cancel Order](#cancel-order) | DELETE | `/api/v2/order` | 300 requests / minute |
+| [Pending Order](#pending-order) | GET | `/api/v2/openOrders` | 300 requests / minute |
+| [Get Order](#get-order) | GET | `/api/v2/order` | 300 requests / minute |
+| [Account Information](#get-account-information) | GET | `/api/v2/account` | 300 requests / minute |
+| [Withdraw Coin Information History](#get-withdraw-coin-information-history) | GET | `/api/v2/capital/withdraw/history` | 50 requests / minute |
+| [Deposit Coin Information History](#get-deposit-coin-information-history) | GET | `/api/v2/capital/deposit/hisrec` | 50 requests / minute |
+| [Withdraw/Deposit Fiat Information History](#get-withdrawdeposit-fiat-information-history) | GET | `/api/v2/fiat/orders` | 50 requests / minute |
+| [Withdraw Coin](#withdraw-coin) | POST | `/api/v2/capital/withdraw/apply` | 50 requests / minute |
+| [List Deposit Address](#list-deposit-address) | GET | `/api/v2/capital/deposit/address/list` | 50 requests / minute |
+| [Withdraw IDR](#withdraw-idr) | POST | `/api/v2/fiat/withdraw` | 50 requests / minute |
+| [Order History](#order-history) | GET | `/api/v2/order/histories` | 300 requests / minute |
+| [Trade History](#trade-history) | GET | `/api/v2/myTrades` | 300 requests / minute |
+
+> ℹ️ **Notes** 
+>
+> If the rate limit is exceeded, the API may reject subsequent requests until the applicable rate-limit window resets.
+>
+> The rate limits in the table above are the **general rules** that apply to all API endpoints. However, some endpoints have additional rate-limit rules beyond those specified in the table, specifically [Create Order](#rate-limit) and [Cancel Order](#rate-limit-1).
 
 ### Endpoint Security Type
 
@@ -1081,7 +1108,7 @@ This REST endpoint serves to submit a cryptocurrency withdrawal request from the
 
 > ℹ️ **Notes**
 >
-> - Crypto withdrawal requires additional security with Wallet Address & Username Whitelisting (see <#permission-scope>)
+> - Crypto withdrawal requires additional security with Wallet Address & Username Whitelisting (see [Permission Scope](#permission-scope))
 > - Please note that after users regenerate API keys, coin withdrawals via API will only be available after 24 hours. During that period, users can still make coin withdrawals via website and mobile app.
 > - Exchanges use memo for accepting deposits for certain assets. For example: Destination Tag (for Ripple), Message (for NXT), Memo (for BitShares).
 > - The parameter `withdrawUsername` is mandatory when `withdrawMethod=username`.
@@ -1282,7 +1309,7 @@ This REST endpoint serves to submit an Indonesian Rupiah (IDR) withdrawal reques
 
 > ℹ️ **Notes**
 >
-> - `bankCodeForPix` must be provided as a **3-digit code**. For codes with fewer than three digits, prepend `0` (e.g., `9` → `009` for BNI and `14` → `014` for BCA). See <tapi-v2/supported-banks-idr-withdrawal.md> for list of supported banks.
+> - `bankCodeForPix` must be provided as a **3-digit code**. For codes with fewer than three digits, prepend `0` (e.g., `9` → `009` for BNI and `14` → `014` for BCA). See [supported banks list](tapi-v2/supported-banks-idr-withdrawal.md) for more details.
 > - Fiat (IDR) withdrawal must be made to a bank account registered under the same name as the KYC-verified account holder.
 > - Fiat (IDR) withdrawals currently support **Indonesian banks only**. Withdrawals to banks outside Indonesia are not supported.
 
