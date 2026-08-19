@@ -41,17 +41,9 @@
 | **Key** | **Type** | **Mandatory** | **Value** |
 | --- | --- | --- | --- |
 | `Accept` | string | yes | Must be `application/json` |
-| `Content-Type` | string | no | - For endpoints with method `POST` must sent `Content-Type` with `application/x-www-form-urlencoded` - For the other method like `GET`, `DELETE` doesn’t require to sent `Content-Type` |
+| `Content-Type` | string | no | - For endpoints with method `POST` must sent `Content-Type` with `application/x-www-form-urlencoded`<br>- For the other method like `GET`, `DELETE` doesn’t require to sent `Content-Type` |
 | `X-APIKEY` | string | yes | User’s [API key](#generate-api-key) |
 | `Sign` | string | no | SIGNED endpoint (must be **HMAC-SHA256** encrypted using secret key on query string)  e.g., `?param=value&param1=value1` |
-
-#### Response Body
-
-| **Key** | **Type** | **Value** |
-| --- | --- | --- |
-| data | JSON | Response data |
-| code | int | Error code |
-| msg | string | Error message |
 
 ## Error Codes
 
@@ -78,12 +70,12 @@ Error codes are grouped by category:
 | 401 Unauthorized | -1002 | Invalid credentials. API not found or session has expired. |
 | 400 Bad Request | -1021 | Invalid timestamp. Timestamp for this request is outside of the recvWindow. |
 | 400 Bad Request | -1022 | Invalid nonce/signature. The nonce or signature provided in the request is invalid, or sign not found in the header. |
+| 431 Request Header Fields Too Large / 405 Method Not Allowed / 400 Bad Request | -1000 | Unknown error. Request header fields too large, method not allowed, or duplicate request. |
 
-2. **Request Issues (11xx)**
+2. **Request Issues (11xx-2xxx)** 
 
 | **HTTP Status** | **Code** | **Error Description** |
 | --- | --- | --- |
-| 431 Request Header Fields Too Large / 405 Method Not Allowed / 400 Bad Request | -1000 | Unknown error. Request header fields too large, method not allowed, or duplicate request. |
 | 400 Bad Request | -1102 | A mandatory parameter was not sent, was empty/null, or malformed. |
 | 400 Bad Request | -1130 | Invalid parameter value. |
 | 400 Bad Request | -1121 | Invalid symbol. |
@@ -180,6 +172,7 @@ An API key cannot be activated for a permission unless the corresponding whiteli
 >   - **Wallet Address**: Must contain only letters, numbers, colons (:), periods (.), underscores (_), and hyphens (-).
 >   - **Username**: Must contain only letters, numbers, underscores (_), and hyphens (-), with a minimum length of 4 characters.
 > - Wallet Address and Username Whitelisting adds an additional layer of protection by ensuring funds can only be withdrawn to pre-approved wallet addresses or INDODAX accounts, even if the API Key is compromised.
+> - After users regenerate API keys, coin withdrawals via API will only be available after 24 hours. During that period, users can still make coin withdrawals via website and mobile app.
 > - Users should keep their whitelist configurations up to date whenever server IPs or withdrawal destinations change.
 > - IDR withdrawal must be made to a bank account registered under the same name as the KYC-verified account holder.
 
@@ -373,8 +366,8 @@ For example, requests to `BTCIDR` and `ETHIDR` are counted separately. This rate
 | **Name** | **Mandatory** | **Description** | **Type** | **Value** | **Default** |
 | --- | --- | --- | --- | --- | --- |
 | `symbol` | yes | Trading pair symbol | string | e.g., `BTCIDR`, `ETHIDR` |  |
-| `side` | yes | Order side, please see [Enums](tapi-v2/enums.md) for supported values. | string | `BUY`, `SELL` |  |
-| `type` | yes | Order type, please see [Enums](tapi-v2/enums.md) for supported values. | string | `LIMIT`, `MARKET` |  |
+| `side` | yes | Order side, please see [Enums](tapi-v2/enums.md#order-side-side) for supported values. | string | `BUY`, `SELL` |  |
+| `type` | yes | Order type, please see [Enums](tapi-v2/enums.md#order-types) for supported values. | string | `LIMIT`, `MARKET` |  |
 | `price` | required for `LIMIT` order | Order price | decimal | e.g., `10000` |  |
 | `quantity` | required for ALL orders except `BUY` `MARKET` orders | Base asset quantity (`BTC`, `ETH`, etc) | decimal | e.g., `0.1` |  |
 | `quoteOrderQty` | required for `BUY` side on `MARKET` orders only | Quote asset quantity (`IDR` only) | int64 | Cannot be used together with `quantity`  e.g., `10000` |  |
@@ -413,7 +406,7 @@ For example, requests to `BTCIDR` and `ETHIDR` are counted separately. This rate
 | orderId | Unique identifier for the order. |
 | clientOrderId | Client-specified ID for the order. |
 | side | [Order side](tapi-v2/enums.md#order-side-side) (`BUY` or `SELL`). |
-| type | Order type (`LIMIT` or `MARKET`). |
+| type | [Order type](tapi-v2/enums.md#order-types) (`LIMIT` or `MARKET`). |
 | price | Order price per unit of the base asset: IDR or USDT. |
 | origQty | Original order quantity. |
 | executedQty | Quantity that has already been executed. |
@@ -522,7 +515,7 @@ This endpoint is limited to **30 requests per second per authenticated user** wh
 | orderId | Unique identifier for the order. |
 | origClientOrderId | Client-specified ID for the cancelled order. |
 | side | [Order side](tapi-v2/enums.md#order-side-side) (`BUY` or `SELL`). |
-| type | Order type (`LIMIT` or `MARKET`). |
+| type | [Order type](tapi-v2/enums.md#order-types) (`LIMIT` or `MARKET`). |
 | price | Order price per unit of the base asset: IDR or USDT. |
 | stopPrice | Stop price configured for the order, if applicable. |
 | origQty | Original order quantity. |
@@ -621,8 +614,8 @@ This REST endpoint serves to retrieve all currently open orders for the authenti
 | stopPrice | Stop price configured for the order, if applicable. |
 | origQty | Original order quantity. |
 | executedQty | Quantity that has already been executed. |
-| status | Current order status (see [Enums](tapi-v2/enums.md)) |
-| type | Order type (`LIMIT` or `MARKET`). |
+| status | Current order status (see [Enums](tapi-v2/enums.md#order-status-status)) |
+| type | [Order type](tapi-v2/enums.md#order-types) (`LIMIT` or `MARKET`). |
 | time | Order creation timestamp (Unix time in milliseconds). |
 | fullOrderId | System-generated order reference. |
 
@@ -699,8 +692,8 @@ This REST endpoint serves to retrieve detailed information about a specific orde
 | stopPrice | Stop price configured for the order, if applicable. |
 | origQty | Original order quantity. |
 | executedQty | Quantity that has already been executed. |
-| status | Current order status. |
-| type | Order type (`LIMIT` or `MARKET`). |
+| status | Current order status (see [Enums](tapi-v2/enums.md#order-status-status)). |
+| type | [Order type](tapi-v2/enums.md#order-types) (`LIMIT` or `MARKET`). |
 | time | Order creation timestamp (Unix time in milliseconds). |
 | fullOrderId | System-generated order reference. |
 
@@ -801,7 +794,7 @@ This REST endpoint serves to retrieve the cryptocurrency withdrawal history for 
 | `startTime` | no | Start of the query time range  (Unix timestamp in milliseconds) | int64 | Timestamp (ms) e.g., `1723442692520` | Last 90 days |
 | `endTime` | no | End of the query time range  (Unix timestamp in milliseconds) | int64 | Timestamp (ms) e.g., `1723442692520` | Current time (now) |
 | `limit` | no | Maximum number of records returned | int | min. `10`, max. `1000` | `1000` |
-| `WithdrawStatus` | no | Withdrawal status filter  (see [Enums](tapi-v2/enums.md) for support values) | string | e.g., `success`, `pending`, `failed` |  |
+| `WithdrawStatus` | no | Withdrawal status filter  (see [Enums](tapi-v2/enums.md#deposit-and-withdraw-coin-status) for support values) | string | e.g., `success`, `pending`, `failed` |  |
 
 > ℹ️ **Notes**
 >
@@ -897,7 +890,7 @@ This REST endpoint serves to retrieve the cryptocurrency deposit history for the
 | `startTime` | no | Start of the query time range  (Unix timestamp in milliseconds) | int64 | Timestamp (ms) e.g., `1723442692520` | Last 90 days |
 | `endTime` | no | End of the query time range  (Unix timestamp in milliseconds) | int64 | Timestamp (ms) e.g., `1723442692520` | Current time (now) |
 | `limit` | no | Maximum number of records returned | int | min. `10`, max. `1000` | `1000` |
-| `depositStatus` | no | Deposit status filter (see [Enums](tapi-v2/enums.md) for support values) | string | e.g., `success`, `pending`, `failed` |  |
+| `depositStatus` | no | Deposit status filter (see [Enums](tapi-v2/enums.md#deposit-and-withdraw-coin-status) for support values) | string | e.g., `success`, `pending`, `failed` |  |
 
 > ℹ️ **Notes**
 >
@@ -943,7 +936,7 @@ This REST endpoint serves to retrieve the cryptocurrency deposit history for the
 | address | Deposit wallet address. |
 | addressTag | Destination tag or memo, if applicable. |
 | network | Blockchain network used for the deposit. |
-| status | Current deposit status (see [Enums](tapi-v2/enums.md) for support values) |
+| status | Current deposit status (see [Enums](tapi-v2/enums.md#deposit-and-withdraw-coin-status) for support values) |
 | insertTime | Deposit detection timestamp (Unix time in milliseconds). |
 | completeTime | Deposit completion timestamp (Unix time in milliseconds). |
 
@@ -1089,6 +1082,7 @@ This REST endpoint serves to submit a cryptocurrency withdrawal request from the
 > ℹ️ **Notes**
 >
 > - Crypto withdrawal requires additional security with Wallet Address & Username Whitelisting (see <#permission-scope>)
+> - Please note that after users regenerate API keys, coin withdrawals via API will only be available after 24 hours. During that period, users can still make coin withdrawals via website and mobile app.
 > - Exchanges use memo for accepting deposits for certain assets. For example: Destination Tag (for Ripple), Message (for NXT), Memo (for BitShares).
 > - The parameter `withdrawUsername` is mandatory when `withdrawMethod=username`.
 
@@ -1421,9 +1415,9 @@ This REST endpoint serves to retrieve an account’s order history for a specifi
 | orderId | Unique identifier for the order. |
 | clientOrderId | Client-specified ID for the order. |
 | symbol | Trading pair symbol (e.g., aaveidr). |
-| side | Side of the order: BUY or SELL. |
-| type | Type of the order: LIMIT or MARKET. |
-| status | Current status of the order: FILLED, CANCELLED, or REJECTED. |
+| side | Side of the order: [BUY or SELL](tapi-v2/enums.md#order-side-side). |
+| type | Type of the order: [LIMIT or MARKET](tapi-v2/enums.md#order-types). |
+| status | Current status of the order: [FILLED, CANCELLED, or REJECTED](tapi-v2/enums.md#order-status-status). |
 | price | Order price per unit of the base asset: IDR or USDT. |
 | oriQty | Original quantity specified in the order. |
 | executedQty | Executed quantity of the order |
