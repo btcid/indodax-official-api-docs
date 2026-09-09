@@ -95,6 +95,13 @@ Error codes are grouped by category:
 | 400 Bad Request | 1108 | Mandatory parameter not sent, empty/null, or malformed.<br> e.g.,`Mandatory parameter '%s' was not sent Param '%s' or '%s' must be sent` |
 | 400 Bad Request | 1109 | Invalid parameter value. |
 | 400 Bad Request | 1110 | Invalid symbol. |
+| 400 Bad Request | 1112 | Order not found in Trade History. |
+
+**3. Order & Execution Engine Issues (Negative Codes)**
+| HTTP Status | Code |Error Description |
+|-------------|------|------------------|
+| 400 Bad Request | -1130 | Filter failure / Precision limit exceeded.<br> *Note: Due to a known engine issue, the message may state `[price] amount has more precision...` even when `quantity` is the field violating the precision.* |
+| 400 Bad Request | -2013 | Order does not exist (Order not found). |
 
 ### General Information on Endpoints
 
@@ -284,4 +291,54 @@ This REST endpoint serves to retrieve an account’s trade execution history for
     }
   ]
 }
+```
+
+---
+
+## 💡 Integration Notes & Known Behaviors
+
+During migration from TAPI v1 to TAPI v2, client systems should be aware of the following technical characteristics and engine behaviors to ensure seamless order book synchronization and balance reconciliation.
+
+### 1. Precision Validation, `quantity_increment`, and Error Code `-1130`
+* **Behavior:** When an order is submitted via `POST /api/v2/order`, the engine enforces strict decimal precision limits per trading pair.
+* **Official Precision Sources:**
+  * **Price Precision:** Can be derived from the `price_increments` or `price_precision` (under `/api/pairs`).
+  * **Quantity / Volume Precision:** The official rule is defined in the **`quantity_increment`** field in the public **`/api/pairs`** response (e.g., `"quantity_increment": "0.00000001"` allows up to 8 decimal places; `"quantity_increment": "1"` or `"1.0"` requires integer volumes with `0` decimal places).
+* **Known Error Msg Bug:** If a parameter violates these limits, the engine returns code `-1130`. Currently, due to a known message-mapping bug, the message may state:
+  `{"code":-1130,"msg":"[price] amount has more precision than allowed (0)"}`
+  even if the `price` parameter is perfectly valid (e.g., integer `17`) and it was the **`quantity` / volume** field that violated the precision rules (e.g., sending `1176.47058823` on a pair where `quantity_increment` is `"1"`).
+* **Integration Strategy:** Always query `/api/pairs` and extract `quantity_increment` for your target symbol. Map it to the allowed decimal places (e.g. `decimal_places = -log10(quantity_increment)`). If you receive an error `-1130` mentioning `[price]` with allowed precision `(0)`, check if your **`quantity` / volume** violates the `quantity_increment` limit of that pair, and truncate/round accordingly.
+
+### 2. Read-after-Write Consistency (Consistency Lag)
+* **Behavior:** Trade API v2 uses a highly-optimized, distributed event-driven architecture. The high-performance matching engine processes orders in memory and immediately returns order ID responses. However, order status updates and trade records are synced asynchronosuly to the relational query databases.
+  This introduces an **Eventual Consistency Lag** of approximately **200ms to 1500ms** (consistency lag).
+  * **POST /api/v2/order Lag:** Querying `GET /api/v2/order` immediately after a successful `POST` may return `{"code":-2013,"msg":"Order not found."}` because the replica database has not yet received the record. Within 1 second, the record will be available.
+  * **DELETE /api/v2/order Lag:** A successful pembatalan (DELETE) returns a success confirmation from the matching engine. However, a subsequent `GET /api/v2/order` executed immediately after may still report `"status": "NEW"`. It will transition to `"CANCELLED"` after replication catches up (~1s).
+* **Integration Strategy:**
+  1. **Do not poll immediately:** Avoid immediate HTTP `GET` polling right after submitting or canceling an order.
+  2. **Trust DELETE Responses:** If the `DELETE /api/v2/order` request returned a success response, the order is **officially cancelled** and the locked balance is already released in the primary ledger. Your internal system ledger should immediately treat it as cancelled without waiting for a `GET` confirmation.
+  3. **Use WebSockets:** For high-frequency systems, use the **Private WebSocket (PWS)** stream, which pushes direct, real-time execution reports without any replica database lag.
+  4. **Retry Mechanism:** Implement an exponential backoff retry (e.g., wait 200ms, then retry up to 3 times) when handling `-2013` or unexpected `NEW` status immediately after write actions.
+
+### 3. Order ID Format Inconsistencies
+* **Behavior:** There is a type and structure difference in how `orderId` is used across endpoints:
+  * **`POST /api/v2/order` and `GET /api/v2/order` (Order Management):** Parameter `orderId` is a **64-bit integer** (e.g., `267268328`).
+  * **`GET /api/v2/order/histories` and `GET /api/v2/myTrades` (History / Trades):** Parameter `orderId` is a **composite string** formatted as `{symbol}-{type}-{numericId}` (e.g., `btcidr-limit-267268328`).
+* **Why this exists:** The history databases use sharded key-value lookups optimized by composite string keys, while the live order engine operates on pure numerical sequencers. Passing a numerical ID to `/myTrades` results in error `1109` ("Invalid parameter value" or "invalid orderId format").
+* **Integration Strategy:** Maintain a utility function in your integration to map or construct these IDs:
+  ```typescript
+  // Convert numeric orderId to composite string format for history lookups
+  function toCompositeOrderId(symbol: string, type: 'limit' | 'market', numericId: number | string): string {
+    return `${symbol.toLowerCase()}-${type.toLowerCase()}-${numericId}`;
+  }
+  ```
+
+### 4. Fee & Financial Reconciliations
+* **Behavior:** Standard `/api/v2/order` status responses only return lifecycle metrics such as `executedQty`. They do **not** contain total executed IDR values (`cumulativeQuoteQty`) or commissions (`commission` / fee).
+* **Why this exists:** Since a single order can be filled incrementally through multiple trades with varying prices and fees, calculating real-time aggregate fee metrics on order status queries is highly inefficient.
+* **Integration Strategy:** To obtain the official commission and final net proceeds:
+  1. Wait for the order status to reach `FILLED` or `PARTIALLY_FILLED` via `/order` or WebSocket.
+  2. Call `GET /api/v2/myTrades` using the composite `orderId` to retrieve the list of executions.
+  3. Aggregate the `commission` (fee+tax) and `quoteQty` fields from the trade records to compute your final net balance.
+  *Note:* Trade records can also take up to 1-2 seconds to populate under high load, so implement retry handling for code `1112` ("Order not found" on Trade History).
 ``` 

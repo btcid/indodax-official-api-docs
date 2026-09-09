@@ -57,6 +57,7 @@ Provide available pairs on exchange
         "price_precision": 1000,
         "price_round": 8,
         "pricescale": 1000,
+        "quantity_increment": "0.00000001",
         "trade_min_base_currency": 50000,
         "trade_min_traded_currency": 0.0001,
         "has_memo": false,
