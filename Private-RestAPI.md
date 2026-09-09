@@ -35,6 +35,7 @@ Sample Payload below:
 * Parameters may be sent in any order.
 * All requests must be sent with POST.
 * For each request you need to include these variable to make the call valid: method and nonce or timestamp.
+* For Order and Trade updates, REST endpoints can be used to query order and trade information. For real-time order status and execution updates, use the Private WebSocket Order Update Event
 
     | Parameter | Description | Optional | Example |
     |-|-|-|-|
@@ -403,6 +404,9 @@ Request Body
 |`time_in_force`|string|optional|currently only valid for "limit" order type, defines how long an order remains working till it is expired by the system|GTC,MOC|GTC|
 
 **Notes**
+- The Order Response contains conditional fields whose presence depends on the order type.
+- The price field is included only when the order type is LIMIT.
+- A successful order response confirms that the order has been accepted. For subsequent order status changes, use the Private WebSocket Order Update Event.
 - Request will be rejected if you send BUY order request with both `idr` set & `order_type` set to LIMIT.
 - Currently MARKET BUY order only support amount in `idr`.
 - Trade Request from Trade API with `order_type = limit` and `time_in_force = MOC` specified will be rejected if price is better than top of book price.
@@ -762,6 +766,10 @@ Response for `refund order done`
 
 #### Cancel Order Endpoints
 This method is for canceling an existing open order.
+
+**Notes**
+- The request must include either orderId or origClientOrderId. If both parameters are provided, orderId will be used as the effective parameter.
+- A successful cancellation response confirms that the cancellation has been processed. For the latest order status, use the Private WebSocket Order Update Event.
 
 > ℹ️ **Information**
 >
