@@ -78,8 +78,10 @@ Error codes are grouped by category:
 | **HTTP Status** | **Code** | **Error Description** |
 | --- | --- | --- |
 | 400 Bad Request | -1102 | A mandatory parameter was not sent, was empty/null, or malformed. |
-| 400 Bad Request | -1130 | Invalid parameter value. |
+| 400 Bad Request | 1109 | Invalid parameter value. |
+| 400 Bad Request | 1112 | Order not found or not yet available. |
 | 400 Bad Request | -1121 | Invalid symbol. |
+| 400 Bad Request | -1130 | Parameter value does not meet the required trading rules. |
 | 400 Bad Request | -1111 | Quantity validation failed. |
 | 400 Bad Request | -2014 | API key not found in header. |
 
@@ -94,7 +96,7 @@ Error codes are grouped by category:
 | **HTTP Status** | **Code** | **Error Description** |
 | --- | --- | --- |
 | 404 Not Found | -1099 | The requested resource does not exist. |
-| 404 Not Found | -2013 | Order not found. |
+| 404 Not Found | -2013 | Order not found or not yet available. |
 | 429 Too Many Requests | -1003 | Too many requests. |
 | 400 Bad Request | -1016 | Market is suspended. |
 
@@ -123,6 +125,7 @@ Error codes are grouped by category:
 - For `POST` endpoints, the parameters may sent in the `request body` with content type `application/x-www-form-urlencoded`
 - Each request must include a `nonce` or `timestamp` parameter to be valid
 - For details on supported enum values and their descriptions, please refer to the [**Enums**](tapi-v2/enums.md) page
+- For Order and Trade updates, REST endpoints can be used to query order and trade information. For real-time order status and execution updates, use the [Private WebSocket Order Update Event](Private-websocket.md#order-update-event).
 
 #### Request Parameters
 
@@ -406,6 +409,8 @@ For example, requests to `BTCIDR` and `ETHIDR` are counted separately. This rate
 >
 > - The Order Response contains conditional fields whose presence depends on the order type.
 > - The `price` field is included only when the order type is `LIMIT`.
+> - `price` and `quantity` must conform to the trading rules of the selected trading pair. Refer to the [Public REST API](Public-RestAPI.md) for the applicable pairs and increments information.
+> - A successful order response confirms that the order has been accepted. The order may not be immediately available through `GET /api/v2/order`. For subsequent order status changes, use the [Private WebSocket Order Update Event](Private-websocket.md#order-update-event).
 
 #### Sample Response Body
 
@@ -421,7 +426,7 @@ For example, requests to `BTCIDR` and `ETHIDR` are counted separately. This rate
   "price": "421004000",
   "origQty": "4988.0",
   "executedQty": "0.0",
-  "fullOrderId" : "btcidr-limit-1"
+  "fullOrderId" : "btcidr-limit-6423"
 }
 ```
 
@@ -482,6 +487,14 @@ For example, requests to `BTCIDR` and `ETHIDR` are counted separately. This rate
   }
   ```
 
+- Quantity amount has more precision than allowed
+  ```json
+  {
+    "code": -1130,
+    "msg": "[quantity] amount has more precision than allowed (0)"
+  }
+  ```
+
 ### Cancel Order
 
 ```
@@ -514,6 +527,7 @@ This endpoint is limited to **30 requests per second per authenticated user** wh
 > ℹ️ **Notes**
 >
 > - The request must include either `orderId` or `origClientOrderId`. If both parameters are provided, `orderId` will be used as the effective parameter.
+> - A successful cancellation response confirms that the cancellation has been processed. For the latest order status, use the [Private WebSocket Order Update Event](Private-websocket.md#order-update-event).
 
 #### Sample Response Body
 
@@ -530,7 +544,7 @@ This endpoint is limited to **30 requests per second per authenticated user** wh
   "stopPrice": "421003000",
   "origQty": "4988.0",
   "executedQty": "0.0",
-  "fullOrderId" : "btcidr-limit-1"
+  "fullOrderId" : "btcidr-limit-6423"
 }
 ```
 
@@ -624,7 +638,7 @@ This REST endpoint serves to retrieve all currently open orders for the authenti
     "status": "NEW",
     "type": "LIMIT",
     "time": 1723442692520,
-    "fullOrderId" : "btcidr-limit-1"
+    "fullOrderId" : "btcidr-limit-6423"
   }
 ]
 ```
@@ -685,6 +699,8 @@ This REST endpoint serves to retrieve detailed information about a specific orde
 > ℹ️ **Notes**
 >
 > - The request must include either `orderId` or `origClientOrderId`. If both parameters are provided, `orderId` will be used as the effective parameter.
+> - For this endpoint, `orderId` refers to the numeric order ID (e.g., `6423`).
+> - An order may not be immediately available through this endpoint after successful creation. For real-time order status updates, use the [Private WebSocket Order Update Event](Private-websocket.md#order-update-event).
 
 #### Sample Response Body
 
@@ -703,7 +719,7 @@ This REST endpoint serves to retrieve detailed information about a specific orde
   "status": "NEW",
   "type": "LIMIT",
   "time": 1723442692520,
-  "fullOrderId" : "btcidr-limit-1"
+  "fullOrderId" : "btcidr-limit-6423"
 }
 ```
 
@@ -739,7 +755,7 @@ This REST endpoint serves to retrieve detailed information about a specific orde
   ```json
   {
       "code": -2013,
-      "msg": "Order not found."
+      "msg": "Order not found or not yet available."
   }
   ```
 
@@ -1493,6 +1509,8 @@ This REST endpoint serves to retrieve an account’s trade execution history for
 >    - `symbol` + `endTime`
 >    - `symbol` + `startTime` + `endTime`
 > 4. **Removed Old Params:** Query parameters `from_id` and `end_id` have been removed as trade history now uses timestamp parameters (`startTime`, `endTime`).
+> 5. **Order ID Format:** For this endpoint, `orderId` refers to the full order ID (e.g., `aaveidr-limit-3568`), which differs from the numeric `orderId` used by `/api/v2/order`.
+> 6. **Real-time Updates:** REST trade history can be used to query trade information. For real-time execution updates, use the [Private WebSocket Order Update Event](Private-websocket.md#order-update-event).
 
 #### Sample Response Body
 

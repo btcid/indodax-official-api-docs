@@ -43,6 +43,7 @@ Provide available pairs on exchange
 /api/pairs
 ```
 #### Response
+
 ```json
 [
     {
@@ -57,13 +58,42 @@ Provide available pairs on exchange
         "price_precision": 1000,
         "price_round": 8,
         "pricescale": 1000,
+        "quantity_increment": "0.00000001",
         "trade_min_base_currency": 50000,
         "trade_min_traded_currency": 0.0001,
         "has_memo": false,
         "memo_name": false,
         "url_logo": "https://indodax.com/v2/logo/svg/color/btc.svg",
         "url_logo_png": "https://indodax.com/v2/logo/png/color/btc.png"
-    }   
+    },
+    {
+        "id": "catidr",
+        "symbol": "CATIDR",
+        "base_currency": "idr",
+        "traded_currency": "cat",
+        "traded_currency_unit": "CAT",
+        "description": "CAT/IDR",
+        "ticker_id": "cat_idr",
+        "coingecko_id": "simon-s-cat",
+        "volume_precision": 0,
+        "price_round": 6,
+        "trade_min_base_currency": 10000,
+        "is_maintenance": 0,
+        "is_market_suspended": 0,
+        "cmc_id": 32724,
+        "pricescale": 0.000001,
+        "quantity_increment": 1,
+        "price_precision": 0.000001,
+        "trade_min_traded_currency": 295787.97917653,
+        "trade_fee_percent": 0.2,
+        "trade_fee_percent_taker": 0.2,
+        "trade_fee_percent_maker": 0.1,
+        "disable_deposit": false,
+        "has_memo": false,
+        "memo_name": false,
+        "url_logo": "https://static.indodax.com/e687a3e/v2/logo/svg/color/cat.svg",
+        "url_logo_png": "https://static.indodax.com/e687a3e/v2/logo/png/color/cat.png"
+    }
 ]
 ```
 
