@@ -151,7 +151,7 @@ To generate a TAPIv2 API key, go to: [**https://indodax.com/trade_api**](https:/
 
 | **Feature** | **Feature Description** |
 | --- | --- |
-| IP Permission | Additional security for API Key that restricts API access to registered IP addresses only. IP restrictions are required for transaction-related APIs, including Spot Trading and IDR & Crypto Withdrawal. For Reading (View Only), IP restrictions are optional. |
+| IP Permission | Additional security for API Key that restricts API access to registered IP addresses. IP Permission is only required for withdrawal-related API (IDR & Crypto Withdrawal). |
 | Withdrawal Whitelist Method | Additional security layer for crypto withdrawals, by allowing withdrawals only by URL Callback or to registered and whitelisted wallet addresses and/or other INDODAX accounts identified by username. |
 | Permission Scope | An API key can only be activated for a permission when all required security controls for that permission have been configured. |
 
@@ -159,11 +159,11 @@ To generate a TAPIv2 API key, go to: [**https://indodax.com/trade_api**](https:/
 
 | **Permission** | **IP Permission** | **Withdrawal Whitelist Method** |
 | --- | --- | --- |
-| Reading (View Only) | Optional | Not required |
-| Spot Trading (Create & Cancel Orders) | Required | Not required |
-| IDR & Crypto Withdrawal | Required | Required |
+| Reading (View Only) | Not applicable | Not required |
+| Spot Trading (Create & Cancel Orders) | Not applicable | Not required |
+| IDR & Crypto Withdrawal | Required | Required and applicable for Crypto Withdrawal only |
 
-For the **Withdrawal permission**, users must only select **one** of the available whitelist methods when configuring their API key, as follows:
+For the **IDR & Crypto Withdrawal** permission, users must configure the required security controls. For **Crypto Withdrawal**, users must select one of the available whitelist methods when configuring their API key, as follows:
 
 - **Whitelist via URL Callback:** Restricts withdrawals by requiring a Callback URL for withdrawal authorization.
 - **Whitelist via Address Management:** Restricts withdrawals to registered and whitelisted wallet addresses and/or INDODAX usernames configured in the “Address Management” list. 
@@ -171,9 +171,8 @@ For the **Withdrawal permission**, users must only select **one** of the availab
 
 > ℹ️ **Notes**
 >
-> - IP Whitelisting is mandatory for all transaction-related APIs in Trade API V2.
-> - For Reading (View Only) permission, enabling the IP Permission will restrict the API Key access to the registered IP Address only.
-> - IDR withdrawals must be made to a bank account registered under the same name as the KYC-verified account holder.
+> - IP Permission is available only for the IDR & Crypto Withdrawal permission and is required when this permission is selected.
+> - For IDR withdrawals, withdrawals must be made to a bank account registered under the same name as the KYC-verified account holder.
 > - For Crypto withdrawals, one whitelist method option must be selected and configured for each API key.
 > - The Withdrawal Whitelist Method adds an additional layer of protection by restricting withdrawals based on the selected and configured whitelist method, ensuring funds can only be withdrawn through authorized destinations or a validated Callback URL, even if the API Key is compromised.
 > - The Manual Whitelist by wallet addresses and usernames must be submitted by the following formats accepted:
