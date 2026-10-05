@@ -153,7 +153,6 @@ To generate a TAPIv2 API key, go to: [**https://indodax.com/trade_api**](https:/
 | --- | --- |
 | IP Permission | Additional security for API Key that restricts API access to registered IP addresses. IP Permission is only required for withdrawal-related API (IDR & Crypto Withdrawal). |
 | Withdrawal Whitelist Method | Additional security layer for crypto withdrawals, by allowing withdrawals only by URL Callback or to registered and whitelisted wallet addresses and/or other INDODAX accounts identified by username. |
-| Permission Scope | An API key can only be activated for a permission when all required security controls for that permission have been configured. |
 
 #### Permission Scope
 
