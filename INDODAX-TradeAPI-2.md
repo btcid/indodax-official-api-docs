@@ -1128,6 +1128,19 @@ Withdrawals can be restricted to approved destinations using one of the availabl
   - The Callback request has a 5-second connection timeout.
   - The Callback must return exactly `ok` for INDODAX to continue the withdrawal.
   - If the Callback returns any response other than `ok`, the withdrawal request will fail.
+  
+  #### Callback Parameter Sent to Client
+  | **Parameter** | **Description** |
+  | --- | --- |
+  | `request_id` | Request ID from the submitted request |
+  | `withdraw_currency` | Currency specified in the request |
+  | `withdraw_address` | Withdrawal address specified in the request |
+  | `withdraw_amount` | Withdrawal amount specified in the request |
+  | `withdraw_memo` | Withdrawal memo specified in the request, if applicable |
+  | `withdraw_username` | Withdrawal username specified in the request |
+  | `requester_ip` | IP address from which the request was submitted |
+  | `request_date` | Date and time when the request was submitted |
+
 - **Whitelist via Address Management**
   - Withdrawals are restricted to registered and whitelisted wallet addresses and/or INDODAX usernames configured in the Address Management list.
 - **Manual Whitelist**
