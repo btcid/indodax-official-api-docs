@@ -2,7 +2,6 @@
 
 * Streams, endpoints, parameters, payloads, etc. described in the documents in this repository are considered **official** and **supported**.
 * The use of any other streams, endpoints, parameters, or payloads, etc. is **not supported**; **use them at your own risk and with no guarantees.**
-* Only Production API credentials and endpoints are supported for external users. The DEMO environment is not available externally.
 
 
 Name | Description | Example | Version

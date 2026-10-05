@@ -18,7 +18,6 @@
 * All endpoints return either a JSON object or array.
 * Data is returned in **descending** order. newest first, oldest last.
 * All time and timestamp related fields are in **milliseconds**.
-* Only Production API credentials are supported for external users. The DEMO environment is not available externally.
 
 ## Error Codes
 * Any endpoint can return an ERROR

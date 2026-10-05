@@ -25,7 +25,6 @@
 | -----------------	| ------------------------------------------- | ------------------------------------------------------------------- |
 | Production       	| https://indodax.com/ , https://btcapi.net   | Access for production. For https://btcapi.net need to be whitelist	|
 
-> **Note:** Only Production API credentials are supported for external users. The DEMO environment is not available externally.
 
 #### Request Header
 | **Parameter**  	| **Type** 	| **Mandatory**	| **Description**			|

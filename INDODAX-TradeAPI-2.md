@@ -36,7 +36,6 @@
 - Data results are sorted in **descending order** → `newest first`, `oldest last`
 - All **timestamps** and **time-related fields** are in **milliseconds (ms)**
 - For SIGNED endpoints, pass the signature using the `Sign` request header, or as a query parameter or request body field named `signature`
-- Only Production API credentials are supported for external users. The DEMO environment is not available externally.
 
 #### Request Header
 

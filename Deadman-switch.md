@@ -31,7 +31,6 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
 | ---------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | Production       | https://indodax.com/tapi, https://btcapi.net/tapi     | Access for production. |
 
-> **Note:** Only Production API credentials are supported for external users. The DEMO environment is not available externally.
 
 ### Headers
 
