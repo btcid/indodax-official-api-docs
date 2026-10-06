@@ -146,39 +146,45 @@ Error codes are grouped by category:
 
 TAPIv2 requires specific authorization for API key generation to securely integrate their account to place orders, cancel orders, or withdraw funds by adding multiple security controls.
 
-Please note that **TAPIv2 can only be accessed with a dedicated TAPIv2 API key**. If you already have an existing TAPI key, you’ll still need to generate a new TAPIv2 key, as the existing key cannot be reused for TAPIv2.
+Please note that **TAPIv2 can only be accessed with a dedicated TAPIv2 API key**. If you already have an existing TAPI key, you must generate a new TAPIv2 key, as the existing key cannot be reused for TAPIv2.
 
 To generate a TAPIv2 API key, go to: [**https://indodax.com/trade_api**](https://indodax.com/trade_api)
 
 #### Security Improvements
 
-| **Feature** | **Feature** **Description** |
+| **Feature** | **Feature Description** |
 | --- | --- |
-| IP Permission | Additional API access security that restricts requests to registered IP addresses, with View Only access being optional and transaction (Trade and Withdrawal) APIs requiring IP restrictions. |
-| Wallet Address & Username Whitelisting | Additional security layer for crypto withdrawals, ensuring funds can only be withdrawn to registered wallet addresses and/or other INDODAX accounts identified by username. |
+| IP Permission | Additional security for API Key that restricts API access to registered IP addresses. IP Permission is only required when withdrawal-related API (IDR & Crypto Withdrawal) is selected. |
+| Withdrawal Whitelist Method | Additional security layer for crypto withdrawals, by allowing withdrawals only by URL Callback or to registered and whitelisted wallet addresses and/or other INDODAX accounts identified by username. |
 
 #### Permission Scope
+An API key can only be activated for a permission when all required security controls for that permission have been configured.
 
-An API key cannot be activated for a permission unless the corresponding whitelist fields are populated:
+| **Permission** | **IP Permission** | **Withdrawal Whitelist Method** |
+| --- | --- | --- |
+| Reading (View Only) | Required (only when IDR & Crypto Withdrawal is also selected) | Not required |
+| Spot Trading (Create & Cancel Orders) | Required (only when IDR & Crypto Withdrawal is also selected) | Not required |
+| IDR & Crypto Withdrawal | Required | Required and applicable for Crypto Withdrawal only |
 
-| **Permission** | **IP Permission** | **Whitelist Address** | **Whitelist Username** |
-| --- | --- | --- | --- |
-| Reading (View Only) | **optional** | **not required** | **not required** |
-| Spot Trading  (Create & Cancel Orders) | **required** | **not required** | **not required** |
-| IDR & Crypto Withdrawal | **required** | **either** `Address` **or** `Username` **required** | **either** `Address` **or** `Username` **required** |
+For the **IDR & Crypto Withdrawal** permission, users must configure the required security controls. For **Crypto Withdrawal**, users must select one of the available whitelist methods when configuring their API key, as follows:
+
+- **Whitelist via URL Callback:** Restricts withdrawals by requiring a Callback URL for withdrawal authorization.
+- **Whitelist via Address Management:** Restricts withdrawals to registered and whitelisted wallet addresses and/or INDODAX usernames configured in the “Address Management” list. 
+- **Manual Whitelist:** Restricts withdrawals to the wallet addresses and/or INDODAX usernames entered directly in the API key form.
 
 > ℹ️ **Notes**
 >
-> - IP Whitelisting is mandatory for all transaction-related APIs in Trade API V2.
-> - For Reading (View Only) permission, enabling the IP Permission will restrict the access to the registered IP Address only.
-> - Wallet Address or Username whitelisting is mandatory for **Crypto Withdrawal** permission with the following formats are accepted:
->
->   - **Wallet Address**: Must contain only letters, numbers, colons (:), periods (.), underscores (_), and hyphens (-).
->   - **Username**: Must contain only letters, numbers, underscores (_), and hyphens (-), with a minimum length of 4 characters.
-> - Wallet Address and Username Whitelisting adds an additional layer of protection by ensuring funds can only be withdrawn to pre-approved wallet addresses or INDODAX accounts, even if the API Key is compromised.
-> - After users regenerate API keys, coin withdrawals via API will only be available after 24 hours. During that period, users can still make coin withdrawals via website and mobile app.
-> - Users should keep their whitelist configurations up to date whenever server IPs or withdrawal destinations change.
-> - IDR withdrawal must be made to a bank account registered under the same name as the KYC-verified account holder.
+> - IP Permission is only available and required when the IDR & Crypto Withdrawal permission is selected.
+> - When IDR & Crypto Withdrawal is selected alongside Reading and/or Spot Trading, the configured IP Permission applies to the entire API key, including Read and Trade requests.
+> - When IDR & Crypto Withdrawal is not selected, IP Permission is not required and the API key can be created without IP restrictions.
+> - For IDR withdrawals, withdrawals must be made to a bank account registered under the same name as the KYC-verified account holder.
+> - For Crypto withdrawals, one whitelist method option must be selected and configured for each API key.
+> - The Withdrawal Whitelist Method adds an additional layer of protection by restricting withdrawals based on the selected and configured whitelist method, ensuring funds can only be withdrawn through authorized destinations or a validated Callback URL, even if the API Key is compromised.
+> - The Manual Whitelist by wallet addresses and usernames must be submitted by the following formats accepted:
+>   - **Wallet Address:** Must contain only letters, numbers, colons (`:`), periods (`.`), underscores (`_`), and hyphens (`-`).
+>   - **Username:** Must contain only letters, numbers, underscores (`_`), and hyphens (`-`), with a minimum length of 4 characters.
+> - After an API key is regenerated, crypto withdrawals via API will only be available after 24 hours. During this period, users can still make coin withdrawals through the INDODAX website and mobile app.
+> - Users should keep their whitelist configuration up to date whenever their server IP addresses or withdrawal destinations change.
 
 ### General Rate Limit by Endpoints
 
@@ -1107,7 +1113,11 @@ POST /api/v2/capital/withdraw/apply
 
 #### Description
 
-This REST endpoint serves to submit a cryptocurrency withdrawal request from the authenticated account. Upon successful submission, the API returns the withdrawal details, including the withdrawal amount, applicable fee, destination address, and the assigned withdrawal identifier.
+This REST endpoint serves to submit a cryptocurrency withdrawal request from the authenticated account. 
+
+Upon successful submission, the API returns the withdrawal details, including the withdrawal amount, applicable fee, destination address, and the assigned withdrawal identifier.
+
+Crypto withdrawals through TAPIv2 are protected by additional security controls. The API key used for withdrawal must have the IDR & Crypto Withdrawal permission enabled and must fulfil the required IP and withdrawal whitelist security configuration.
 
 #### Parameters
 
@@ -1122,12 +1132,47 @@ This REST endpoint serves to submit a cryptocurrency withdrawal request from the
 | `withdrawMethod` | no | Withdrawal destination type | string | `address`, `username` | `address` |
 | `withdrawUsername` | no | Recipient username | string | Must contain only letters, numbers, underscores (_), and hyphens (-), with a minimum length of 4 characters. |  |
 
+#### Withdrawal Whitelist Method
+
+The Withdrawal Whitelist Method provides an additional security layer for crypto withdrawals.
+
+Withdrawals can be restricted to approved destinations using one of the available whitelist methods:
+
+- **Whitelist via URL Callback**
+  - Withdrawals require authorization through a configured Callback URL.
+  - The Callback URL is called by INDODAX to verify each withdrawal request.
+  - The Callback request contains various parameters related to the withdrawal request. You must validate these parameters on your server before authorizing the withdrawal.
+  - The Callback URL is called using an HTTP POST request.
+  - The Callback request has a 5-second connection timeout.
+  - The Callback must return exactly `ok` for INDODAX to continue the withdrawal.
+  - If the Callback returns any response other than `ok`, the withdrawal request will fail.
+  
+  #### Callback Parameter Sent to Client
+  | **Parameter** | **Description** |
+  | --- | --- |
+  | `request_id` | Request ID from the submitted request |
+  | `withdraw_currency` | Currency specified in the request |
+  | `withdraw_address` | Withdrawal address specified in the request |
+  | `withdraw_amount` | Withdrawal amount specified in the request |
+  | `withdraw_memo` | Withdrawal memo specified in the request, if applicable |
+  | `withdraw_username` | Withdrawal username specified in the request |
+  | `requester_ip` | IP address from which the request was submitted |
+  | `request_date` | Date and time when the request was submitted |
+
+- **Whitelist via Address Management**
+  - Withdrawals are restricted to registered and whitelisted wallet addresses and/or INDODAX usernames configured in the Address Management list.
+- **Manual Whitelist**
+  - Withdrawals are restricted to wallet addresses and/or INDODAX usernames entered directly in the API key configuration.
+
+For the **IDR & Crypto Withdrawal** permission, users must select only one of the available Withdrawal Whitelist Methods when configuring their API key.
+
 > ℹ️ **Notes**
 >
-> - Crypto withdrawal requires additional security with Wallet Address & Username Whitelisting (see [Permission Scope](#permission-scope))
+> - Crypto withdrawals require additional security with Withdrawal Whitelist Method (see [Permission Scope](#permission-scope)).
 > - Please note that after users regenerate API keys, coin withdrawals via API will only be available after 24 hours. During that period, users can still make coin withdrawals via website and mobile app.
 > - Exchanges use memo for accepting deposits for certain assets. For example: Destination Tag (for Ripple), Message (for NXT), Memo (for BitShares).
 > - The parameter `withdrawUsername` is mandatory when `withdrawMethod=username`.
+> - Internal withdrawals to an INDODAX username have no withdrawal fee (`fee=0`).
 
 #### Sample Response Body
 
