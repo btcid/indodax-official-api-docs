@@ -30,7 +30,7 @@ The system will check all countdowns **approximately every 10 milliseconds**, so
 | **Environment**  | **Base URL**               | **Description**												|
 | ---------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | Production       | https://indodax.com/tapi, https://btcapi.net/tapi     | Access for production. |
-| Demo             | https://demo-indodax.com/tapi | Access for demo. |
+
 
 ### Headers
 
@@ -77,7 +77,7 @@ SHA2-512(stdin)= 29ff89378b9f33954b0f5319488190078f091c7723d886c5c2a4a0b06ef793d
 ```
 Perform the API request using curl:
 ```bash
-curl --location -X POST 'https://demo-indodax.com/tapi/countdownCancelAll?pair=btc_idr%2Ceth_idr&countdownTime=10000&timestamp=1578304294001&recvWindow=1578303937000' \
+curl --location -X POST 'https://indodax.com/tapi/countdownCancelAll?pair=btc_idr%2Ceth_idr&countdownTime=10000&timestamp=1578304294001&recvWindow=1578303937000' \
 --header 'Key: LSCE7NJG-JACRNTBX-D834R4UG-KMMTV8OP-PS1NHRBA' \
 --header 'Sign: 29ff89378b9f33954b0f5319488190078f091c7723d886c5c2a4a0b06ef793d7d3b99155d63410203a21355e5e2757cb4e566adbd67ec37b8257a68d8c72877c'
 ```
@@ -91,7 +91,7 @@ SHA2-512(stdin)= b4f03574d264ffbaa37eadd8460f50dbb9ae6f12d4852a46d8654d472838aaa
 Perform the API request using curl:
 
 ```bash
-curl --location -X POST 'https://demo-indodax.com/tapi/countdownCancelAll' \
+curl --location -X POST 'https://indodax.com/tapi/countdownCancelAll' \
 --header 'Key: LSCE7NJG-JACRNTBX-D834R4UG-KMMTV8OP-PS1NHRBA' \
 --header 'Sign: b4f03574d264ffbaa37eadd8460f50dbb9ae6f12d4852a46d8654d472838aaa1de99248e958c904333e61738a00462d49f32bcd3258d8a3defca8c73b8d60d09' \
 --header 'Content-Type: text/plain' \
