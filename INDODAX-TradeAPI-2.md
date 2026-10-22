@@ -266,24 +266,24 @@ Step-by-step example on how to send a valid signed payload from the Linux comman
 | symbol | btcidr |
 | limit | 100 |
 | timestamp | 1578304294000 |
-| recvWindow | 1578303937000 |
+| recvWindow | 5000 |
 
 ##### Example:
 
 - Send parameter using query string
 
-  - **queryString:** symbol=btcidr&limit=100&timestamp=1578304294000&recvWindow=1578303937000
+  - **queryString:** symbol=btcidr&limit=100&timestamp=1578304294000&recvWindow=5000
   - **HMAC SHA256 signature:**
 
     ```json
-    [linux]$ echo -n "symbol=btcidr&limit=100&timestamp=1578304294000&recvWindow=1578303937000" | openssl dgst -sha256 -hmac "f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d"
-    (stdin)= bab004e5a518740d7a33b38b44dbebecd3fb39f40b42391af39fcce06edabff5233b3e8064a07c528d1c751a6923d5116026c7786e01b22e2d35277a098cae99
+    [linux]$ echo -n "symbol=btcidr&limit=100&timestamp=1578304294000&recvWindow=5000" | openssl dgst -sha256 -hmac "f60617a68fcce028f0a90bc9eb765d17379eb548cc935c01a7ee3186eecf870e9b68f27a31bcfe8d"
+    (stdin)= 58b503019a8f2754af7097b4d981913a8dca9e5cb2b408061cbd48736a940558
     ```
   - **curl command:**
 
     ```
     (HMAC SHA256)
-    [linux]$ curl -H "X-APIKEY: AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA" -H "Sign: bab004e5a518740d7a33b38b44dbebecd3fb39f40b42391af39fcce06edabff5233b3e8064a07c528d1c751a6923d5116026c7786e01b22e2d35277a098cae99" -X GET 'https://api.indodax.com/api/v2/myTrades?symbol=btcidr&limit=100&timestamp=1578304294000&recvWindow=1578303937000'
+    [linux]$ curl -H "X-APIKEY: AEDHIGAT-QATEGWOX-OPCSCPQX-2E00B1L7-VJBXXKMA" -H "Sign: 58b503019a8f2754af7097b4d981913a8dca9e5cb2b408061cbd48736a940558" -X GET 'https://api.indodax.com/api/v2/myTrades?symbol=btcidr&limit=100&timestamp=1578304294000&recvWindow=5000'
     ```
 
 Here is a sample Python script performing all the steps above:
