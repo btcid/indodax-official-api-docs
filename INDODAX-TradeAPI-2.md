@@ -773,7 +773,7 @@ GET /api/v2/account
 
 #### Description
 
-This REST endpoint serves to retrieve account information for the authenticated user. The response includes the account permissions, account type, and the current balance of each asset held by the account, including both available and locked balances.
+This REST endpoint serves to retrieve account information for the authenticated user. The response includes the API Key permissions, account type, and the current balance of each asset held by the account, including both available and locked balances.
 
 #### Parameters
 
@@ -788,8 +788,9 @@ This REST endpoint serves to retrieve account information for the authenticated 
 ```json
 {
   "canTrade": true,
-  "canWithdraw": true,
-  "accountType": "Regular",
+  "canWithdraw": false,
+  "canWithdrawFiat": true,
+  "accountType": "individual",
   "balances": [
     {
       "asset": "BTC",
@@ -805,8 +806,9 @@ This REST endpoint serves to retrieve account information for the authenticated 
 
 | **Field** | **Description** |
 | --- | --- |
-| canTrade | Indicates whether trading is enabled for the account. |
-| canWithdraw | Indicates whether withdrawals are enabled for the account. |
+| canTrade | Indicates whether trading permission is enabled for the API Key. |
+| canWithdraw | Indicates whether coin withdrawal permission is enabled for the API Key. |
+| canWithdrawFiat | Indicates whether fiat (IDR) withdrawal permission is enabled for the API Key. |
 | accountType | Account type. |
 | balances | List of account balances. |
 | balances.asset | Asset symbol. |
@@ -1062,7 +1064,7 @@ This REST endpoint serves to retrieve the fiat deposit and withdrawal history fo
       "createTime": 1723131894000,
       "updateTime": 1723131894000,
       "bankName": "Permata Bank",
-      "bankTag": "anshar permata",
+      "bankTag": "Permata Account Cahya",
       "bankAccountNumber": "9850579277"
     }
   ]
