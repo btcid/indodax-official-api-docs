@@ -1152,7 +1152,7 @@ Withdrawals can be restricted to approved destinations using one of the availabl
   #### Callback Parameter Sent to Client
   | **Parameter** | **Description** |
   | --- | --- |
-  | `request_id` | Request ID from the submitted request |
+  | `request_id` | Withdrawal Request ID corresponding to the `withdrawOrderId` specified in the original request |
   | `withdraw_currency` | Currency specified in the request |
   | `withdraw_address` | Withdrawal address specified in the request |
   | `withdraw_amount` | Withdrawal amount specified in the request |
