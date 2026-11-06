@@ -1512,14 +1512,13 @@ This REST endpoint serves to retrieve Indonesian Rupiah (IDR) deposit details fo
 
 | **Field** | **Description** |
 | --- | --- |
-| data[] | List of available fiat deposit methods. |
-| data[].bank_name | Bank name / payment channel display name. e.g., `"BCA"` |
-| data[].bank_code | Bank or payment channel identification code. e.g., `"044"` |
-| data[].fee | Fixed transaction fee charged for deposits through the channel. e.g., `"3885"` |
-| data[].min_amount | Minimum deposit amount permitted for the channel. e.g., `10000` |
-| data[].max_amount | Maximum deposit amount permitted for the channel. e.g., `50000000000` |
-| data[].account_name | Destination account holder name for the payment channel. e.g., `"INDODAX CAHYA WIRA"` |
-| data[].va_number | Virtual account number info (generated automatically for eligible users when not already existing). e.g., `"1526803844991803"` |
+| bank_name | Bank name / payment channel display name. e.g., `"BCA"` |
+| bank_code | Bank or payment channel identification code. e.g., `"044"` |
+| fee | Fixed transaction fee charged for deposits through the channel. e.g., `"3885"` |
+| min_amount | Minimum deposit amount permitted for the channel. e.g., `10000` |
+| max_amount | Maximum deposit amount permitted for the channel. e.g., `50000000000` |
+| account_name | Destination account holder name for the payment channel. e.g., `"INDODAX CAHYA WIRA"` |
+| va_number | Virtual account number info (generated automatically for eligible users when not already existing). e.g., `"1526803844991803"` |
 
 ##### Negative Case
 
