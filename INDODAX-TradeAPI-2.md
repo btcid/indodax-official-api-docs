@@ -22,6 +22,7 @@
   - [Withdraw Coin](#withdraw-coin)
   - [List Deposit Address](#list-deposit-address)
   - [Withdraw IDR](#withdraw-idr)
+  - [Deposit IDR](#deposit-idr)
   - [Order History](#order-history)
   - [Trade History](#trade-history)
 
@@ -203,6 +204,7 @@ API requests are rate-limited **per IP address**. The applicable limit depends o
 | [Withdraw Coin](#withdraw-coin) | POST | `/api/v2/capital/withdraw/apply` | 50 requests / minute |
 | [List Deposit Address](#list-deposit-address) | GET | `/api/v2/capital/deposit/address/list` | 50 requests / minute |
 | [Withdraw IDR](#withdraw-idr) | POST | `/api/v2/fiat/withdraw` | 50 requests / minute |
+| [Deposit IDR](#deposit-idr) | GET | `/api/v2/fiat/deposit` | 50 requests / minute |
 | [Order History](#order-history) | GET | `/api/v2/order/histories` | 300 requests / minute |
 | [Trade History](#trade-history) | GET | `/api/v2/myTrades` | 300 requests / minute |
 
@@ -365,6 +367,7 @@ The TAPIv2 endpoints are as follows:
 | `POST /api/v2/capital/withdraw/apply` | To **submit a** **coin withdrawal request** |
 | `GET /api/v2/capital/deposit/address/list` | To retrieve the **list of deposit addresses** |
 | `POST /api/v2/fiat/withdraw` | To **submit an** **IDR withdrawal request** |
+| `GET /api/v2/fiat/deposit` | To **retrieve the** **available Virtual Account (VA) deposit methods** and their corresponding account details. |
 | `GET /api/v2/order/histories` | To retrieve the **account Order History** |
 | `GET /api/v2/myTrades` | To retrieve the **account Trade History** |
 
@@ -1419,6 +1422,136 @@ This REST endpoint serves to submit an Indonesian Rupiah (IDR) withdrawal reques
   {
       "code": -1130,
       "msg": "Invalid parameter value.\n\nInvalid parameter 'apiPaymentMethod', only support bank_transfer"
+  }
+  ```
+
+### Deposit IDR
+
+```
+GET /api/v2/fiat/deposit
+```
+
+#### Description
+
+This REST endpoint serves to retrieve Indonesian Rupiah (IDR) deposit details for the Virtual Account (VA) method, including available VA options and the corresponding account details required to make a deposit. The API does not create deposit orders or initiate fund transfers. Users can transfer funds from their bank account to the VA associated with their account, and the deposited amount will be credited to their IDR balance through the existing VA deposit flow.
+
+#### Parameters
+
+| **Name** | **Mandatory** | **Description** | **Type** | **Value** | **Default** |
+| --- | --- | --- | --- | --- | --- |
+| `nonce` | conditional | An increment integer (learn more about [nonce](http://en.wikipedia.org/wiki/Cryptographic_nonce)). | integer | Must be greater than the nonce of the last request. e.g., if the last request's nonce is `1000`, the next request should be `1001` or greater. |  |
+| `timestamp` | conditional | Millisecond timestamp when the request was generated. | integer | Timestamp in milliseconds (ms) when the request was created and sent. |  |
+
+> ℹ️ **Notes**
+>
+> - Each request must include either `nonce` or `timestamp` to be valid.
+> - This endpoint supports only the Virtual Account (VA) method for Indonesian Rupiah (IDR) deposits. For other fiat (IDR) deposit methods, refer to the [INDODAX Rupiah Deposit page](https://indodax.com/rupiah#deposit).
+> - Calling this endpoint returns a list of all supported VA options and automatically generates any VAs that have not been generated previously.
+> - Interbank transfers are supported for fiat (IDR) deposits via VA, **except** for `"BCA"`, `"Mandiri"`, and `"BRI"`.
+> - Users can make multiple deposits to their assigned VA.
+> - VA options for banks undergoing maintenance are excluded from the response.
+> - Fiat (IDR) deposits are currently supported only through Indonesian banks. Transfers from banks outside Indonesia are not supported.
+
+#### Sample Response Body
+
+##### Positive Case
+
+```json
+{
+  "data": [
+    {
+      "bank_name": "BCA",
+      "bank_code": "044",
+      "fee": "3885",
+      "min_amount": 10000,
+      "max_amount": 50000000000,
+      "account_name": "INDODAX CAHYA WIRA",
+      "va_number": "1526803844991803"
+    },
+    {
+      "bank_name": "ARTHA GRAHA",
+      "bank_code": "013",
+      "fee": "3000",
+      "min_amount": 10000,
+      "max_amount": 10000000000,
+      "account_name": "INDODAX CAHYA WIRA",
+      "va_number": "8870803844991804"
+    },
+    {
+      "bank_name": "INA",
+      "bank_code": "055",
+      "fee": "4500",
+      "min_amount": 10000,
+      "max_amount": 5000000000,
+      "account_name": "INDODAX CAHYA WIRA",
+      "va_number": "7007803844991805"
+    },
+    {
+      "bank_name": "MANDIRI",
+      "bank_code": "066",
+      "fee": "3500",
+      "min_amount": 10000,
+      "max_amount": 25000000000,
+      "account_name": "INDODAX CAHYA WIRA",
+      "va_number": "8902803844991806"
+    },
+    {
+      "bank_name": "BRI",
+      "bank_code": "014",
+      "fee": "3500",
+      "min_amount": 10000,
+      "max_amount": 20000000000,
+      "account_name": "INDODAX CAHYA WIRA",
+      "va_number": "8881803844991807"
+    }
+  ]
+}
+```
+
+#### Response Description
+
+| **Field** | **Description** |
+| --- | --- |
+| bank_name | Bank name / payment channel display name. e.g., `"BCA"` |
+| bank_code | Bank or payment channel identification code. e.g., `"044"` |
+| fee | Fixed transaction fee charged for deposits through the channel. e.g., `"3885"` |
+| min_amount | Minimum deposit amount permitted for the channel. e.g., `10000` |
+| max_amount | Maximum deposit amount permitted for the channel. e.g., `50000000000` |
+| account_name | Destination account holder name for the payment channel. e.g., `"INDODAX CAHYA WIRA"` |
+| va_number | Virtual account number info (generated automatically for eligible users when not already existing). e.g., `"1526803844991803"` |
+
+##### Negative Case
+
+- Invalid API key, missing authentication headers, or signature mismatch
+
+  ```json
+  {
+      "code": -1002,
+      "msg": "Invalid credentials. API not found or session has expired. Please generate new Key"
+  }
+  ```
+- Locked account
+
+  ```json
+  {
+      "code": -2015,
+      "msg": "Account is locked."
+  }
+  ```
+- Ineligible / non-KYC account
+
+  ```json
+  {
+      "code": -2015,
+      "msg": "No Permission."
+  }
+  ```
+- Unexpected internal server error while retrieving deposit methods or generating virtual accounts
+
+  ```json
+  {
+      "code": -1001,
+      "msg": "Internal error; unable to process your request. Please try again"
   }
   ```
 
