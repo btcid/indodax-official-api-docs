@@ -16,6 +16,7 @@
   - [Pending Order](#pending-order)
   - [Get Order](#get-order)
   - [Get Account Information](#get-account-information)
+  - [Get All Coin Information](#get-all-coin-information)
   - [Get Withdraw Coin Information History](#get-withdraw-coin-information-history)
   - [Get Deposit Coin Information History](#get-deposit-coin-information-history)
   - [Get Withdraw/Deposit Fiat Information History](#get-withdrawdeposit-fiat-information-history)
@@ -198,6 +199,7 @@ API requests are rate-limited **per IP address**. The applicable limit depends o
 | [Pending Order](#pending-order) | GET | `/api/v2/openOrders` | 300 requests / minute |
 | [Get Order](#get-order) | GET | `/api/v2/order` | 300 requests / minute |
 | [Account Information](#get-account-information) | GET | `/api/v2/account` | 300 requests / minute |
+| [Get All Coin Information](#get-all-coin-information) | GET | `/api/v2/capital/config/getall` | 50 requests / minute |
 | [Withdraw Coin Information History](#get-withdraw-coin-information-history) | GET | `/api/v2/capital/withdraw/history` | 50 requests / minute |
 | [Deposit Coin Information History](#get-deposit-coin-information-history) | GET | `/api/v2/capital/deposit/hisrec` | 50 requests / minute |
 | [Withdraw/Deposit Fiat Information History](#get-withdrawdeposit-fiat-information-history) | GET | `/api/v2/fiat/orders` | 50 requests / minute |
@@ -361,6 +363,7 @@ The TAPIv2 endpoints are as follows:
 | `GET /api/v2/openOrders` | To retrieve all **pending (open) orders** |
 | `GET /api/v2/order` | To retrieve the **details of a specific order** |
 | `GET /api/v2/account` | To retrieve the **account information** |
+| `GET /api/v2/capital/config/getall` | To retrieve **all coin information** |
 | `GET /api/v2/capital/withdraw/history` | To retrieve the **withdrawal coin history** |
 | `GET /api/v2/capital/deposit/hisrec` | To retrieve the **deposit coin history** |
 | `GET /api/v2/fiat/orders` | To retrieve the **fiat deposit & withdrawal history** |
@@ -818,6 +821,98 @@ This REST endpoint serves to retrieve account information for the authenticated 
 | balances.free | Available balance that can be traded or withdrawn. |
 | balances.locked | Balance currently locked in open orders or pending transactions. |
 | uid | Unique account identifier. |
+
+##### Negative Case
+
+- Invalid credentials
+
+  ```json
+  {
+      "code": -1002,
+      "msg": "Invalid credentials. API not found or session has expired. Please generate new Key"
+  }
+  ```
+
+### Get All Coin Information
+
+```
+GET /api/v2/capital/config/getall
+```
+
+#### Description
+
+This REST endpoint retrieves information about all coins supported by the platform. The response includes coin details, available and frozen balances, deposit and withdrawal permissions, trading status, and supported network information for each coin.
+
+For each network, the response provides deposit and withdrawal availability, wallet address validation patterns, withdrawal fees, minimum withdrawal amounts, confirmation requirements, and contract address information.
+
+#### Parameters
+
+No parameters required.
+
+#### Sample Response Body
+
+##### Positive Case
+
+```json
+[
+    {
+        "coin": "BTC",
+        "depositAllEnable": true,
+        "withdrawAllEnable": true,
+        "name": "Bitcoin",
+        "free": "0.00002063",
+        "locked": "0",
+        "trading": true,
+        "networkList": [
+            {
+                "network": "MAINNET",
+                "coin": "BTC",
+                "isDefault": true,
+                "depositEnable": true,
+                "withdrawEnable": true,
+                "name": "MAINNET",
+                "addressRegex": "^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$|^[(bc1q)|(bc1p)][0-9A-Za-z]{37,62}$",
+                "memoRegex": "",
+                "withdrawFee": "0.00004",
+                "withdrawMin": "0.00008",
+                "withdrawInternalMin": "0.00000001",
+                "minConfirm": 1,
+                "sameAddress": false,
+                "withdrawTag": false,
+                "contractAddress": ""
+            }
+        ]
+    }
+]
+```
+
+#### Response Description
+
+| **Field** | **Description** |
+| --- | --- |
+| coin | Cryptocurrency symbol. |
+| depositAllEnable | Deposit availability status for the cryptocurrency across all supported networks. |
+| withdrawAllEnable | Withdrawals availability status for the cryptocurrency across all supported networks. |
+| name | Full name of the cryptocurrency. |
+| free | Available balance that can be traded or withdrawn. |
+| locked | Balance currently frozen or locked and unavailable for trading or withdrawal. |
+| trading | Trading availability status of the cryptocurrency. |
+| networkList | List of supported networks for the cryptocurrency. |
+| networkList.network | Blockchain network identifier used for the cryptocurrency. |
+| networkList.coin | Cryptocurrency symbol associated with the network. |
+| networkList.isDefault | Default network status for the cryptocurrency. |
+| networkList.depositEnable | Deposit availability status on the specific network. |
+| networkList.withdrawEnable | Withdrawal availability status on the specific network. |
+| networkList.name | Name of the network. |
+| networkList.addressRegex | Address format requirements for deposit or withdrawal transactions on the network. |
+| networkList.memoRegex | Memo or tag format requirements for transactions on the network, if applicable. |
+| networkList.withdrawFee | Withdrawal fee charged for transactions on the network. |
+| networkList.withdrawMin | Minimum withdrawal amount for external withdrawals. |
+| networkList.withdrawInternalMin | Minimum withdrawal amount for internal transfers. |
+| networkList.minConfirm | Minimum number of network confirmations required for a deposit to be credited. |
+| networkList.sameAddress | Indicates whether the coin uses a single address. |
+| networkList.withdrawTag | Withdrawal tag or memo requirement for the network. |
+| networkList.contractAddress | Smart contract address of the token on the specified network, if applicable. |
 
 ##### Negative Case
 
