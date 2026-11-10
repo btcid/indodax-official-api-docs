@@ -363,7 +363,7 @@ The TAPIv2 endpoints are as follows:
 | `GET /api/v2/openOrders` | To retrieve all **pending (open) orders** |
 | `GET /api/v2/order` | To retrieve the **details of a specific order** |
 | `GET /api/v2/account` | To retrieve the **account information** |
-| `GET /api/v2/capital/config/getall` | To retrieve **all coin information** |
+| `GET /api/v2/capital/config/getall` | To retrieve **all coin information** (including balances, deposit and withdrawal permissions, trading status, and supported network details) |
 | `GET /api/v2/capital/withdraw/history` | To retrieve the **withdrawal coin history** |
 | `GET /api/v2/capital/deposit/hisrec` | To retrieve the **deposit coin history** |
 | `GET /api/v2/fiat/orders` | To retrieve the **fiat deposit & withdrawal history** |

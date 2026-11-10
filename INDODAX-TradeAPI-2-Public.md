@@ -119,7 +119,6 @@ This REST endpoint serves to retrieve the current order book for a specified tra
 | bids      | List of buy orders, sorted by price in descending order (highest to lowest). |
 | asks      | List of sell orders, sorted by price in ascending order (lowest to highest). |
 
-Each entry in `bids` and `asks` is an array of `[price, quantity]`.
 
 ##### Negative Case
 
