@@ -255,7 +255,7 @@ This REST endpoint serves to retrieve 24-hour price change statistics for one or
 | **Name**  | **Mandatory** | **Description**          | **Type** | **Value**                                                   | **Default** |
 | --------- | ------------- | ------------------------ | -------- | ----------------------------------------------------------- | ----------- |
 | `symbol`  | no            | Single trading symbol    | string   | e.g., `BTCIDR`                                              |             |
-| `symbols` | no            | Array of trading symbols | string[] | e.g., `btcidr,btcusdt` or `["btcidr","btcusdt"]`            |             |
+| `symbols` | no            | Array of trading symbols | string[] | e.g., `BTCIDR,BTCUSDT` or `["BTCIDR","BTCUSDT"]`            |             |
 | `type`    | no            | Output format            | string   | `FULL` or `MINI`                                            | `FULL`      |
 
 #### Sample Response Body
@@ -337,7 +337,7 @@ This REST endpoint serves to retrieve the latest trading price for one or more t
 | **Name**  | **Mandatory** | **Description**          | **Type** | **Value**                                        | **Default** |
 | --------- | ------------- | ------------------------ | -------- | ------------------------------------------------ | ----------- |
 | `symbol`  | no            | Single trading symbol    | string   | e.g., `BTCIDR`                                   |             |
-| `symbols` | no            | Array of trading symbols | string[] | e.g., `btcidr,btcusdt` or `["btcidr","btcusdt"]` |             |
+| `symbols` | no            | Array of trading symbols | string[] | e.g., `BTCIDR,BTCUSDT` or `["BTCIDR","BTCUSDT"]` |             |
 
 #### Sample Response Body
 
@@ -402,7 +402,7 @@ If a symbol is specified, the response is a single object. If no symbol is speci
 | **Name**  | **Mandatory** | **Description**          | **Type** | **Value**                                        | **Default** |
 | --------- | ------------- | ------------------------ | -------- | ------------------------------------------------ | ----------- |
 | `symbol`  | no            | Single trading symbol    | string   | e.g., `BTCIDR`                                   |             |
-| `symbols` | no            | Array of trading symbols | string[] | e.g., `btcidr,btcusdt` or `["btcidr","btcusdt"]` |             |
+| `symbols` | no            | Array of trading symbols | string[] | e.g., `BTCIDR,BTCUSDT` or `["BTCIDR","BTCUSDT"]` |             |
 
 #### Sample Response Body
 
