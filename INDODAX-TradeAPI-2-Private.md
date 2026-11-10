@@ -1532,10 +1532,7 @@ This REST endpoint serves to retrieve Indonesian Rupiah (IDR) deposit details fo
 
 #### Parameters
 
-| **Name** | **Mandatory** | **Description** | **Type** | **Value** | **Default** |
-| --- | --- | --- | --- | --- | --- |
-| `nonce` | conditional | An increment integer (learn more about [nonce](http://en.wikipedia.org/wiki/Cryptographic_nonce)). | integer | Must be greater than the nonce of the last request. e.g., if the last request's nonce is `1000`, the next request should be `1001` or greater. |  |
-| `timestamp` | conditional | Millisecond timestamp when the request was generated. | integer | Timestamp in milliseconds (ms) when the request was created and sent. |  |
+No parameters required.
 
 > ℹ️ **Notes**
 >
